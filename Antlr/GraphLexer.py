@@ -4,7 +4,7 @@ from io import StringIO
 
 
 from antlr4.Token import CommonToken
-from GraphParser import GraphParser
+from Antlr.GraphParser import GraphParser
 
 
 def serializedATN():

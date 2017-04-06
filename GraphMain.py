@@ -1,12 +1,12 @@
+from Antlr.GraphLexer import GraphLexer
 from antlr4 import *
-from GraphLexer import GraphLexer
-from GraphParser import GraphParser
+
 from ASTBuilder import ASTBuilder
-import copy
+from Antlr.GraphParser import GraphParser
 
 
 def main():
-    input = FileStream('test.graph')
+    input = FileStream('testPrograms/test.graph')
     lexer = GraphLexer(input)
     stream = CommonTokenStream(lexer)
 

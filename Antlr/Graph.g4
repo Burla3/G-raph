@@ -4,7 +4,7 @@ tokens { INDENT, DEDENT }
 
 @lexer::header {
 from antlr4.Token import CommonToken
-from GraphParser import GraphParser
+from Antlr.GraphParser import GraphParser
 }
 
 @lexer::members {

@@ -1,5 +1,4 @@
-from GraphParser import GraphParser
-from GraphListener import GraphListener
+from Antlr.GraphListener import GraphListener
 from StringContainer import StringContainer
 
 class RuleWriter(GraphListener):

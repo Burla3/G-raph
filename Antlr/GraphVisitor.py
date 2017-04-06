@@ -3,7 +3,7 @@ from antlr4 import *
 if __name__ is not None and "." in __name__:
     from .GraphParser import GraphParser
 else:
-    from GraphParser import GraphParser
+    from antlr.GraphParser import GraphParser
 
 # This class defines a complete generic visitor for a parse tree produced by GraphParser.
 

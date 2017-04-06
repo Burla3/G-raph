@@ -1,7 +1,6 @@
 import re
 
-importstmt = """from GraphParser import GraphParser
-from GraphListener import GraphListener
+importstmt = """from Antlr.GraphListener import GraphListener
 from StringContainer import StringContainer
 
 class RuleWriter(GraphListener):
@@ -20,7 +19,7 @@ class Defs:
         return '        self.cont.string += "\\"' + f.search(self.head).group(1) + '\\":"\n\n'
 
 
-GraphListener = open('GraphListener.py', 'r')
+GraphListener = open('Antlr/GraphListener.py', 'r')
 defs = []
 for line in GraphListener:
     if '    def enter' in line:
