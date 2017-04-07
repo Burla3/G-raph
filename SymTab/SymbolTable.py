@@ -3,10 +3,13 @@ class SymbolTable():
     symbols = {}
 
     def get(self, symkey):
-        if self.symbols[symkey].type == 'ref':
-            return self.symbols[symkey].value[self.symbols[symkey].value.refkey]
+        if symkey in self.symbols:
+            if self.symbols[symkey].type == 'ref':
+                return self.symbols[symkey].value[self.symbols[symkey].value.refkey]
+            else:
+                return self.symbols[symkey]
         else:
-            return self.symbols[symkey]
+            raise KeyError('Symbol key {0} not found in table'.format(symkey))
 
     def _create_sym(self, symkey, symtype, value):
         self.symbols[symkey] = {'type': symtype, 'value': value}
@@ -22,7 +25,8 @@ class SymbolTable():
         if symtype == 'ref':
             if not reftab or not refkey:
                 raise ValueError(
-                    'When setting a symbol reference type, you must supply a table(reftab) and key(refkey)')
+                    'When setting a symbol reference type, you must supply a table(reftab) and key(refkey)'
+                )
             value = {'table': reftab, 'key': refkey}
 
         if symkey in self.symbols:
