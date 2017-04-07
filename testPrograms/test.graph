@@ -1,4 +1,2 @@
 @run:
-    hmmm = 2 * 3 / 2 * 3 / 4
-    test = (2 > 3 or 4 > 2) and not 3 < 3 or true
-    expr = 2 * 3 + 4^3 + -3 * log(2) (5 + 4) * (3 + 4 - 3) + 3
+    hmmm = root(2) (3 + 3)
