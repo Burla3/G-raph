@@ -89,4 +89,5 @@ ENV/
 .ropeproject
 
 # Custom ignores
-Antlr/ClassPathCmd.bat
+ClassPathCmd.bat
+.idea/
