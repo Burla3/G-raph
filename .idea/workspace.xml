@@ -2,23 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f0735f4d-d677-46ac-9ce8-d73c4c50f89d" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Antlr/__init__.py" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Antlr/.idea/Antlr.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Antlr/.idea/inspectionProfiles/profiles_settings.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Antlr/.idea/misc.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Antlr/.idea/modules.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Antlr/.idea/workspace.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Antlr/ASTBuilder.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Antlr/GraphMain.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Antlr/RuleWriter.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Antlr/RuleWriterBuilder.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Antlr/StringContainer.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Antlr/largeprogram.graph" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Antlr/test.graph" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Antlr/treeInJSON.json" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Antlr/Graph.g4" afterPath="$PROJECT_DIR$/Antlr/Graph.g4" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Antlr/GraphLexer.py" afterPath="$PROJECT_DIR$/Antlr/GraphLexer.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Antlr/GraphVisitor.py" afterPath="$PROJECT_DIR$/Antlr/GraphVisitor.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SymTab/SymbolTable.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SymTab/__init__.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -36,111 +22,7 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="GraphMain.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/GraphMain.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="21" lean-forward="false" selection-start-line="0" selection-start-column="11" selection-end-line="0" selection-end-column="21" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GraphLexer.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Antlr/GraphLexer.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="54">
-              <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-              <folding>
-                <marker date="1491470342711" expanded="true" signature="191:14892" ph="..." />
-                <marker date="1491470342711" expanded="true" signature="219:14892" ph="..." />
-                <marker date="1491470342711" expanded="true" signature="16091:16689" ph="..." />
-                <marker date="1491470342711" expanded="true" signature="16713:17477" ph="..." />
-                <marker date="1491470342711" expanded="true" signature="17497:18398" ph="..." />
-                <marker date="1491470342711" expanded="true" signature="18470:18702" ph="..." />
-                <marker date="1491470342711" expanded="true" signature="18736:18844" ph="..." />
-                <marker date="1491470342711" expanded="true" signature="18769:18844" ph="..." />
-                <marker date="1491470342711" expanded="true" signature="18868:20702" ph="..." />
-                <marker date="1491470342711" expanded="true" signature="18897:18947" ph="..." />
-                <marker date="1491470342711" expanded="true" signature="18978:19206" ph="..." />
-                <marker date="1491470342711" expanded="true" signature="19046:19100" ph="..." />
-                <marker date="1491470342711" expanded="true" signature="19115:19206" ph="..." />
-                <marker date="1491470342711" expanded="true" signature="19256:19634" ph="..." />
-                <marker date="1491470342711" expanded="true" signature="19657:20036" ph="..." />
-                <marker date="1491470342711" expanded="true" signature="19724:20036" ph="..." />
-                <marker date="1491470342711" expanded="true" signature="20059:20237" ph="..." />
-                <marker date="1491470342711" expanded="true" signature="20262:20417" ph="..." />
-                <marker date="1491470342711" expanded="true" signature="20336:20390" ph="..." />
-                <marker date="1491470342711" expanded="true" signature="20443:20476" ph="..." />
-                <marker date="1491470342711" expanded="true" signature="20505:20702" ph="..." />
-                <marker date="1491470342711" expanded="true" signature="20569:20685" ph="..." />
-                <marker date="1491470342711" expanded="true" signature="20606:20658" ph="..." />
-                <marker date="1491470342711" expanded="true" signature="20838:20895" ph="..." />
-                <marker date="1491470342711" expanded="true" signature="20921:21739" ph="..." />
-                <marker date="1491470342711" expanded="true" signature="20928:21419" ph="..." />
-                <marker date="1491470342711" expanded="true" signature="21768:21884" ph="..." />
-                <marker date="1491470342711" expanded="true" signature="21932:22170" ph="..." />
-                <marker date="1491470342711" expanded="true" signature="22212:22235" ph="..." />
-                <marker date="1491470342711" expanded="true" signature="22266:22321" ph="..." />
-                <marker date="1491470342711" expanded="true" signature="22399:22716" ph="..." />
-                <marker date="1491470342711" expanded="true" signature="22430:22524" ph="..." />
-                <marker date="1491470342711" expanded="true" signature="22787:24353" ph="..." />
-                <marker date="1491470342711" expanded="true" signature="22816:24353" ph="..." />
-                <marker date="1491470342711" expanded="true" signature="23275:24353" ph="..." />
-                <marker date="1491470342711" expanded="true" signature="23468:23733" ph="..." />
-                <marker date="1491470342711" expanded="true" signature="23910:24025" ph="..." />
-                <marker date="1491470342711" expanded="true" signature="24045:24213" ph="..." />
-                <marker date="1491470342711" expanded="true" signature="24119:24213" ph="..." />
-                <marker date="1491470342711" expanded="true" signature="24451:24815" ph="..." />
-                <marker date="1491470342711" expanded="true" signature="24488:24597" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Graph.g4" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Antlr/Graph.g4">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="7" column="1" lean-forward="true" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GraphParser.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Antlr/GraphParser.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ASTBuilder.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ASTBuilder.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#33#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RuleWriterBuilder.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/RuleWriterBuilder.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="21" column="23" lean-forward="false" selection-start-line="21" selection-start-column="23" selection-end-line="21" selection-end-column="23" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Antlr/__init__.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -151,14 +33,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RuleWriter.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/RuleWriter.py">
+      <file leaf-file-name="SymbolTable.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/SymTab/SymbolTable.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#45#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="660">
+              <caret line="33" column="51" lean-forward="false" selection-start-line="33" selection-start-column="51" selection-end-line="33" selection-end-column="51" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -184,6 +64,7 @@
         <option value="$PROJECT_DIR$/RuleWriterBuilder.py" />
         <option value="$PROJECT_DIR$/Antlr/GraphLexer.py" />
         <option value="$PROJECT_DIR$/Antlr/Graph.g4" />
+        <option value="$PROJECT_DIR$/SymTab/SymbolTable.py" />
       </list>
     </option>
   </component>
@@ -194,10 +75,9 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="65" />
-    <option name="y" value="24" />
-    <option name="width" value="1855" />
-    <option name="height" value="1056" />
+    <option name="x" value="2625" />
+    <option name="width" value="2495" />
+    <option name="height" value="1440" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -214,36 +94,36 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="g-raph" />
+              <option name="myItemId" value="G-raph" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="g-raph" />
+              <option name="myItemId" value="G-raph" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="g-raph" />
+              <option name="myItemId" value="G-raph" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="g-raph" />
+              <option name="myItemId" value="G-raph" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Antlr" />
+              <option name="myItemId" value="SymTab" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -259,6 +139,18 @@
       <recent name="$PROJECT_DIR$/antlr" />
       <recent name="$PROJECT_DIR$/Programs" />
     </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
   </component>
   <component name="RunManager" selected="Python.Main">
     <configuration default="true" type="DjangoTestsConfigurationType" factoryName="Django tests">
@@ -279,6 +171,13 @@
       <option name="CUSTOM_SETTINGS" value="false" />
       <option name="USE_OPTIONS" value="false" />
       <option name="OPTIONS" value="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerJest" factoryName="Jest">
+      <node-interpreter value="project" />
+      <working-dir value="" />
+      <envs />
+      <scope-kind value="ALL" />
       <method />
     </configuration>
     <configuration default="true" type="JavaScriptTestRunnerProtractor" factoryName="Protractor">
@@ -334,6 +233,7 @@
       <option name="SCRIPT_NAME" value="" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
       <method />
     </configuration>
     <configuration default="true" type="Tox" factoryName="Tox">
@@ -350,6 +250,12 @@
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.npm" factoryName="npm">
@@ -357,26 +263,6 @@
       <scripts />
       <node-interpreter value="project" />
       <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="tests" factoryName="Attests">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="g-raph" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_SCRIPT" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
       <method />
     </configuration>
     <configuration default="true" type="tests" factoryName="Doctests">
@@ -410,15 +296,10 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="g-raph" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_SCRIPT" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <option name="PARAMS" value="" />
-      <option name="USE_PARAM" value="false" />
+      <option name="_new_regexPattern" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;.&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method />
     </configuration>
     <configuration default="true" type="tests" factoryName="Unittests">
@@ -432,16 +313,9 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="g-raph" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_SCRIPT" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <option name="PUREUNITTEST" value="true" />
-      <option name="PARAMS" value="" />
-      <option name="USE_PARAM" value="false" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;.&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method />
     </configuration>
     <configuration default="true" type="tests" factoryName="py.test">
@@ -455,18 +329,10 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="g-raph" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_SCRIPT" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <option name="testToRun" value="" />
-      <option name="keywords" value="" />
-      <option name="params" value="" />
-      <option name="USE_PARAM" value="false" />
-      <option name="USE_KEYWORD" value="false" />
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;.&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method />
     </configuration>
     <configuration default="false" name="Main" type="PythonConfigurationType" factoryName="Python">
@@ -485,6 +351,7 @@
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/GraphMain.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
       <method />
     </configuration>
     <configuration default="false" name="RuleWriterBuilder" type="PythonConfigurationType" factoryName="Python">
@@ -503,12 +370,33 @@
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/RuleWriterBuilder.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
       <method />
     </configuration>
     <list size="2">
       <item index="0" class="java.lang.String" itemvalue="Python.Main" />
       <item index="1" class="java.lang.String" itemvalue="Python.RuleWriterBuilder" />
     </list>
+    <configuration default="true" type="tests" factoryName="Attests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="g-raph" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <method />
+    </configuration>
   </component>
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
@@ -524,26 +412,27 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="65" y="24" width="1855" height="1056" extended-state="6" />
+    <frame x="2625" y="0" width="2495" height="1440" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24959569" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18557115" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29357797" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29357797" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -560,34 +449,26 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/antlr/antlr4.bat">
+    <entry file="file://$PROJECT_DIR$/GraphMain.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <caret line="0" column="21" lean-forward="false" selection-start-line="0" selection-start-column="11" selection-end-line="0" selection-end-column="21" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/antlr/CompileGraphLanguage.bat">
+    <entry file="file://$PROJECT_DIR$/Antlr/GraphLexer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="60">
+          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Antlr/antlr4.bat">
+    <entry file="file://$PROJECT_DIR$/Antlr/GraphParser.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/antlr/GraphLexer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5976">
-          <caret line="525" column="13" lean-forward="true" selection-start-line="525" selection-start-column="13" selection-end-line="525" selection-end-column="13" />
           <folding />
         </state>
       </provider>
@@ -597,8 +478,16 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#33#0" expanded="true" />
+            <element signature="e#0#33#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RuleWriterBuilder.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="21" column="23" lean-forward="false" selection-start-line="21" selection-start-column="23" selection-end-line="21" selection-end-column="23" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -612,18 +501,54 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/RuleWriter.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
+        <state relative-caret-position="400">
           <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
           <folding>
-            <element signature="e#0#45#0" expanded="true" />
+            <element signature="e#0#45#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/RuleWriterBuilder.py">
+    <entry file="file://$PROJECT_DIR$/Antlr/Graph.g4">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="21" column="23" lean-forward="false" selection-start-line="21" selection-start-column="23" selection-end-line="21" selection-end-column="23" />
+        <state relative-caret-position="140">
+          <caret line="7" column="1" lean-forward="true" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/antlr/antlr4.bat" />
+    <entry file="file://$PROJECT_DIR$/antlr/CompileGraphLanguage.bat" />
+    <entry file="file://$PROJECT_DIR$/Antlr/antlr4.bat">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/antlr/GraphLexer.py" />
+    <entry file="file://$PROJECT_DIR$/RuleWriter.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#45#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Antlr/Graph.g4">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="7" column="1" lean-forward="false" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Antlr/GraphLexer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="20">
+          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -644,60 +569,36 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Antlr/GraphLexer.py">
+    <entry file="file://$PROJECT_DIR$/ASTBuilder.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1491470342711" expanded="true" signature="191:14892" ph="..." />
-            <marker date="1491470342711" expanded="true" signature="219:14892" ph="..." />
-            <marker date="1491470342711" expanded="true" signature="16091:16689" ph="..." />
-            <marker date="1491470342711" expanded="true" signature="16713:17477" ph="..." />
-            <marker date="1491470342711" expanded="true" signature="17497:18398" ph="..." />
-            <marker date="1491470342711" expanded="true" signature="18470:18702" ph="..." />
-            <marker date="1491470342711" expanded="true" signature="18736:18844" ph="..." />
-            <marker date="1491470342711" expanded="true" signature="18769:18844" ph="..." />
-            <marker date="1491470342711" expanded="true" signature="18868:20702" ph="..." />
-            <marker date="1491470342711" expanded="true" signature="18897:18947" ph="..." />
-            <marker date="1491470342711" expanded="true" signature="18978:19206" ph="..." />
-            <marker date="1491470342711" expanded="true" signature="19046:19100" ph="..." />
-            <marker date="1491470342711" expanded="true" signature="19115:19206" ph="..." />
-            <marker date="1491470342711" expanded="true" signature="19256:19634" ph="..." />
-            <marker date="1491470342711" expanded="true" signature="19657:20036" ph="..." />
-            <marker date="1491470342711" expanded="true" signature="19724:20036" ph="..." />
-            <marker date="1491470342711" expanded="true" signature="20059:20237" ph="..." />
-            <marker date="1491470342711" expanded="true" signature="20262:20417" ph="..." />
-            <marker date="1491470342711" expanded="true" signature="20336:20390" ph="..." />
-            <marker date="1491470342711" expanded="true" signature="20443:20476" ph="..." />
-            <marker date="1491470342711" expanded="true" signature="20505:20702" ph="..." />
-            <marker date="1491470342711" expanded="true" signature="20569:20685" ph="..." />
-            <marker date="1491470342711" expanded="true" signature="20606:20658" ph="..." />
-            <marker date="1491470342711" expanded="true" signature="20838:20895" ph="..." />
-            <marker date="1491470342711" expanded="true" signature="20921:21739" ph="..." />
-            <marker date="1491470342711" expanded="true" signature="20928:21419" ph="..." />
-            <marker date="1491470342711" expanded="true" signature="21768:21884" ph="..." />
-            <marker date="1491470342711" expanded="true" signature="21932:22170" ph="..." />
-            <marker date="1491470342711" expanded="true" signature="22212:22235" ph="..." />
-            <marker date="1491470342711" expanded="true" signature="22266:22321" ph="..." />
-            <marker date="1491470342711" expanded="true" signature="22399:22716" ph="..." />
-            <marker date="1491470342711" expanded="true" signature="22430:22524" ph="..." />
-            <marker date="1491470342711" expanded="true" signature="22787:24353" ph="..." />
-            <marker date="1491470342711" expanded="true" signature="22816:24353" ph="..." />
-            <marker date="1491470342711" expanded="true" signature="23275:24353" ph="..." />
-            <marker date="1491470342711" expanded="true" signature="23468:23733" ph="..." />
-            <marker date="1491470342711" expanded="true" signature="23910:24025" ph="..." />
-            <marker date="1491470342711" expanded="true" signature="24045:24213" ph="..." />
-            <marker date="1491470342711" expanded="true" signature="24119:24213" ph="..." />
-            <marker date="1491470342711" expanded="true" signature="24451:24815" ph="..." />
-            <marker date="1491470342711" expanded="true" signature="24488:24597" ph="..." />
+            <element signature="e#0#33#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Antlr/Graph.g4">
+    <entry file="file://$PROJECT_DIR$/RuleWriterBuilder.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="7" column="1" lean-forward="true" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
+        <state relative-caret-position="420">
+          <caret line="21" column="23" lean-forward="false" selection-start-line="21" selection-start-column="23" selection-end-line="21" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Antlr/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SymTab/SymbolTable.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="660">
+          <caret line="33" column="51" lean-forward="false" selection-start-line="33" selection-start-column="51" selection-end-line="33" selection-end-column="51" />
           <folding />
         </state>
       </provider>
