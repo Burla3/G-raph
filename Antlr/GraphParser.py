@@ -382,6 +382,12 @@ class GraphParser ( Parser ):
             if hasattr( listener, "exitProgram" ):
                 listener.exitProgram(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitProgram" ):
+                return visitor.visitProgram(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -470,6 +476,12 @@ class GraphParser ( Parser ):
             if hasattr( listener, "exitProcDef" ):
                 listener.exitProcDef(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitProcDef" ):
+                return visitor.visitProcDef(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -553,6 +565,12 @@ class GraphParser ( Parser ):
             if hasattr( listener, "exitFormalParams" ):
                 listener.exitFormalParams(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitFormalParams" ):
+                return visitor.visitFormalParams(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -623,6 +641,12 @@ class GraphParser ( Parser ):
             if hasattr( listener, "exitBlock" ):
                 listener.exitBlock(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitBlock" ):
+                return visitor.visitBlock(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -688,6 +712,12 @@ class GraphParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitStmt" ):
                 listener.exitStmt(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitStmt" ):
+                return visitor.visitStmt(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -768,6 +798,12 @@ class GraphParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitSimpleStmt" ):
                 listener.exitSimpleStmt(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitSimpleStmt" ):
+                return visitor.visitSimpleStmt(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -874,6 +910,12 @@ class GraphParser ( Parser ):
             if hasattr( listener, "exitAssignment" ):
                 listener.exitAssignment(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitAssignment" ):
+                return visitor.visitAssignment(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -942,6 +984,12 @@ class GraphParser ( Parser ):
             if hasattr( listener, "exitPrintStmt" ):
                 listener.exitPrintStmt(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitPrintStmt" ):
+                return visitor.visitPrintStmt(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -996,6 +1044,12 @@ class GraphParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitLengthStmt" ):
                 listener.exitLengthStmt(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitLengthStmt" ):
+                return visitor.visitLengthStmt(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -1054,6 +1108,12 @@ class GraphParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitCompoundStmt" ):
                 listener.exitCompoundStmt(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitCompoundStmt" ):
+                return visitor.visitCompoundStmt(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -1146,6 +1206,12 @@ class GraphParser ( Parser ):
             if hasattr( listener, "exitIfStmt" ):
                 listener.exitIfStmt(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitIfStmt" ):
+                return visitor.visitIfStmt(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1229,6 +1295,12 @@ class GraphParser ( Parser ):
             if hasattr( listener, "exitWhileStmt" ):
                 listener.exitWhileStmt(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitWhileStmt" ):
+                return visitor.visitWhileStmt(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1295,6 +1367,12 @@ class GraphParser ( Parser ):
             if hasattr( listener, "exitForeachStmt" ):
                 listener.exitForeachStmt(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitForeachStmt" ):
+                return visitor.visitForeachStmt(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1360,6 +1438,12 @@ class GraphParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitGraphAssignment" ):
                 listener.exitGraphAssignment(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitGraphAssignment" ):
+                return visitor.visitGraphAssignment(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -1444,6 +1528,12 @@ class GraphParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitTest" ):
                 listener.exitTest(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitTest" ):
+                return visitor.visitTest(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -1605,6 +1695,12 @@ class GraphParser ( Parser ):
             if hasattr( listener, "exitCompOp" ):
                 listener.exitCompOp(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitCompOp" ):
+                return visitor.visitCompOp(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1702,6 +1798,12 @@ class GraphParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitExpr" ):
                 listener.exitExpr(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitExpr" ):
+                return visitor.visitExpr(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -1906,6 +2008,12 @@ class GraphParser ( Parser ):
             if hasattr( listener, "exitSetOp" ):
                 listener.exitSetOp(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitSetOp" ):
+                return visitor.visitSetOp(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1963,6 +2071,12 @@ class GraphParser ( Parser ):
             if hasattr( listener, "exitFactorOp" ):
                 listener.exitFactorOp(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitFactorOp" ):
+                return visitor.visitFactorOp(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -2019,6 +2133,12 @@ class GraphParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitMolecule" ):
                 listener.exitMolecule(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitMolecule" ):
+                return visitor.visitMolecule(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -2099,6 +2219,12 @@ class GraphParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitAtom" ):
                 listener.exitAtom(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitAtom" ):
+                return visitor.visitAtom(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -2182,6 +2308,12 @@ class GraphParser ( Parser ):
             if hasattr( listener, "exitTrailer" ):
                 listener.exitTrailer(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitTrailer" ):
+                return visitor.visitTrailer(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -2262,6 +2394,12 @@ class GraphParser ( Parser ):
             if hasattr( listener, "exitFuncCall" ):
                 listener.exitFuncCall(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitFuncCall" ):
+                return visitor.visitFuncCall(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -2316,6 +2454,12 @@ class GraphParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitGraphKeyword" ):
                 listener.exitGraphKeyword(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitGraphKeyword" ):
+                return visitor.visitGraphKeyword(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -2383,6 +2527,12 @@ class GraphParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitActualParams" ):
                 listener.exitActualParams(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitActualParams" ):
+                return visitor.visitActualParams(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -2480,6 +2630,12 @@ class GraphParser ( Parser ):
             if hasattr( listener, "exitListStruct" ):
                 listener.exitListStruct(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitListStruct" ):
+                return visitor.visitListStruct(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -2554,6 +2710,12 @@ class GraphParser ( Parser ):
             if hasattr( listener, "exitGraph" ):
                 listener.exitGraph(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitGraph" ):
+                return visitor.visitGraph(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -2612,6 +2774,12 @@ class GraphParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitVertices" ):
                 listener.exitVertices(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitVertices" ):
+                return visitor.visitVertices(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -2674,6 +2842,12 @@ class GraphParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitVertex" ):
                 listener.exitVertex(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitVertex" ):
+                return visitor.visitVertex(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -2750,6 +2924,12 @@ class GraphParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitEdges" ):
                 listener.exitEdges(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitEdges" ):
+                return visitor.visitEdges(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -2831,6 +3011,12 @@ class GraphParser ( Parser ):
             if hasattr( listener, "exitEdge" ):
                 listener.exitEdge(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitEdge" ):
+                return visitor.visitEdge(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -2896,6 +3082,12 @@ class GraphParser ( Parser ):
             if hasattr( listener, "exitIdentifier" ):
                 listener.exitIdentifier(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitIdentifier" ):
+                return visitor.visitIdentifier(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -2944,6 +3136,12 @@ class GraphParser ( Parser ):
             if hasattr( listener, "exitNumber" ):
                 listener.exitNumber(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitNumber" ):
+                return visitor.visitNumber(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -2991,6 +3189,12 @@ class GraphParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitBoolean" ):
                 listener.exitBoolean(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitBoolean" ):
+                return visitor.visitBoolean(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 

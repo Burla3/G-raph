@@ -1,9 +1,9 @@
-# Generated from ./Graph.g4 by ANTLR 4.5.3
+# Generated from Graph.g4 by ANTLR 4.6
 from antlr4 import *
 if __name__ is not None and "." in __name__:
     from .GraphParser import GraphParser
 else:
-    from antlr.GraphParser import GraphParser
+    from GraphParser import GraphParser
 
 # This class defines a complete generic visitor for a parse tree produced by GraphParser.
 
@@ -39,23 +39,8 @@ class GraphVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by GraphParser#compoundStmt.
-    def visitCompoundStmt(self, ctx:GraphParser.CompoundStmtContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by GraphParser#actualParams.
-    def visitActualParams(self, ctx:GraphParser.ActualParamsContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by GraphParser#assignment.
     def visitAssignment(self, ctx:GraphParser.AssignmentContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by GraphParser#flowStmt.
-    def visitFlowStmt(self, ctx:GraphParser.FlowStmtContext):
         return self.visitChildren(ctx)
 
 
@@ -64,18 +49,13 @@ class GraphVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by GraphParser#breakStmt.
-    def visitBreakStmt(self, ctx:GraphParser.BreakStmtContext):
+    # Visit a parse tree produced by GraphParser#lengthStmt.
+    def visitLengthStmt(self, ctx:GraphParser.LengthStmtContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by GraphParser#continueStmt.
-    def visitContinueStmt(self, ctx:GraphParser.ContinueStmtContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by GraphParser#returnStmt.
-    def visitReturnStmt(self, ctx:GraphParser.ReturnStmtContext):
+    # Visit a parse tree produced by GraphParser#compoundStmt.
+    def visitCompoundStmt(self, ctx:GraphParser.CompoundStmtContext):
         return self.visitChildren(ctx)
 
 
@@ -94,28 +74,13 @@ class GraphVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by GraphParser#graphAssignment.
+    def visitGraphAssignment(self, ctx:GraphParser.GraphAssignmentContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by GraphParser#test.
     def visitTest(self, ctx:GraphParser.TestContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by GraphParser#orTest.
-    def visitOrTest(self, ctx:GraphParser.OrTestContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by GraphParser#andTest.
-    def visitAndTest(self, ctx:GraphParser.AndTestContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by GraphParser#notTest.
-    def visitNotTest(self, ctx:GraphParser.NotTestContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by GraphParser#comparison.
-    def visitComparison(self, ctx:GraphParser.ComparisonContext):
         return self.visitChildren(ctx)
 
 
@@ -124,18 +89,13 @@ class GraphVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by GraphParser#expression.
-    def visitExpression(self, ctx:GraphParser.ExpressionContext):
+    # Visit a parse tree produced by GraphParser#expr.
+    def visitExpr(self, ctx:GraphParser.ExprContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by GraphParser#arithExpr.
-    def visitArithExpr(self, ctx:GraphParser.ArithExprContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by GraphParser#term.
-    def visitTerm(self, ctx:GraphParser.TermContext):
+    # Visit a parse tree produced by GraphParser#setOp.
+    def visitSetOp(self, ctx:GraphParser.SetOpContext):
         return self.visitChildren(ctx)
 
 
@@ -144,13 +104,8 @@ class GraphVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by GraphParser#factor.
-    def visitFactor(self, ctx:GraphParser.FactorContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by GraphParser#exponent.
-    def visitExponent(self, ctx:GraphParser.ExponentContext):
+    # Visit a parse tree produced by GraphParser#molecule.
+    def visitMolecule(self, ctx:GraphParser.MoleculeContext):
         return self.visitChildren(ctx)
 
 
@@ -161,6 +116,26 @@ class GraphVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by GraphParser#trailer.
     def visitTrailer(self, ctx:GraphParser.TrailerContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by GraphParser#funcCall.
+    def visitFuncCall(self, ctx:GraphParser.FuncCallContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by GraphParser#graphKeyword.
+    def visitGraphKeyword(self, ctx:GraphParser.GraphKeywordContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by GraphParser#actualParams.
+    def visitActualParams(self, ctx:GraphParser.ActualParamsContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by GraphParser#listStruct.
+    def visitListStruct(self, ctx:GraphParser.ListStructContext):
         return self.visitChildren(ctx)
 
 
@@ -189,33 +164,18 @@ class GraphVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by GraphParser#name.
-    def visitName(self, ctx:GraphParser.NameContext):
+    # Visit a parse tree produced by GraphParser#identifier.
+    def visitIdentifier(self, ctx:GraphParser.IdentifierContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by GraphParser#varId.
-    def visitVarId(self, ctx:GraphParser.VarIdContext):
+    # Visit a parse tree produced by GraphParser#number.
+    def visitNumber(self, ctx:GraphParser.NumberContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by GraphParser#procId.
-    def visitProcId(self, ctx:GraphParser.ProcIdContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by GraphParser#letter.
-    def visitLetter(self, ctx:GraphParser.LetterContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by GraphParser#ranger.
-    def visitRanger(self, ctx:GraphParser.RangerContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by GraphParser#integer.
-    def visitInteger(self, ctx:GraphParser.IntegerContext):
+    # Visit a parse tree produced by GraphParser#boolean.
+    def visitBoolean(self, ctx:GraphParser.BooleanContext):
         return self.visitChildren(ctx)
 
 
