@@ -1,1 +1,1 @@
-antlr4 -Dlanguage=Python3 Graph.g4
+antlr4 -Dlanguage=Python3 -visitor Graph.g4
