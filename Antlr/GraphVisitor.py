@@ -1,4 +1,4 @@
-# Generated from Graph.g4 by ANTLR 4.6
+# Generated from Graph.g4 by ANTLR 4.7
 from antlr4 import *
 if __name__ is not None and "." in __name__:
     from .GraphParser import GraphParser
@@ -41,16 +41,6 @@ class GraphVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by GraphParser#assignment.
     def visitAssignment(self, ctx:GraphParser.AssignmentContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by GraphParser#printStmt.
-    def visitPrintStmt(self, ctx:GraphParser.PrintStmtContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by GraphParser#lengthStmt.
-    def visitLengthStmt(self, ctx:GraphParser.LengthStmtContext):
         return self.visitChildren(ctx)
 
 
@@ -124,11 +114,6 @@ class GraphVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by GraphParser#graphKeyword.
-    def visitGraphKeyword(self, ctx:GraphParser.GraphKeywordContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by GraphParser#actualParams.
     def visitActualParams(self, ctx:GraphParser.ActualParamsContext):
         return self.visitChildren(ctx)
@@ -136,6 +121,11 @@ class GraphVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by GraphParser#listStruct.
     def visitListStruct(self, ctx:GraphParser.ListStructContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by GraphParser#rangerStruct.
+    def visitRangerStruct(self, ctx:GraphParser.RangerStructContext):
         return self.visitChildren(ctx)
 
 

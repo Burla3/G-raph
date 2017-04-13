@@ -1,4 +1,4 @@
-# Generated from Graph.g4 by ANTLR 4.6
+# Generated from Graph.g4 by ANTLR 4.7
 from antlr4 import *
 if __name__ is not None and "." in __name__:
     from .GraphParser import GraphParser
@@ -68,24 +68,6 @@ class GraphListener(ParseTreeListener):
 
     # Exit a parse tree produced by GraphParser#assignment.
     def exitAssignment(self, ctx:GraphParser.AssignmentContext):
-        pass
-
-
-    # Enter a parse tree produced by GraphParser#printStmt.
-    def enterPrintStmt(self, ctx:GraphParser.PrintStmtContext):
-        pass
-
-    # Exit a parse tree produced by GraphParser#printStmt.
-    def exitPrintStmt(self, ctx:GraphParser.PrintStmtContext):
-        pass
-
-
-    # Enter a parse tree produced by GraphParser#lengthStmt.
-    def enterLengthStmt(self, ctx:GraphParser.LengthStmtContext):
-        pass
-
-    # Exit a parse tree produced by GraphParser#lengthStmt.
-    def exitLengthStmt(self, ctx:GraphParser.LengthStmtContext):
         pass
 
 
@@ -215,15 +197,6 @@ class GraphListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by GraphParser#graphKeyword.
-    def enterGraphKeyword(self, ctx:GraphParser.GraphKeywordContext):
-        pass
-
-    # Exit a parse tree produced by GraphParser#graphKeyword.
-    def exitGraphKeyword(self, ctx:GraphParser.GraphKeywordContext):
-        pass
-
-
     # Enter a parse tree produced by GraphParser#actualParams.
     def enterActualParams(self, ctx:GraphParser.ActualParamsContext):
         pass
@@ -239,6 +212,15 @@ class GraphListener(ParseTreeListener):
 
     # Exit a parse tree produced by GraphParser#listStruct.
     def exitListStruct(self, ctx:GraphParser.ListStructContext):
+        pass
+
+
+    # Enter a parse tree produced by GraphParser#rangerStruct.
+    def enterRangerStruct(self, ctx:GraphParser.RangerStructContext):
+        pass
+
+    # Exit a parse tree produced by GraphParser#rangerStruct.
+    def exitRangerStruct(self, ctx:GraphParser.RangerStructContext):
         pass
 
 

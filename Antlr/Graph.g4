@@ -234,7 +234,7 @@ trailer : listStruct | DOT (VAR_ID | funcCall) ;
 funcCall : PROC_ID OPEN_PAREN actualParams? CLOSE_PAREN ;
 actualParams : (REF SPACE)? expr (COMMA SPACE (REF SPACE)? expr)* ;
 listStruct : OPEN_SQ_BRACKET expr (COMMA SPACE expr)* CLOSE_SQ_BRACKET ;
-rangerStruct : expr DOT DOT expr ;
+rangerStruct : OPEN_SQ_BRACKET expr DOTDOT expr CLOSE_SQ_BRACKET ;
 
 // Graph
 graph  : GRAPH COLON NEWLINE INDENT vertices DEDENT ;
@@ -314,6 +314,7 @@ OPEN_SQ_BRACKET: '[' ;
 CLOSE_SQ_BRACKET: ']' ;
 COMMA: ',' ;
 DOT: '.' ;
+DOTDOT: '..' ;
 COLON: ':' ;
 
 // Fragments
