@@ -230,7 +230,7 @@ molecule :  identifier trailer+ | atom ;
 atom : VAR_ID
      | number
      | STRING
-     | RANGER
+     | rangerStruct
      | listStruct
      ;
 
@@ -239,6 +239,7 @@ funcCall : PROC_ID OPEN_PAREN actualParams? CLOSE_PAREN ;
 graphKeyword : EDGES_KEY | VERTICES_KEY ;
 actualParams : (REF SPACE)? expr (COMMA SPACE (REF SPACE)? expr)* ;
 listStruct : OPEN_SQ_BRACKET expr (COMMA SPACE expr)* CLOSE_SQ_BRACKET ;
+rangerStruct : expr DOT DOT expr ;
 
 // Graph
 graph  : GRAPH COLON NEWLINE INDENT vertices DEDENT ;
@@ -260,7 +261,6 @@ boolean : TRUE | FALSE ;
 STRING : '\'' .*? '\'' ; // .*? matches anything until the first '
 INT : DIGIT+ ;
 FLOAT : DIGIT+ DOT DIGIT+ ;
-RANGER : INT '..' INT ;
 TRUE: 'true' ;
 FALSE: 'false' ;
 
