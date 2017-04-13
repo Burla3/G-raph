@@ -195,15 +195,16 @@ graphAssignment : VAR_ID SPACE ASSIGN SPACE graph ;
 
 // Test
 test : test SPACE compOp SPACE test
+       | test SPACE (IS | IS_NOT) SPACE test
        | NOT SPACE test
-       | test SPACE OR SPACE test
        | test SPACE AND SPACE test
+       | test SPACE OR SPACE test
        | OPEN_PAREN test CLOSE_PAREN
        | expr
        | boolean
        ;
 
-compOp: LESS_THAN | GREATER_THAN | LESS_EQUAL | GREATER_EQUAL | IN | NOT_IN | IS | IS_NOT ;
+compOp: LESS_THAN | GREATER_THAN | LESS_EQUAL | GREATER_EQUAL | IN | NOT_IN ;
 
 // Expressions
 expr : molecule (SPACE setOp SPACE molecule)+
