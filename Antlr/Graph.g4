@@ -175,15 +175,11 @@ stmt : simpleStmt NEWLINE
 // Simple statements
 simpleStmt : assignment
            | RETURN (SPACE expr)?
-           | printStmt
            | PASS
-           | lengthStmt
            | funcCall
            ;
 
 assignment : molecule SPACE ASSIGN SPACE (expr | test) ;
-printStmt : PRINT OPEN_PAREN STRING CLOSE_PAREN ;
-lengthStmt : LENGTH OPEN_PAREN expr CLOSE_PAREN ;
 
 // Compound statements
 compoundStmt : ifStmt
@@ -234,9 +230,8 @@ atom : VAR_ID
      | listStruct
      ;
 
-trailer : listStruct | DOT (VAR_ID | graphKeyword | funcCall) ;
+trailer : listStruct | DOT (VAR_ID | funcCall) ;
 funcCall : PROC_ID OPEN_PAREN actualParams? CLOSE_PAREN ;
-graphKeyword : EDGES_KEY | VERTICES_KEY ;
 actualParams : (REF SPACE)? expr (COMMA SPACE (REF SPACE)? expr)* ;
 listStruct : OPEN_SQ_BRACKET expr (COMMA SPACE expr)* CLOSE_SQ_BRACKET ;
 rangerStruct : expr DOT DOT expr ;
@@ -277,8 +272,6 @@ ELSEIF: 'else if' ;
 ELSE: 'else' ;
 WHILE: 'while' ;
 FOREACH: 'for each' ;
-EDGES_KEY: 'edges' ;
-VERTICES_KEY: 'vertices' ;
 REF: 'ref' ;
 
 // Operators
