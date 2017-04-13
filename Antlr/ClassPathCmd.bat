@@ -1,2 +1,3 @@
 @ECHO OFF
-SET CLASSPATH=.;%~dp0\antlr-4.7-complete.jar;%CLASSPATH%
+:: %~dp0 is current directory
+SET CLASSPATH=.;%~dp0antlr-4.7-complete.jar;%CLASSPATH%
