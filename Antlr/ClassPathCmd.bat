@@ -1,2 +1,3 @@
 @ECHO OFF
-SET CLASSPATH=.;C:\Users\Nyggi\GoogleDrev\Programmering\Antlr\antlr-4.6-complete.jar;%CLASSPATH%
+:: %~dp0 is current directory
+SET CLASSPATH=.;%~dp0antlr-4.7-complete.jar;%CLASSPATH%

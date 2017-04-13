@@ -175,15 +175,11 @@ stmt : simpleStmt NEWLINE
 // Simple statements
 simpleStmt : assignment
            | RETURN (SPACE expr)?
-           | printStmt
            | PASS
-           | lengthStmt
            | funcCall
            ;
 
 assignment : molecule SPACE ASSIGN SPACE (expr | test) ;
-printStmt : PRINT OPEN_PAREN STRING CLOSE_PAREN ;
-lengthStmt : LENGTH OPEN_PAREN expr CLOSE_PAREN ;
 
 // Compound statements
 compoundStmt : ifStmt
@@ -230,15 +226,15 @@ molecule :  identifier trailer+ | atom ;
 atom : VAR_ID
      | number
      | STRING
-     | RANGER
+     | rangerStruct
      | listStruct
      ;
 
-trailer : listStruct | DOT (VAR_ID | graphKeyword | funcCall) ;
+trailer : listStruct | DOT (VAR_ID | funcCall) ;
 funcCall : PROC_ID OPEN_PAREN actualParams? CLOSE_PAREN ;
-graphKeyword : EDGES_KEY | VERTICES_KEY ;
 actualParams : (REF SPACE)? expr (COMMA SPACE (REF SPACE)? expr)* ;
 listStruct : OPEN_SQ_BRACKET expr (COMMA SPACE expr)* CLOSE_SQ_BRACKET ;
+rangerStruct : OPEN_SQ_BRACKET expr DOTDOT expr CLOSE_SQ_BRACKET ;
 
 // Graph
 graph  : GRAPH COLON NEWLINE INDENT vertices DEDENT ;
@@ -260,7 +256,6 @@ boolean : TRUE | FALSE ;
 STRING : '\'' .*? '\'' ; // .*? matches anything until the first '
 INT : DIGIT+ ;
 FLOAT : DIGIT+ DOT DIGIT+ ;
-RANGER : INT '..' INT ;
 TRUE: 'true' ;
 FALSE: 'false' ;
 
@@ -277,8 +272,6 @@ ELSEIF: 'else if' ;
 ELSE: 'else' ;
 WHILE: 'while' ;
 FOREACH: 'for each' ;
-EDGES_KEY: 'edges' ;
-VERTICES_KEY: 'vertices' ;
 REF: 'ref' ;
 
 // Operators
@@ -321,6 +314,7 @@ OPEN_SQ_BRACKET: '[' ;
 CLOSE_SQ_BRACKET: ']' ;
 COMMA: ',' ;
 DOT: '.' ;
+DOTDOT: '..' ;
 COLON: ':' ;
 
 // Fragments
