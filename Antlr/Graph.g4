@@ -209,8 +209,7 @@ compOp: LESS_THAN | GREATER_THAN | LESS_EQUAL | GREATER_EQUAL | IN | NOT_IN | IS
 expr : molecule (SPACE setOp SPACE molecule)+
        |<assoc=right> MINUS expr
        |<assoc=right> expr POWER expr
-       | ROOT OPEN_PAREN expr CLOSE_PAREN SPACE expr
-       | LOG OPEN_PAREN expr CLOSE_PAREN SPACE expr
+       | (ROOT | LOG) OPEN_PAREN expr CLOSE_PAREN SPACE expr
        | expr SPACE factorOp SPACE expr
        | expr SPACE (PLUS | MINUS) SPACE expr
        | OPEN_PAREN expr CLOSE_PAREN
