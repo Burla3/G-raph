@@ -113,23 +113,23 @@ def serializedATN():
         buf.write("\u00dc\7:\2\2\u00dc\u00dd\5$\23\2\u00dd\u00df\3\2\2\2")
         buf.write("\u00de\u00d9\3\2\2\2\u00df\u00e0\3\2\2\2\u00e0\u00de\3")
         buf.write("\2\2\2\u00e0\u00e1\3\2\2\2\u00e1\u00f9\3\2\2\2\u00e2\u00e3")
-        buf.write("\7.\2\2\u00e3\u00e4\7\62\2\2\u00e4\u00e5\5\36\20\2\u00e5")
-        buf.write("\u00e6\7\63\2\2\u00e6\u00e7\7:\2\2\u00e7\u00e8\5\36\20")
-        buf.write("\n\u00e8\u00f9\3\2\2\2\u00e9\u00ea\7,\2\2\u00ea\u00eb")
-        buf.write("\7\62\2\2\u00eb\u00ec\5\36\20\2\u00ec\u00ed\7\63\2\2\u00ed")
-        buf.write("\u00ee\7:\2\2\u00ee\u00ef\5\36\20\t\u00ef\u00f9\3\2\2")
-        buf.write("\2\u00f0\u00f1\7\62\2\2\u00f1\u00f2\5\36\20\2\u00f2\u00f3")
-        buf.write("\7\63\2\2\u00f3\u00f9\3\2\2\2\u00f4\u00f5\7\"\2\2\u00f5")
-        buf.write("\u00f9\5$\23\2\u00f6\u00f9\5*\26\2\u00f7\u00f9\5$\23\2")
-        buf.write("\u00f8\u00d7\3\2\2\2\u00f8\u00e2\3\2\2\2\u00f8\u00e9\3")
-        buf.write("\2\2\2\u00f8\u00f0\3\2\2\2\u00f8\u00f4\3\2\2\2\u00f8\u00f6")
+        buf.write("\7\"\2\2\u00e3\u00f9\5\36\20\13\u00e4\u00e5\7.\2\2\u00e5")
+        buf.write("\u00e6\7\62\2\2\u00e6\u00e7\5\36\20\2\u00e7\u00e8\7\63")
+        buf.write("\2\2\u00e8\u00e9\7:\2\2\u00e9\u00ea\5\36\20\t\u00ea\u00f9")
+        buf.write("\3\2\2\2\u00eb\u00ec\7,\2\2\u00ec\u00ed\7\62\2\2\u00ed")
+        buf.write("\u00ee\5\36\20\2\u00ee\u00ef\7\63\2\2\u00ef\u00f0\7:\2")
+        buf.write("\2\u00f0\u00f1\5\36\20\b\u00f1\u00f9\3\2\2\2\u00f2\u00f3")
+        buf.write("\7\62\2\2\u00f3\u00f4\5\36\20\2\u00f4\u00f5\7\63\2\2\u00f5")
+        buf.write("\u00f9\3\2\2\2\u00f6\u00f9\5*\26\2\u00f7\u00f9\5$\23\2")
+        buf.write("\u00f8\u00d7\3\2\2\2\u00f8\u00e2\3\2\2\2\u00f8\u00e4\3")
+        buf.write("\2\2\2\u00f8\u00eb\3\2\2\2\u00f8\u00f2\3\2\2\2\u00f8\u00f6")
         buf.write("\3\2\2\2\u00f8\u00f7\3\2\2\2\u00f9\u010a\3\2\2\2\u00fa")
-        buf.write("\u00fb\f\13\2\2\u00fb\u00fc\7-\2\2\u00fc\u0109\5\36\20")
-        buf.write("\13\u00fd\u00fe\f\b\2\2\u00fe\u00ff\7:\2\2\u00ff\u0100")
-        buf.write("\5\"\22\2\u0100\u0101\7:\2\2\u0101\u0102\5\36\20\t\u0102")
-        buf.write("\u0109\3\2\2\2\u0103\u0104\f\7\2\2\u0104\u0105\7:\2\2")
+        buf.write("\u00fb\f\n\2\2\u00fb\u00fc\7-\2\2\u00fc\u0109\5\36\20")
+        buf.write("\n\u00fd\u00fe\f\7\2\2\u00fe\u00ff\7:\2\2\u00ff\u0100")
+        buf.write("\5\"\22\2\u0100\u0101\7:\2\2\u0101\u0102\5\36\20\b\u0102")
+        buf.write("\u0109\3\2\2\2\u0103\u0104\f\6\2\2\u0104\u0105\7:\2\2")
         buf.write("\u0105\u0106\t\3\2\2\u0106\u0107\7:\2\2\u0107\u0109\5")
-        buf.write("\36\20\b\u0108\u00fa\3\2\2\2\u0108\u00fd\3\2\2\2\u0108")
+        buf.write("\36\20\7\u0108\u00fa\3\2\2\2\u0108\u00fd\3\2\2\2\u0108")
         buf.write("\u0103\3\2\2\2\u0109\u010c\3\2\2\2\u010a\u0108\3\2\2\2")
         buf.write("\u010a\u010b\3\2\2\2\u010b\37\3\2\2\2\u010c\u010a\3\2")
         buf.write("\2\2\u010d\u010e\t\4\2\2\u010e!\3\2\2\2\u010f\u0110\t")
@@ -1601,11 +1601,8 @@ class GraphParser ( Parser ):
                 return self.getTypedRuleContext(GraphParser.SetOpContext,i)
 
 
-        def ROOT(self):
-            return self.getToken(GraphParser.ROOT, 0)
-
-        def OPEN_PAREN(self):
-            return self.getToken(GraphParser.OPEN_PAREN, 0)
+        def MINUS(self):
+            return self.getToken(GraphParser.MINUS, 0)
 
         def expr(self, i:int=None):
             if i is None:
@@ -1614,14 +1611,17 @@ class GraphParser ( Parser ):
                 return self.getTypedRuleContext(GraphParser.ExprContext,i)
 
 
+        def ROOT(self):
+            return self.getToken(GraphParser.ROOT, 0)
+
+        def OPEN_PAREN(self):
+            return self.getToken(GraphParser.OPEN_PAREN, 0)
+
         def CLOSE_PAREN(self):
             return self.getToken(GraphParser.CLOSE_PAREN, 0)
 
         def LOG(self):
             return self.getToken(GraphParser.LOG, 0)
-
-        def MINUS(self):
-            return self.getToken(GraphParser.MINUS, 0)
 
         def funcCall(self):
             return self.getTypedRuleContext(GraphParser.FuncCallContext,0)
@@ -1696,48 +1696,48 @@ class GraphParser ( Parser ):
 
             elif la_ == 2:
                 self.state = 224
-                self.match(GraphParser.ROOT)
+                self.match(GraphParser.MINUS)
                 self.state = 225
-                self.match(GraphParser.OPEN_PAREN)
-                self.state = 226
-                self.expr(0)
-                self.state = 227
-                self.match(GraphParser.CLOSE_PAREN)
-                self.state = 228
-                self.match(GraphParser.SPACE)
-                self.state = 229
-                self.expr(8)
+                self.expr(9)
                 pass
 
             elif la_ == 3:
-                self.state = 231
-                self.match(GraphParser.LOG)
-                self.state = 232
+                self.state = 226
+                self.match(GraphParser.ROOT)
+                self.state = 227
                 self.match(GraphParser.OPEN_PAREN)
-                self.state = 233
+                self.state = 228
                 self.expr(0)
-                self.state = 234
+                self.state = 229
                 self.match(GraphParser.CLOSE_PAREN)
-                self.state = 235
+                self.state = 230
                 self.match(GraphParser.SPACE)
-                self.state = 236
+                self.state = 231
                 self.expr(7)
                 pass
 
             elif la_ == 4:
-                self.state = 238
+                self.state = 233
+                self.match(GraphParser.LOG)
+                self.state = 234
                 self.match(GraphParser.OPEN_PAREN)
-                self.state = 239
+                self.state = 235
                 self.expr(0)
-                self.state = 240
+                self.state = 236
                 self.match(GraphParser.CLOSE_PAREN)
+                self.state = 237
+                self.match(GraphParser.SPACE)
+                self.state = 238
+                self.expr(6)
                 pass
 
             elif la_ == 5:
+                self.state = 240
+                self.match(GraphParser.OPEN_PAREN)
+                self.state = 241
+                self.expr(0)
                 self.state = 242
-                self.match(GraphParser.MINUS)
-                self.state = 243
-                self.molecule()
+                self.match(GraphParser.CLOSE_PAREN)
                 pass
 
             elif la_ == 6:
@@ -1767,22 +1767,22 @@ class GraphParser ( Parser ):
                         localctx = GraphParser.ExprContext(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 248
-                        if not self.precpred(self._ctx, 9):
+                        if not self.precpred(self._ctx, 8):
                             from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 9)")
+                            raise FailedPredicateException(self, "self.precpred(self._ctx, 8)")
                         self.state = 249
                         self.match(GraphParser.POWER)
                         self.state = 250
-                        self.expr(9)
+                        self.expr(8)
                         pass
 
                     elif la_ == 2:
                         localctx = GraphParser.ExprContext(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 251
-                        if not self.precpred(self._ctx, 6):
+                        if not self.precpred(self._ctx, 5):
                             from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 6)")
+                            raise FailedPredicateException(self, "self.precpred(self._ctx, 5)")
                         self.state = 252
                         self.match(GraphParser.SPACE)
                         self.state = 253
@@ -1790,16 +1790,16 @@ class GraphParser ( Parser ):
                         self.state = 254
                         self.match(GraphParser.SPACE)
                         self.state = 255
-                        self.expr(7)
+                        self.expr(6)
                         pass
 
                     elif la_ == 3:
                         localctx = GraphParser.ExprContext(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 257
-                        if not self.precpred(self._ctx, 5):
+                        if not self.precpred(self._ctx, 4):
                             from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 5)")
+                            raise FailedPredicateException(self, "self.precpred(self._ctx, 4)")
                         self.state = 258
                         self.match(GraphParser.SPACE)
                         self.state = 259
@@ -1812,7 +1812,7 @@ class GraphParser ( Parser ):
                         self.state = 260
                         self.match(GraphParser.SPACE)
                         self.state = 261
-                        self.expr(6)
+                        self.expr(5)
                         pass
 
              
@@ -3106,15 +3106,15 @@ class GraphParser ( Parser ):
 
     def expr_sempred(self, localctx:ExprContext, predIndex:int):
             if predIndex == 3:
-                return self.precpred(self._ctx, 9)
+                return self.precpred(self._ctx, 8)
          
 
             if predIndex == 4:
-                return self.precpred(self._ctx, 6)
+                return self.precpred(self._ctx, 5)
          
 
             if predIndex == 5:
-                return self.precpred(self._ctx, 5)
+                return self.precpred(self._ctx, 4)
          
 
 
