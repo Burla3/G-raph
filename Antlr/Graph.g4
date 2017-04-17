@@ -160,7 +160,7 @@ def atStartOfInput(self):
 program : NEWLINE? procDef* RUN block EOF;
 
 // Procedure definition
-procDef : (GRAPH SPACE)? PROCEDURE SPACE PROC_ID OPEN_PAREN formalParams? CLOSE_PAREN block ;
+procDef : PROCEDURE SPACE PROC_ID OPEN_PAREN formalParams? CLOSE_PAREN block ;
 
 formalParams : VAR_ID (COMMA SPACE VAR_ID)* ;
 
