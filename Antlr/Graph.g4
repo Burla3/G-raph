@@ -157,7 +157,7 @@ def atStartOfInput(self):
 //_________________________________________________________________________
 
 // Start
-program : NEWLINE? procDef* RUN block EOF;
+program : NEWLINE? procDef* RUN block EOF ;
 
 // Procedure definition
 procDef : PROCEDURE SPACE PROC_ID OPEN_PAREN formalParams? CLOSE_PAREN block ;
@@ -195,33 +195,33 @@ graphAssignment : VAR_ID SPACE ASSIGN SPACE graph ;
 
 // Test
 test : test SPACE compOp SPACE test
-       | test SPACE (IS | IS_NOT) SPACE test
-       | NOT SPACE test
-       | test SPACE AND SPACE test
-       | test SPACE OR SPACE test
-       | OPEN_PAREN test CLOSE_PAREN
-       | expr
-       | boolean
-       ;
+     | test SPACE (IS | IS_NOT) SPACE test
+     | NOT SPACE test
+     | test SPACE AND SPACE test
+     | test SPACE OR SPACE test
+     | OPEN_PAREN test CLOSE_PAREN
+     | expr
+     | boolean
+     ;
 
-compOp: LESS_THAN | GREATER_THAN | LESS_EQUAL | GREATER_EQUAL | IN | NOT_IN ;
+compOp : LESS_THAN | GREATER_THAN | LESS_EQUAL | GREATER_EQUAL | IN | NOT_IN ;
 
 // Expressions
 expr : molecule (SPACE setOp SPACE molecule)+
-       |<assoc=right> MINUS expr
-       |<assoc=right> expr POWER expr
-       | (ROOT | LOG) OPEN_PAREN expr CLOSE_PAREN SPACE expr
-       | expr SPACE factorOp SPACE expr
-       | expr SPACE (PLUS | MINUS) SPACE expr
-       | OPEN_PAREN expr CLOSE_PAREN
-       | procCall
-       | molecule
-       ;
+     | <assoc=right> MINUS expr
+     | <assoc=right> expr POWER expr
+     | (ROOT | LOG) OPEN_PAREN expr CLOSE_PAREN SPACE expr
+     | expr SPACE factorOp SPACE expr
+     | expr SPACE (PLUS | MINUS) SPACE expr
+     | OPEN_PAREN expr CLOSE_PAREN
+     | procCall
+     | molecule
+     ;
 
-setOp: UNION | INTERSECT | DIFF | CONCAT ;
+setOp : UNION | INTERSECT | DIFF | CONCAT ;
 factorOp : TIMES | DIVIDE | MODULO | FLOORDIVISION | CEILINGDIVISION ;
 
-molecule :  identifier trailer+ | atom ;
+molecule : identifier trailer+ | atom ;
 
 atom : VAR_ID
      | number
@@ -237,14 +237,14 @@ listStruct : OPEN_SQ_BRACKET expr (COMMA SPACE expr)* CLOSE_SQ_BRACKET ;
 rangerStruct : OPEN_SQ_BRACKET expr DOTDOT expr CLOSE_SQ_BRACKET ;
 
 // Graph
-graph  : GRAPH COLON NEWLINE INDENT vertices DEDENT ;
+graph : GRAPH COLON NEWLINE INDENT vertices DEDENT ;
 vertices : (vertex NEWLINE)+ ;
 vertex : VAR_ID (SPACE+ edges)? ;
 edges : edge (COMMA SPACE+ edge)* ;
 edge : OPEN_PAREN DIRECTED? VAR_ID (SPACE expr)? CLOSE_PAREN ;
 
 // Identifier
-identifier: VAR_ID | PROC_ID ;
+identifier : VAR_ID | PROC_ID ;
 
 // Types
 number : INT | FLOAT ;
@@ -256,71 +256,71 @@ boolean : TRUE | FALSE ;
 STRING : '\'' .*? '\'' ; // .*? matches anything until the first '
 INT : DIGIT+ ;
 FLOAT : DIGIT+ DOT DIGIT+ ;
-TRUE: 'true' ;
-FALSE: 'false' ;
+TRUE : 'true' ;
+FALSE : 'false' ;
 
 // Keywords
-RUN: '@run' ;
-GRAPH: 'graph' ;
-PROCEDURE: 'procedure' ;
-RETURN: 'return' ;
-PASS: 'pass' ;
-IF: 'if' ;
-ELSEIF: 'else if' ;
-ELSE: 'else' ;
-WHILE: 'while' ;
-FOREACH: 'for each' ;
-REF: 'ref' ;
+RUN : '@run' ;
+GRAPH : 'graph' ;
+PROCEDURE : 'procedure' ;
+RETURN : 'return' ;
+PASS : 'pass' ;
+IF : 'if' ;
+ELSEIF : 'else if' ;
+ELSE : 'else' ;
+WHILE : 'while' ;
+FOREACH : 'for each' ;
+REF : 'ref' ;
 
 // Operators
-ASSIGN: '=' ;
-OR: 'or' ;
-AND: 'and' ;
-NOT: 'not' ;
-LESS_THAN: '<' ;
-GREATER_THAN: '>' ;
-LESS_EQUAL: '<=' ;
-GREATER_EQUAL: '>=' ;
-IN: 'in' ;
-NOT_IN: 'not in' ;
-IS: 'is' ;
-IS_NOT: 'is not' ;
-PLUS: '+' ;
-MINUS: '-' ;
-UNION: 'union' ;
-INTERSECT: 'intersect' ;
-DIFF: 'diff' ;
-CONCAT: 'concat' ;
-TIMES: '*' ;
-DIVIDE: '/' ;
-MODULO: '%' ;
-FLOORDIVISION: '/-' ;
-CEILINGDIVISION: '/+' ;
-LOG: 'log' ;
+ASSIGN : '=' ;
+OR : 'or' ;
+AND : 'and' ;
+NOT : 'not' ;
+LESS_THAN : '<' ;
+GREATER_THAN : '>' ;
+LESS_EQUAL : '<=' ;
+GREATER_EQUAL : '>=' ;
+IN : 'in' ;
+NOT_IN : 'not in' ;
+IS : 'is' ;
+IS_NOT : 'is not' ;
+PLUS : '+' ;
+MINUS : '-' ;
+UNION : 'union' ;
+INTERSECT : 'intersect' ;
+DIFF : 'diff' ;
+CONCAT : 'concat' ;
+TIMES : '*' ;
+DIVIDE : '/' ;
+MODULO : '%' ;
+FLOORDIVISION : '/-' ;
+CEILINGDIVISION : '/+' ;
+LOG : 'log' ;
 POWER : '^' ;
 ROOT : 'root' ;
-DIRECTED: '->' ;
+DIRECTED : '->' ;
 
 // identifiers
-VAR_ID: LOWERLETTER (LETTER | DIGIT)* ;
-PROC_ID: UPPERLETTER (LETTER | DIGIT)* ;
+VAR_ID : LOWERLETTER (LETTER | DIGIT)* ;
+PROC_ID : UPPERLETTER (LETTER | DIGIT)* ;
 
 // Misc
-OPEN_PAREN: '(' ;
-CLOSE_PAREN: ')' ;
-OPEN_SQ_BRACKET: '[' ;
-CLOSE_SQ_BRACKET: ']' ;
-COMMA: ',' ;
-DOT: '.' ;
-DOTDOT: '..' ;
-COLON: ':' ;
+OPEN_PAREN : '(' ;
+CLOSE_PAREN : ')' ;
+OPEN_SQ_BRACKET : '[' ;
+CLOSE_SQ_BRACKET : ']' ;
+COMMA : ',' ;
+DOT : '.' ;
+DOTDOT : '..' ;
+COLON : ':' ;
 
 // Fragments
 fragment LETTER : LOWERLETTER | UPPERLETTER ;
 fragment DIGIT : [0-9] ;
 fragment LOWERLETTER : [a-z] ;
 fragment UPPERLETTER : [A-Z] ;
-fragment SPACES: [ ]+ ;
+fragment SPACES : [ ]+ ;
 
 SPACE : ' ' ;
 fragment COMMENT : '/*' .*? '*/' ;
@@ -328,8 +328,8 @@ fragment COMMENT : '/*' .*? '*/' ;
 SKIP_ : (SPACES | COMMENT) -> skip ;
 
 NEWLINE
- : ( {self.atStartOfInput()}?   SPACES
-   | ( '\r'? '\n' | '\r' ) SPACES?
+ : ( {self.atStartOfInput()}? SPACES
+   | ('\r'? '\n' | '\r') SPACES?
    )
    {
 pattern = self.re.compile(r"[^\r\n]+")
