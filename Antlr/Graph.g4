@@ -265,8 +265,6 @@ GRAPH: 'graph' ;
 PROCEDURE: 'procedure' ;
 RETURN: 'return' ;
 PASS: 'pass' ;
-PRINT: 'Print' ;
-LENGTH: 'Length' ;
 IF: 'if' ;
 ELSEIF: 'else if' ;
 ELSE: 'else' ;
