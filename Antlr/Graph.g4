@@ -176,7 +176,7 @@ stmt : simpleStmt NEWLINE
 simpleStmt : assignment
            | RETURN (SPACE expr)?
            | PASS
-           | funcCall
+           | procCall
            ;
 
 assignment : molecule SPACE ASSIGN SPACE (expr | test) ;
@@ -214,7 +214,7 @@ expr : molecule (SPACE setOp SPACE molecule)+
        | expr SPACE factorOp SPACE expr
        | expr SPACE (PLUS | MINUS) SPACE expr
        | OPEN_PAREN expr CLOSE_PAREN
-       | funcCall
+       | procCall
        | molecule
        ;
 
@@ -230,8 +230,8 @@ atom : VAR_ID
      | listStruct
      ;
 
-trailer : listStruct | DOT (VAR_ID | funcCall) ;
-funcCall : PROC_ID OPEN_PAREN actualParams? CLOSE_PAREN ;
+trailer : listStruct | DOT (VAR_ID | procCall) ;
+procCall : PROC_ID OPEN_PAREN actualParams? CLOSE_PAREN ;
 actualParams : (REF SPACE)? expr (COMMA SPACE (REF SPACE)? expr)* ;
 listStruct : OPEN_SQ_BRACKET expr (COMMA SPACE expr)* CLOSE_SQ_BRACKET ;
 rangerStruct : OPEN_SQ_BRACKET expr DOTDOT expr CLOSE_SQ_BRACKET ;

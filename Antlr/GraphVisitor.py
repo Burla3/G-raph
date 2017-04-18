@@ -109,8 +109,8 @@ class GraphVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by GraphParser#funcCall.
-    def visitFuncCall(self, ctx:GraphParser.FuncCallContext):
+    # Visit a parse tree produced by GraphParser#procCall.
+    def visitProcCall(self, ctx:GraphParser.ProcCallContext):
         return self.visitChildren(ctx)
 
 

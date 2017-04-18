@@ -240,7 +240,7 @@ class GraphParser ( Parser ):
     RULE_molecule = 17
     RULE_atom = 18
     RULE_trailer = 19
-    RULE_funcCall = 20
+    RULE_procCall = 20
     RULE_actualParams = 21
     RULE_listStruct = 22
     RULE_rangerStruct = 23
@@ -257,7 +257,7 @@ class GraphParser ( Parser ):
                    "simpleStmt", "assignment", "compoundStmt", "ifStmt", 
                    "whileStmt", "foreachStmt", "graphAssignment", "test", 
                    "compOp", "expr", "setOp", "factorOp", "molecule", "atom", 
-                   "trailer", "funcCall", "actualParams", "listStruct", 
+                   "trailer", "procCall", "actualParams", "listStruct", 
                    "rangerStruct", "graph", "vertices", "vertex", "edges", 
                    "edge", "identifier", "number", "boolean" ]
 
@@ -744,8 +744,8 @@ class GraphParser ( Parser ):
         def PASS(self):
             return self.getToken(GraphParser.PASS, 0)
 
-        def funcCall(self):
-            return self.getTypedRuleContext(GraphParser.FuncCallContext,0)
+        def procCall(self):
+            return self.getTypedRuleContext(GraphParser.ProcCallContext,0)
 
 
         def getRuleIndex(self):
@@ -808,7 +808,7 @@ class GraphParser ( Parser ):
             elif la_ == 4:
                 self.enterOuterAlt(localctx, 4)
                 self.state = 119
-                self.funcCall()
+                self.procCall()
                 pass
 
 
@@ -1624,8 +1624,8 @@ class GraphParser ( Parser ):
         def LOG(self):
             return self.getToken(GraphParser.LOG, 0)
 
-        def funcCall(self):
-            return self.getTypedRuleContext(GraphParser.FuncCallContext,0)
+        def procCall(self):
+            return self.getTypedRuleContext(GraphParser.ProcCallContext,0)
 
 
         def POWER(self):
@@ -1733,7 +1733,7 @@ class GraphParser ( Parser ):
 
             elif la_ == 5:
                 self.state = 238
-                self.funcCall()
+                self.procCall()
                 pass
 
             elif la_ == 6:
@@ -2133,8 +2133,8 @@ class GraphParser ( Parser ):
         def VAR_ID(self):
             return self.getToken(GraphParser.VAR_ID, 0)
 
-        def funcCall(self):
-            return self.getTypedRuleContext(GraphParser.FuncCallContext,0)
+        def procCall(self):
+            return self.getTypedRuleContext(GraphParser.ProcCallContext,0)
 
 
         def getRuleIndex(self):
@@ -2183,7 +2183,7 @@ class GraphParser ( Parser ):
                     pass
                 elif token in [GraphParser.PROC_ID]:
                     self.state = 284
-                    self.funcCall()
+                    self.procCall()
                     pass
                 else:
                     raise NoViableAltException(self)
@@ -2200,7 +2200,7 @@ class GraphParser ( Parser ):
             self.exitRule()
         return localctx
 
-    class FuncCallContext(ParserRuleContext):
+    class ProcCallContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
@@ -2220,29 +2220,29 @@ class GraphParser ( Parser ):
 
 
         def getRuleIndex(self):
-            return GraphParser.RULE_funcCall
+            return GraphParser.RULE_procCall
 
         def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterFuncCall" ):
-                listener.enterFuncCall(self)
+            if hasattr( listener, "enterProcCall" ):
+                listener.enterProcCall(self)
 
         def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitFuncCall" ):
-                listener.exitFuncCall(self)
+            if hasattr( listener, "exitProcCall" ):
+                listener.exitProcCall(self)
 
         def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitFuncCall" ):
-                return visitor.visitFuncCall(self)
+            if hasattr( visitor, "visitProcCall" ):
+                return visitor.visitProcCall(self)
             else:
                 return visitor.visitChildren(self)
 
 
 
 
-    def funcCall(self):
+    def procCall(self):
 
-        localctx = GraphParser.FuncCallContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 40, self.RULE_funcCall)
+        localctx = GraphParser.ProcCallContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 40, self.RULE_procCall)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
