@@ -20,9 +20,9 @@ class Phase:
 fileHeader = """
 from antlr4 import *
 if __name__ is not None and "." in __name__:
-    from .GraphParser import GraphParser
+    from Antlr.GraphParser import GraphParser
 else:
-    from GraphParser import GraphParser
+    from Antlr.GraphParser import GraphParser
 
 class GraphVisitor(ParseTreeVisitor):
 
@@ -40,7 +40,8 @@ fourSpaces = "    "
 eightSpaces = "        "
 
 # Path and name of the phases and their actions
-phases = [Phase("ContextualAnalysis", "ScopeChecker", "check"),
+phases = [Phase("DeclarationProcessing", "DeclarationProcessor", "process"),
+          Phase("ContextualAnalysis", "ScopeChecker", "check"),
           Phase("ContextualAnalysis", "TypeChecker", "check"),
           Phase("CodeGeneration", "CodeGenerator", "generate")]
 
@@ -61,7 +62,7 @@ for d in defs:
 # Write to the new GraphVisitor file
 with open("GraphVisitor.py", "w") as file:
     for phase in phases:
-        file.write("from " + phase.path + " import " + phase.name + "\n")
+        file.write("from " + phase.path + "." + phase.name + " import " + phase.name + "\n")
     file.write(fileHeader)
     for d in defs:
         file.write(d.header)
@@ -74,5 +75,6 @@ for phase in phases:
     with open(phase.path + "/" + phase.name + ".py", "w") as file:
         file.write("class " + phase.name + ":\n\n")
         for d in defs:
-            file.write(fourSpaces + "def " + phase.action + d.node + "(self):\n")
+            file.write(fourSpaces + "@staticmethod\n")
+            file.write(fourSpaces + "def " + phase.action + d.node + "():\n")
             file.write(eightSpaces + "pass\n\n")
