@@ -14,8 +14,8 @@ class GraphVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by GraphParser#procDef.
-    def visitProcDef(self, ctx:GraphParser.ProcDefContext):
+    # Visit a parse tree produced by GraphParser#funcDef.
+    def visitFuncDef(self, ctx:GraphParser.FuncDefContext):
         return self.visitChildren(ctx)
 
 
@@ -109,8 +109,8 @@ class GraphVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by GraphParser#procCall.
-    def visitProcCall(self, ctx:GraphParser.ProcCallContext):
+    # Visit a parse tree produced by GraphParser#funcCall.
+    def visitFuncCall(self, ctx:GraphParser.FuncCallContext):
         return self.visitChildren(ctx)
 
 
