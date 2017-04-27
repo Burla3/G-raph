@@ -1,130 +1,130 @@
-class ScopeChecker:
+class DeclarationProcessor:
 
     @staticmethod
-    def checkProgram():
+    def processProgram():
         pass
 
     @staticmethod
-    def checkFuncDef():
+    def processFuncDef():
         pass
 
     @staticmethod
-    def checkFormalParams():
+    def processFormalParams():
         pass
 
     @staticmethod
-    def checkBlock():
+    def processBlock():
         pass
 
     @staticmethod
-    def checkStmt():
+    def processStmt():
         pass
 
     @staticmethod
-    def checkSimpleStmt():
+    def processSimpleStmt():
         pass
 
     @staticmethod
-    def checkAssignment():
+    def processAssignment():
         pass
 
     @staticmethod
-    def checkCompoundStmt():
+    def processCompoundStmt():
         pass
 
     @staticmethod
-    def checkIfStmt():
+    def processIfStmt():
         pass
 
     @staticmethod
-    def checkWhileStmt():
+    def processWhileStmt():
         pass
 
     @staticmethod
-    def checkForeachStmt():
+    def processForeachStmt():
         pass
 
     @staticmethod
-    def checkGraphAssignment():
+    def processGraphAssignment():
         pass
 
     @staticmethod
-    def checkTest():
+    def processTest():
         pass
 
     @staticmethod
-    def checkCompOp():
+    def processCompOp():
         pass
 
     @staticmethod
-    def checkExpr():
+    def processExpr():
         pass
 
     @staticmethod
-    def checkSetOp():
+    def processSetOp():
         pass
 
     @staticmethod
-    def checkFactorOp():
+    def processFactorOp():
         pass
 
     @staticmethod
-    def checkMolecule():
+    def processMolecule():
         pass
 
     @staticmethod
-    def checkAtom():
+    def processAtom():
         pass
 
     @staticmethod
-    def checkTrailer():
+    def processTrailer():
         pass
 
     @staticmethod
-    def checkFuncCall():
+    def processFuncCall():
         pass
 
     @staticmethod
-    def checkActualParams():
+    def processActualParams():
         pass
 
     @staticmethod
-    def checkListStruct():
+    def processListStruct():
         pass
 
     @staticmethod
-    def checkRangerStruct():
+    def processRangerStruct():
         pass
 
     @staticmethod
-    def checkGraph():
+    def processGraph():
         pass
 
     @staticmethod
-    def checkVertices():
+    def processVertices():
         pass
 
     @staticmethod
-    def checkVertex():
+    def processVertex():
         pass
 
     @staticmethod
-    def checkEdges():
+    def processEdges():
         pass
 
     @staticmethod
-    def checkEdge():
+    def processEdge():
         pass
 
     @staticmethod
-    def checkIdentifier():
+    def processIdentifier():
         pass
 
     @staticmethod
-    def checkNumber():
+    def processNumber():
         pass
 
     @staticmethod
-    def checkBoolean():
+    def processBoolean():
         pass
 

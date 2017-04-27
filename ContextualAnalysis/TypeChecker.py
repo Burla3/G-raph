@@ -1,104 +1,130 @@
 class TypeChecker:
 
-    def checkProgram(self):
+    @staticmethod
+    def checkProgram():
         pass
 
-    def checkProcDef(self):
+    @staticmethod
+    def checkFuncDef():
         pass
 
-    def checkFormalParams(self):
+    @staticmethod
+    def checkFormalParams():
         pass
 
-    def checkBlock(self):
+    @staticmethod
+    def checkBlock():
         pass
 
-    def checkStmt(self):
+    @staticmethod
+    def checkStmt():
         pass
 
-    def checkSimpleStmt(self):
+    @staticmethod
+    def checkSimpleStmt():
         pass
 
-    def checkAssignment(self):
+    @staticmethod
+    def checkAssignment():
         pass
 
-    def checkPrintStmt(self):
+    @staticmethod
+    def checkCompoundStmt():
         pass
 
-    def checkLengthStmt(self):
+    @staticmethod
+    def checkIfStmt():
         pass
 
-    def checkCompoundStmt(self):
+    @staticmethod
+    def checkWhileStmt():
         pass
 
-    def checkIfStmt(self):
+    @staticmethod
+    def checkForeachStmt():
         pass
 
-    def checkWhileStmt(self):
+    @staticmethod
+    def checkGraphAssignment():
         pass
 
-    def checkForeachStmt(self):
+    @staticmethod
+    def checkTest():
         pass
 
-    def checkGraphAssignment(self):
+    @staticmethod
+    def checkCompOp():
         pass
 
-    def checkTest(self):
+    @staticmethod
+    def checkExpr():
         pass
 
-    def checkCompOp(self):
+    @staticmethod
+    def checkSetOp():
         pass
 
-    def checkExpr(self):
+    @staticmethod
+    def checkFactorOp():
         pass
 
-    def checkSetOp(self):
+    @staticmethod
+    def checkMolecule():
         pass
 
-    def checkFactorOp(self):
+    @staticmethod
+    def checkAtom():
         pass
 
-    def checkMolecule(self):
+    @staticmethod
+    def checkTrailer():
         pass
 
-    def checkAtom(self):
+    @staticmethod
+    def checkFuncCall():
         pass
 
-    def checkTrailer(self):
+    @staticmethod
+    def checkActualParams():
         pass
 
-    def checkFuncCall(self):
+    @staticmethod
+    def checkListStruct():
         pass
 
-    def checkGraphKeyword(self):
+    @staticmethod
+    def checkRangerStruct():
         pass
 
-    def checkActualParams(self):
+    @staticmethod
+    def checkGraph():
         pass
 
-    def checkListStruct(self):
+    @staticmethod
+    def checkVertices():
         pass
 
-    def checkGraph(self):
+    @staticmethod
+    def checkVertex():
         pass
 
-    def checkVertices(self):
+    @staticmethod
+    def checkEdges():
         pass
 
-    def checkVertex(self):
+    @staticmethod
+    def checkEdge():
         pass
 
-    def checkEdges(self):
+    @staticmethod
+    def checkIdentifier():
         pass
 
-    def checkEdge(self):
+    @staticmethod
+    def checkNumber():
         pass
 
-    def checkIdentifier(self):
-        pass
-
-    def checkNumber(self):
-        pass
-
-    def checkBoolean(self):
+    @staticmethod
+    def checkBoolean():
         pass
 

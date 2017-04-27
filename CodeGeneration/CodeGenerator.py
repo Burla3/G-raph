@@ -1,104 +1,130 @@
 class CodeGenerator:
 
-    def generateProgram(self):
+    @staticmethod
+    def generateProgram():
         pass
 
-    def generateProcDef(self):
+    @staticmethod
+    def generateFuncDef():
         pass
 
-    def generateFormalParams(self):
+    @staticmethod
+    def generateFormalParams():
         pass
 
-    def generateBlock(self):
+    @staticmethod
+    def generateBlock():
         pass
 
-    def generateStmt(self):
+    @staticmethod
+    def generateStmt():
         pass
 
-    def generateSimpleStmt(self):
+    @staticmethod
+    def generateSimpleStmt():
         pass
 
-    def generateAssignment(self):
+    @staticmethod
+    def generateAssignment():
         pass
 
-    def generatePrintStmt(self):
+    @staticmethod
+    def generateCompoundStmt():
         pass
 
-    def generateLengthStmt(self):
+    @staticmethod
+    def generateIfStmt():
         pass
 
-    def generateCompoundStmt(self):
+    @staticmethod
+    def generateWhileStmt():
         pass
 
-    def generateIfStmt(self):
+    @staticmethod
+    def generateForeachStmt():
         pass
 
-    def generateWhileStmt(self):
+    @staticmethod
+    def generateGraphAssignment():
         pass
 
-    def generateForeachStmt(self):
+    @staticmethod
+    def generateTest():
         pass
 
-    def generateGraphAssignment(self):
+    @staticmethod
+    def generateCompOp():
         pass
 
-    def generateTest(self):
+    @staticmethod
+    def generateExpr():
         pass
 
-    def generateCompOp(self):
+    @staticmethod
+    def generateSetOp():
         pass
 
-    def generateExpr(self):
+    @staticmethod
+    def generateFactorOp():
         pass
 
-    def generateSetOp(self):
+    @staticmethod
+    def generateMolecule():
         pass
 
-    def generateFactorOp(self):
+    @staticmethod
+    def generateAtom():
         pass
 
-    def generateMolecule(self):
+    @staticmethod
+    def generateTrailer():
         pass
 
-    def generateAtom(self):
+    @staticmethod
+    def generateFuncCall():
         pass
 
-    def generateTrailer(self):
+    @staticmethod
+    def generateActualParams():
         pass
 
-    def generateFuncCall(self):
+    @staticmethod
+    def generateListStruct():
         pass
 
-    def generateGraphKeyword(self):
+    @staticmethod
+    def generateRangerStruct():
         pass
 
-    def generateActualParams(self):
+    @staticmethod
+    def generateGraph():
         pass
 
-    def generateListStruct(self):
+    @staticmethod
+    def generateVertices():
         pass
 
-    def generateGraph(self):
+    @staticmethod
+    def generateVertex():
         pass
 
-    def generateVertices(self):
+    @staticmethod
+    def generateEdges():
         pass
 
-    def generateVertex(self):
+    @staticmethod
+    def generateEdge():
         pass
 
-    def generateEdges(self):
+    @staticmethod
+    def generateIdentifier():
         pass
 
-    def generateEdge(self):
+    @staticmethod
+    def generateNumber():
         pass
 
-    def generateIdentifier(self):
-        pass
-
-    def generateNumber(self):
-        pass
-
-    def generateBoolean(self):
+    @staticmethod
+    def generateBoolean():
         pass
 
