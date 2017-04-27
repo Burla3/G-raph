@@ -198,7 +198,7 @@ class GraphParser ( Parser ):
     sharedContextCache = PredictionContextCache()
 
     literalNames = [ "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
-                     "'true'", "'false'", "'@run'", "'graph'", "'procedure'", 
+                     "'true'", "'false'", "'@run'", "'graph'", "'function'", 
                      "'return'", "'pass'", "'if'", "'else if'", "'else'", 
                      "'while'", "'for each'", "'ref'", "'='", "'or'", "'and'", 
                      "'not'", "'<'", "'>'", "'<='", "'>='", "'in'", "'not in'", 
@@ -209,19 +209,19 @@ class GraphParser ( Parser ):
                      "'..'", "':'", "' '" ]
 
     symbolicNames = [ "<INVALID>", "STRING", "INT", "FLOAT", "TRUE", "FALSE", 
-                      "RUN", "GRAPH", "PROCEDURE", "RETURN", "PASS", "IF", 
+                      "RUN", "GRAPH", "FUNCTION", "RETURN", "PASS", "IF", 
                       "ELSEIF", "ELSE", "WHILE", "FOREACH", "REF", "ASSIGN", 
                       "OR", "AND", "NOT", "LESS_THAN", "GREATER_THAN", "LESS_EQUAL", 
                       "GREATER_EQUAL", "IN", "NOT_IN", "IS", "IS_NOT", "PLUS", 
                       "MINUS", "UNION", "INTERSECT", "DIFF", "CONCAT", "TIMES", 
                       "DIVIDE", "MODULO", "FLOORDIVISION", "CEILINGDIVISION", 
-                      "LOG", "POWER", "ROOT", "DIRECTED", "VAR_ID", "PROC_ID", 
+                      "LOG", "POWER", "ROOT", "DIRECTED", "VAR_ID", "FUNC_ID", 
                       "OPEN_PAREN", "CLOSE_PAREN", "OPEN_SQ_BRACKET", "CLOSE_SQ_BRACKET", 
                       "COMMA", "DOT", "DOTDOT", "COLON", "SPACE", "SKIP_", 
                       "NEWLINE", "INDENT", "DEDENT" ]
 
     RULE_program = 0
-    RULE_procDef = 1
+    RULE_funcDef = 1
     RULE_formalParams = 2
     RULE_block = 3
     RULE_stmt = 4
@@ -240,7 +240,7 @@ class GraphParser ( Parser ):
     RULE_molecule = 17
     RULE_atom = 18
     RULE_trailer = 19
-    RULE_procCall = 20
+    RULE_funcCall = 20
     RULE_actualParams = 21
     RULE_listStruct = 22
     RULE_rangerStruct = 23
@@ -253,11 +253,11 @@ class GraphParser ( Parser ):
     RULE_number = 30
     RULE_boolean = 31
 
-    ruleNames =  [ "program", "procDef", "formalParams", "block", "stmt", 
+    ruleNames =  [ "program", "funcDef", "formalParams", "block", "stmt", 
                    "simpleStmt", "assignment", "compoundStmt", "ifStmt", 
                    "whileStmt", "foreachStmt", "graphAssignment", "test", 
                    "compOp", "expr", "setOp", "factorOp", "molecule", "atom", 
-                   "trailer", "procCall", "actualParams", "listStruct", 
+                   "trailer", "funcCall", "actualParams", "listStruct", 
                    "rangerStruct", "graph", "vertices", "vertex", "edges", 
                    "edge", "identifier", "number", "boolean" ]
 
@@ -269,7 +269,7 @@ class GraphParser ( Parser ):
     FALSE=5
     RUN=6
     GRAPH=7
-    PROCEDURE=8
+    FUNCTION=8
     RETURN=9
     PASS=10
     IF=11
@@ -306,7 +306,7 @@ class GraphParser ( Parser ):
     ROOT=42
     DIRECTED=43
     VAR_ID=44
-    PROC_ID=45
+    FUNC_ID=45
     OPEN_PAREN=46
     CLOSE_PAREN=47
     OPEN_SQ_BRACKET=48
@@ -348,11 +348,11 @@ class GraphParser ( Parser ):
         def NEWLINE(self):
             return self.getToken(GraphParser.NEWLINE, 0)
 
-        def procDef(self, i:int=None):
+        def funcDef(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(GraphParser.ProcDefContext)
+                return self.getTypedRuleContexts(GraphParser.FuncDefContext)
             else:
-                return self.getTypedRuleContext(GraphParser.ProcDefContext,i)
+                return self.getTypedRuleContext(GraphParser.FuncDefContext,i)
 
 
         def getRuleIndex(self):
@@ -393,9 +393,9 @@ class GraphParser ( Parser ):
             self.state = 70
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==GraphParser.PROCEDURE:
+            while _la==GraphParser.FUNCTION:
                 self.state = 67
-                self.procDef()
+                self.funcDef()
                 self.state = 72
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
@@ -414,20 +414,20 @@ class GraphParser ( Parser ):
             self.exitRule()
         return localctx
 
-    class ProcDefContext(ParserRuleContext):
+    class FuncDefContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def PROCEDURE(self):
-            return self.getToken(GraphParser.PROCEDURE, 0)
+        def FUNCTION(self):
+            return self.getToken(GraphParser.FUNCTION, 0)
 
         def SPACE(self):
             return self.getToken(GraphParser.SPACE, 0)
 
-        def PROC_ID(self):
-            return self.getToken(GraphParser.PROC_ID, 0)
+        def FUNC_ID(self):
+            return self.getToken(GraphParser.FUNC_ID, 0)
 
         def OPEN_PAREN(self):
             return self.getToken(GraphParser.OPEN_PAREN, 0)
@@ -444,38 +444,38 @@ class GraphParser ( Parser ):
 
 
         def getRuleIndex(self):
-            return GraphParser.RULE_procDef
+            return GraphParser.RULE_funcDef
 
         def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterProcDef" ):
-                listener.enterProcDef(self)
+            if hasattr( listener, "enterFuncDef" ):
+                listener.enterFuncDef(self)
 
         def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitProcDef" ):
-                listener.exitProcDef(self)
+            if hasattr( listener, "exitFuncDef" ):
+                listener.exitFuncDef(self)
 
         def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitProcDef" ):
-                return visitor.visitProcDef(self)
+            if hasattr( visitor, "visitFuncDef" ):
+                return visitor.visitFuncDef(self)
             else:
                 return visitor.visitChildren(self)
 
 
 
 
-    def procDef(self):
+    def funcDef(self):
 
-        localctx = GraphParser.ProcDefContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 2, self.RULE_procDef)
+        localctx = GraphParser.FuncDefContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 2, self.RULE_funcDef)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 77
-            self.match(GraphParser.PROCEDURE)
+            self.match(GraphParser.FUNCTION)
             self.state = 78
             self.match(GraphParser.SPACE)
             self.state = 79
-            self.match(GraphParser.PROC_ID)
+            self.match(GraphParser.FUNC_ID)
             self.state = 80
             self.match(GraphParser.OPEN_PAREN)
             self.state = 82
@@ -640,7 +640,7 @@ class GraphParser ( Parser ):
                 self.state = 102 
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << GraphParser.STRING) | (1 << GraphParser.INT) | (1 << GraphParser.FLOAT) | (1 << GraphParser.RETURN) | (1 << GraphParser.PASS) | (1 << GraphParser.IF) | (1 << GraphParser.WHILE) | (1 << GraphParser.FOREACH) | (1 << GraphParser.VAR_ID) | (1 << GraphParser.PROC_ID) | (1 << GraphParser.OPEN_SQ_BRACKET))) != 0)):
+                if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << GraphParser.STRING) | (1 << GraphParser.INT) | (1 << GraphParser.FLOAT) | (1 << GraphParser.RETURN) | (1 << GraphParser.PASS) | (1 << GraphParser.IF) | (1 << GraphParser.WHILE) | (1 << GraphParser.FOREACH) | (1 << GraphParser.VAR_ID) | (1 << GraphParser.FUNC_ID) | (1 << GraphParser.OPEN_SQ_BRACKET))) != 0)):
                     break
 
             self.state = 104
@@ -744,8 +744,8 @@ class GraphParser ( Parser ):
         def PASS(self):
             return self.getToken(GraphParser.PASS, 0)
 
-        def procCall(self):
-            return self.getTypedRuleContext(GraphParser.ProcCallContext,0)
+        def funcCall(self):
+            return self.getTypedRuleContext(GraphParser.FuncCallContext,0)
 
 
         def getRuleIndex(self):
@@ -808,7 +808,7 @@ class GraphParser ( Parser ):
             elif la_ == 4:
                 self.enterOuterAlt(localctx, 4)
                 self.state = 119
-                self.procCall()
+                self.funcCall()
                 pass
 
 
@@ -1624,8 +1624,8 @@ class GraphParser ( Parser ):
         def LOG(self):
             return self.getToken(GraphParser.LOG, 0)
 
-        def procCall(self):
-            return self.getTypedRuleContext(GraphParser.ProcCallContext,0)
+        def funcCall(self):
+            return self.getTypedRuleContext(GraphParser.FuncCallContext,0)
 
 
         def POWER(self):
@@ -1733,7 +1733,7 @@ class GraphParser ( Parser ):
 
             elif la_ == 5:
                 self.state = 238
-                self.procCall()
+                self.funcCall()
                 pass
 
             elif la_ == 6:
@@ -2133,8 +2133,8 @@ class GraphParser ( Parser ):
         def VAR_ID(self):
             return self.getToken(GraphParser.VAR_ID, 0)
 
-        def procCall(self):
-            return self.getTypedRuleContext(GraphParser.ProcCallContext,0)
+        def funcCall(self):
+            return self.getTypedRuleContext(GraphParser.FuncCallContext,0)
 
 
         def getRuleIndex(self):
@@ -2181,9 +2181,9 @@ class GraphParser ( Parser ):
                     self.state = 283
                     self.match(GraphParser.VAR_ID)
                     pass
-                elif token in [GraphParser.PROC_ID]:
+                elif token in [GraphParser.FUNC_ID]:
                     self.state = 284
-                    self.procCall()
+                    self.funcCall()
                     pass
                 else:
                     raise NoViableAltException(self)
@@ -2200,14 +2200,14 @@ class GraphParser ( Parser ):
             self.exitRule()
         return localctx
 
-    class ProcCallContext(ParserRuleContext):
+    class FuncCallContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def PROC_ID(self):
-            return self.getToken(GraphParser.PROC_ID, 0)
+        def FUNC_ID(self):
+            return self.getToken(GraphParser.FUNC_ID, 0)
 
         def OPEN_PAREN(self):
             return self.getToken(GraphParser.OPEN_PAREN, 0)
@@ -2220,40 +2220,40 @@ class GraphParser ( Parser ):
 
 
         def getRuleIndex(self):
-            return GraphParser.RULE_procCall
+            return GraphParser.RULE_funcCall
 
         def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterProcCall" ):
-                listener.enterProcCall(self)
+            if hasattr( listener, "enterFuncCall" ):
+                listener.enterFuncCall(self)
 
         def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitProcCall" ):
-                listener.exitProcCall(self)
+            if hasattr( listener, "exitFuncCall" ):
+                listener.exitFuncCall(self)
 
         def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitProcCall" ):
-                return visitor.visitProcCall(self)
+            if hasattr( visitor, "visitFuncCall" ):
+                return visitor.visitFuncCall(self)
             else:
                 return visitor.visitChildren(self)
 
 
 
 
-    def procCall(self):
+    def funcCall(self):
 
-        localctx = GraphParser.ProcCallContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 40, self.RULE_procCall)
+        localctx = GraphParser.FuncCallContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 40, self.RULE_funcCall)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 289
-            self.match(GraphParser.PROC_ID)
+            self.match(GraphParser.FUNC_ID)
             self.state = 290
             self.match(GraphParser.OPEN_PAREN)
             self.state = 292
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << GraphParser.STRING) | (1 << GraphParser.INT) | (1 << GraphParser.FLOAT) | (1 << GraphParser.REF) | (1 << GraphParser.MINUS) | (1 << GraphParser.LOG) | (1 << GraphParser.ROOT) | (1 << GraphParser.VAR_ID) | (1 << GraphParser.PROC_ID) | (1 << GraphParser.OPEN_PAREN) | (1 << GraphParser.OPEN_SQ_BRACKET))) != 0):
+            if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << GraphParser.STRING) | (1 << GraphParser.INT) | (1 << GraphParser.FLOAT) | (1 << GraphParser.REF) | (1 << GraphParser.MINUS) | (1 << GraphParser.LOG) | (1 << GraphParser.ROOT) | (1 << GraphParser.VAR_ID) | (1 << GraphParser.FUNC_ID) | (1 << GraphParser.OPEN_PAREN) | (1 << GraphParser.OPEN_SQ_BRACKET))) != 0):
                 self.state = 291
                 self.actualParams()
 
@@ -2916,8 +2916,8 @@ class GraphParser ( Parser ):
         def VAR_ID(self):
             return self.getToken(GraphParser.VAR_ID, 0)
 
-        def PROC_ID(self):
-            return self.getToken(GraphParser.PROC_ID, 0)
+        def FUNC_ID(self):
+            return self.getToken(GraphParser.FUNC_ID, 0)
 
         def getRuleIndex(self):
             return GraphParser.RULE_identifier
@@ -2948,7 +2948,7 @@ class GraphParser ( Parser ):
             self.enterOuterAlt(localctx, 1)
             self.state = 378
             _la = self._input.LA(1)
-            if not(_la==GraphParser.VAR_ID or _la==GraphParser.PROC_ID):
+            if not(_la==GraphParser.VAR_ID or _la==GraphParser.FUNC_ID):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)

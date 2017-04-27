@@ -17,12 +17,12 @@ class GraphListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by GraphParser#procDef.
-    def enterProcDef(self, ctx:GraphParser.ProcDefContext):
+    # Enter a parse tree produced by GraphParser#funcDef.
+    def enterFuncDef(self, ctx:GraphParser.FuncDefContext):
         pass
 
-    # Exit a parse tree produced by GraphParser#procDef.
-    def exitProcDef(self, ctx:GraphParser.ProcDefContext):
+    # Exit a parse tree produced by GraphParser#funcDef.
+    def exitFuncDef(self, ctx:GraphParser.FuncDefContext):
         pass
 
 
@@ -188,12 +188,12 @@ class GraphListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by GraphParser#procCall.
-    def enterProcCall(self, ctx:GraphParser.ProcCallContext):
+    # Enter a parse tree produced by GraphParser#funcCall.
+    def enterFuncCall(self, ctx:GraphParser.FuncCallContext):
         pass
 
-    # Exit a parse tree produced by GraphParser#procCall.
-    def exitProcCall(self, ctx:GraphParser.ProcCallContext):
+    # Exit a parse tree produced by GraphParser#funcCall.
+    def exitFuncCall(self, ctx:GraphParser.FuncCallContext):
         pass
 
 
