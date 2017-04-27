@@ -157,10 +157,10 @@ def atStartOfInput(self):
 //_________________________________________________________________________
 
 // Start
-program : NEWLINE? procDef* RUN block EOF;
+program : NEWLINE? funcDef* RUN block EOF;
 
-// Procedure definition
-procDef : PROCEDURE SPACE PROC_ID OPEN_PAREN formalParams? CLOSE_PAREN block ;
+// Function definition
+funcDef : FUNCTION SPACE FUNC_ID OPEN_PAREN formalParams? CLOSE_PAREN block ;
 
 formalParams : VAR_ID (COMMA SPACE VAR_ID)* ;
 
@@ -176,7 +176,7 @@ stmt : simpleStmt NEWLINE
 simpleStmt : assignment
            | RETURN (SPACE expr)?
            | PASS
-           | procCall
+           | funcCall
            ;
 
 assignment : molecule SPACE ASSIGN SPACE (expr | test) ;
@@ -214,7 +214,7 @@ expr : molecule (SPACE setOp SPACE molecule)+
        | expr SPACE factorOp SPACE expr
        | expr SPACE (PLUS | MINUS) SPACE expr
        | OPEN_PAREN expr CLOSE_PAREN
-       | procCall
+       | funcCall
        | molecule
        ;
 
@@ -230,8 +230,8 @@ atom : VAR_ID
      | listStruct
      ;
 
-trailer : listStruct | DOT (VAR_ID | procCall) ;
-procCall : PROC_ID OPEN_PAREN actualParams? CLOSE_PAREN ;
+trailer : listStruct | DOT (VAR_ID | funcCall) ;
+funcCall : FUNC_ID OPEN_PAREN actualParams? CLOSE_PAREN ;
 actualParams : (REF SPACE)? expr (COMMA SPACE (REF SPACE)? expr)* ;
 listStruct : OPEN_SQ_BRACKET expr (COMMA SPACE expr)* CLOSE_SQ_BRACKET ;
 rangerStruct : OPEN_SQ_BRACKET expr DOTDOT expr CLOSE_SQ_BRACKET ;
@@ -244,7 +244,7 @@ edges : edge (COMMA SPACE+ edge)* ;
 edge : OPEN_PAREN DIRECTED? VAR_ID (SPACE expr)? CLOSE_PAREN ;
 
 // Identifier
-identifier: VAR_ID | PROC_ID ;
+identifier: VAR_ID | FUNC_ID ;
 
 // Types
 number : INT | FLOAT ;
@@ -262,7 +262,7 @@ FALSE: 'false' ;
 // Keywords
 RUN: '@run' ;
 GRAPH: 'graph' ;
-PROCEDURE: 'procedure' ;
+FUNCTION: 'function' ;
 RETURN: 'return' ;
 PASS: 'pass' ;
 IF: 'if' ;
@@ -303,7 +303,7 @@ DIRECTED: '->' ;
 
 // identifiers
 VAR_ID: LOWERLETTER (LETTER | DIGIT)* ;
-PROC_ID: UPPERLETTER (LETTER | DIGIT)* ;
+FUNC_ID: UPPERLETTER (LETTER | DIGIT)* ;
 
 // Misc
 OPEN_PAREN: '(' ;
