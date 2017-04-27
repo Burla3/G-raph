@@ -4,6 +4,8 @@ from antlr4 import *
 from ASTBuilder import ASTBuilder
 from Antlr.GraphParser import GraphParser
 
+from GraphVisitor import GraphVisitor
+
 
 def main():
     input = FileStream('testPrograms/test.graph')
@@ -33,6 +35,13 @@ def main():
     json = astb.ConvertToJSON()
     file.write(json)
     file.close()
+
+    visitor = GraphVisitor()
+    try:
+        visitorResult = visitor.visitProgram(tree)
+    except Exception as e:
+        print(e.args)
+        return
 
 
 if __name__ == '__main__':
