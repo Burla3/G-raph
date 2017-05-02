@@ -231,7 +231,7 @@ atom : VAR_ID
 
 trailer : listStruct | DOT (VAR_ID | funcCall) ;
 funcCall : FUNC_ID OPEN_PAREN actualParams? CLOSE_PAREN ;
-actualParams : (REF SPACE)? expr (COMMA SPACE (REF SPACE)? expr)* ;
+actualParams : ((REF SPACE VAR_ID) | expr) (COMMA SPACE (REF SPACE VAR_ID) | expr)* ;
 listStruct : OPEN_SQ_BRACKET expr (COMMA SPACE expr)* CLOSE_SQ_BRACKET ;
 rangerStruct : OPEN_SQ_BRACKET expr DOTDOT expr CLOSE_SQ_BRACKET ;
 
