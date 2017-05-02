@@ -8,7 +8,7 @@ import sys
 def serializedATN():
     with StringIO() as buf:
         buf.write("\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\38")
-        buf.write("\u017c\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7")
+        buf.write("\u0176\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7")
         buf.write("\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\4\f\t\f\4\r\t\r\4\16")
         buf.write("\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22\4\23\t\23")
         buf.write("\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\4\30\t\30\4\31")
@@ -33,44 +33,43 @@ def serializedATN():
         buf.write("\3\20\3\20\3\20\7\20\u00fc\n\20\f\20\16\20\u00ff\13\20")
         buf.write("\3\21\3\21\3\22\3\22\3\23\3\23\6\23\u0107\n\23\r\23\16")
         buf.write("\23\u0108\3\23\5\23\u010c\n\23\3\24\3\24\3\24\3\24\3\24")
-        buf.write("\5\24\u0113\n\24\3\25\3\25\3\25\3\25\5\25\u0119\n\25\5")
-        buf.write("\25\u011b\n\25\3\26\3\26\3\26\5\26\u0120\n\26\3\26\3\26")
-        buf.write("\3\27\3\27\3\27\3\27\5\27\u0128\n\27\3\27\3\27\3\27\3")
-        buf.write("\27\3\27\3\27\7\27\u0130\n\27\f\27\16\27\u0133\13\27\3")
-        buf.write("\30\3\30\3\30\3\30\3\30\7\30\u013a\n\30\f\30\16\30\u013d")
-        buf.write("\13\30\3\30\3\30\3\31\3\31\3\31\3\31\3\31\3\31\3\32\3")
-        buf.write("\32\3\32\3\32\3\32\3\32\3\32\3\33\3\33\3\33\6\33\u0151")
-        buf.write("\n\33\r\33\16\33\u0152\3\34\3\34\6\34\u0157\n\34\r\34")
-        buf.write("\16\34\u0158\3\34\5\34\u015c\n\34\3\35\3\35\3\35\6\35")
-        buf.write("\u0161\n\35\r\35\16\35\u0162\3\35\7\35\u0166\n\35\f\35")
-        buf.write("\16\35\u0169\13\35\3\36\3\36\5\36\u016d\n\36\3\36\3\36")
-        buf.write("\3\36\5\36\u0172\n\36\3\36\3\36\3\37\3\37\3 \3 \3!\3!")
-        buf.write("\3!\2\4\32\36\"\2\4\6\b\n\f\16\20\22\24\26\30\32\34\36")
-        buf.write(" \"$&(*,.\60\62\64\668:<>@\2\n\3\2\35\36\3\2\27\34\3\2")
-        buf.write("\37 \3\2!$\3\2%\'\3\2*+\3\2\4\5\3\2\6\7\2\u018e\2C\3\2")
-        buf.write("\2\2\4O\3\2\2\2\6Y\3\2\2\2\bb\3\2\2\2\np\3\2\2\2\fz\3")
-        buf.write("\2\2\2\16|\3\2\2\2\20\u0088\3\2\2\2\22\u008a\3\2\2\2\24")
-        buf.write("\u009c\3\2\2\2\26\u00a1\3\2\2\2\30\u00aa\3\2\2\2\32\u00ba")
-        buf.write("\3\2\2\2\34\u00d6\3\2\2\2\36\u00eb\3\2\2\2 \u0100\3\2")
-        buf.write("\2\2\"\u0102\3\2\2\2$\u010b\3\2\2\2&\u0112\3\2\2\2(\u011a")
-        buf.write("\3\2\2\2*\u011c\3\2\2\2,\u0127\3\2\2\2.\u0134\3\2\2\2")
-        buf.write("\60\u0140\3\2\2\2\62\u0146\3\2\2\2\64\u0150\3\2\2\2\66")
-        buf.write("\u0154\3\2\2\28\u015d\3\2\2\2:\u016a\3\2\2\2<\u0175\3")
-        buf.write("\2\2\2>\u0177\3\2\2\2@\u0179\3\2\2\2BD\7\66\2\2CB\3\2")
-        buf.write("\2\2CD\3\2\2\2DH\3\2\2\2EG\5\4\3\2FE\3\2\2\2GJ\3\2\2\2")
-        buf.write("HF\3\2\2\2HI\3\2\2\2IK\3\2\2\2JH\3\2\2\2KL\7\b\2\2LM\5")
-        buf.write("\b\5\2MN\7\2\2\3N\3\3\2\2\2OP\7\n\2\2PQ\7\64\2\2QR\7+")
-        buf.write("\2\2RT\7,\2\2SU\5\6\4\2TS\3\2\2\2TU\3\2\2\2UV\3\2\2\2")
-        buf.write("VW\7-\2\2WX\5\b\5\2X\5\3\2\2\2Y_\7*\2\2Z[\7\60\2\2[\\")
-        buf.write("\7\64\2\2\\^\7*\2\2]Z\3\2\2\2^a\3\2\2\2_]\3\2\2\2_`\3")
-        buf.write("\2\2\2`\7\3\2\2\2a_\3\2\2\2bc\7\63\2\2cd\7\66\2\2df\7")
-        buf.write("\67\2\2eg\5\n\6\2fe\3\2\2\2gh\3\2\2\2hf\3\2\2\2hi\3\2")
-        buf.write("\2\2ij\3\2\2\2jk\78\2\2k\t\3\2\2\2lm\5\f\7\2mn\7\66\2")
-        buf.write("\2nq\3\2\2\2oq\5\20\t\2pl\3\2\2\2po\3\2\2\2q\13\3\2\2")
-        buf.write("\2r{\5\16\b\2sv\7\13\2\2tu\7\64\2\2uw\5\36\20\2vt\3\2")
-        buf.write("\2\2vw\3\2\2\2w{\3\2\2\2x{\7\f\2\2y{\5*\26\2zr\3\2\2\2")
-        buf.write("zs\3\2\2\2zx\3\2\2\2zy\3\2\2\2{\r\3\2\2\2|}\5$\23\2}~")
-        buf.write("\7\64\2\2~\177\7\23\2\2\177\u0082\7\64\2\2\u0080\u0083")
+        buf.write("\5\24\u0113\n\24\3\25\3\25\3\26\3\26\3\26\5\26\u011a\n")
+        buf.write("\26\3\26\3\26\3\27\3\27\3\27\3\27\5\27\u0122\n\27\3\27")
+        buf.write("\3\27\3\27\3\27\3\27\3\27\7\27\u012a\n\27\f\27\16\27\u012d")
+        buf.write("\13\27\3\30\3\30\3\30\3\30\3\30\7\30\u0134\n\30\f\30\16")
+        buf.write("\30\u0137\13\30\3\30\3\30\3\31\3\31\3\31\3\31\3\31\3\31")
+        buf.write("\3\32\3\32\3\32\3\32\3\32\3\32\3\32\3\33\3\33\3\33\6\33")
+        buf.write("\u014b\n\33\r\33\16\33\u014c\3\34\3\34\6\34\u0151\n\34")
+        buf.write("\r\34\16\34\u0152\3\34\5\34\u0156\n\34\3\35\3\35\3\35")
+        buf.write("\6\35\u015b\n\35\r\35\16\35\u015c\3\35\7\35\u0160\n\35")
+        buf.write("\f\35\16\35\u0163\13\35\3\36\3\36\5\36\u0167\n\36\3\36")
+        buf.write("\3\36\3\36\5\36\u016c\n\36\3\36\3\36\3\37\3\37\3 \3 \3")
+        buf.write("!\3!\3!\2\4\32\36\"\2\4\6\b\n\f\16\20\22\24\26\30\32\34")
+        buf.write("\36 \"$&(*,.\60\62\64\668:<>@\2\n\3\2\35\36\3\2\27\34")
+        buf.write("\3\2\37 \3\2!$\3\2%\'\3\2*+\3\2\4\5\3\2\6\7\2\u0186\2")
+        buf.write("C\3\2\2\2\4O\3\2\2\2\6Y\3\2\2\2\bb\3\2\2\2\np\3\2\2\2")
+        buf.write("\fz\3\2\2\2\16|\3\2\2\2\20\u0088\3\2\2\2\22\u008a\3\2")
+        buf.write("\2\2\24\u009c\3\2\2\2\26\u00a1\3\2\2\2\30\u00aa\3\2\2")
+        buf.write("\2\32\u00ba\3\2\2\2\34\u00d6\3\2\2\2\36\u00eb\3\2\2\2")
+        buf.write(" \u0100\3\2\2\2\"\u0102\3\2\2\2$\u010b\3\2\2\2&\u0112")
+        buf.write("\3\2\2\2(\u0114\3\2\2\2*\u0116\3\2\2\2,\u0121\3\2\2\2")
+        buf.write(".\u012e\3\2\2\2\60\u013a\3\2\2\2\62\u0140\3\2\2\2\64\u014a")
+        buf.write("\3\2\2\2\66\u014e\3\2\2\28\u0157\3\2\2\2:\u0164\3\2\2")
+        buf.write("\2<\u016f\3\2\2\2>\u0171\3\2\2\2@\u0173\3\2\2\2BD\7\66")
+        buf.write("\2\2CB\3\2\2\2CD\3\2\2\2DH\3\2\2\2EG\5\4\3\2FE\3\2\2\2")
+        buf.write("GJ\3\2\2\2HF\3\2\2\2HI\3\2\2\2IK\3\2\2\2JH\3\2\2\2KL\7")
+        buf.write("\b\2\2LM\5\b\5\2MN\7\2\2\3N\3\3\2\2\2OP\7\n\2\2PQ\7\64")
+        buf.write("\2\2QR\7+\2\2RT\7,\2\2SU\5\6\4\2TS\3\2\2\2TU\3\2\2\2U")
+        buf.write("V\3\2\2\2VW\7-\2\2WX\5\b\5\2X\5\3\2\2\2Y_\7*\2\2Z[\7\60")
+        buf.write("\2\2[\\\7\64\2\2\\^\7*\2\2]Z\3\2\2\2^a\3\2\2\2_]\3\2\2")
+        buf.write("\2_`\3\2\2\2`\7\3\2\2\2a_\3\2\2\2bc\7\63\2\2cd\7\66\2")
+        buf.write("\2df\7\67\2\2eg\5\n\6\2fe\3\2\2\2gh\3\2\2\2hf\3\2\2\2")
+        buf.write("hi\3\2\2\2ij\3\2\2\2jk\78\2\2k\t\3\2\2\2lm\5\f\7\2mn\7")
+        buf.write("\66\2\2nq\3\2\2\2oq\5\20\t\2pl\3\2\2\2po\3\2\2\2q\13\3")
+        buf.write("\2\2\2r{\5\16\b\2sv\7\13\2\2tu\7\64\2\2uw\5\36\20\2vt")
+        buf.write("\3\2\2\2vw\3\2\2\2w{\3\2\2\2x{\7\f\2\2y{\5*\26\2zr\3\2")
+        buf.write("\2\2zs\3\2\2\2zx\3\2\2\2zy\3\2\2\2{\r\3\2\2\2|}\5$\23")
+        buf.write("\2}~\7\64\2\2~\177\7\23\2\2\177\u0082\7\64\2\2\u0080\u0083")
         buf.write("\5\36\20\2\u0081\u0083\5\32\16\2\u0082\u0080\3\2\2\2\u0082")
         buf.write("\u0081\3\2\2\2\u0083\17\3\2\2\2\u0084\u0089\5\22\n\2\u0085")
         buf.write("\u0089\5\24\13\2\u0086\u0089\5\26\f\2\u0087\u0089\5\30")
@@ -134,52 +133,50 @@ def serializedATN():
         buf.write("\u0113\7*\2\2\u010e\u0113\5> \2\u010f\u0113\7\3\2\2\u0110")
         buf.write("\u0113\5\60\31\2\u0111\u0113\5.\30\2\u0112\u010d\3\2\2")
         buf.write("\2\u0112\u010e\3\2\2\2\u0112\u010f\3\2\2\2\u0112\u0110")
-        buf.write("\3\2\2\2\u0112\u0111\3\2\2\2\u0113\'\3\2\2\2\u0114\u011b")
-        buf.write("\5.\30\2\u0115\u0118\7\61\2\2\u0116\u0119\7*\2\2\u0117")
-        buf.write("\u0119\5*\26\2\u0118\u0116\3\2\2\2\u0118\u0117\3\2\2\2")
-        buf.write("\u0119\u011b\3\2\2\2\u011a\u0114\3\2\2\2\u011a\u0115\3")
-        buf.write("\2\2\2\u011b)\3\2\2\2\u011c\u011d\7+\2\2\u011d\u011f\7")
-        buf.write(",\2\2\u011e\u0120\5,\27\2\u011f\u011e\3\2\2\2\u011f\u0120")
-        buf.write("\3\2\2\2\u0120\u0121\3\2\2\2\u0121\u0122\7-\2\2\u0122")
-        buf.write("+\3\2\2\2\u0123\u0124\7\22\2\2\u0124\u0125\7\64\2\2\u0125")
-        buf.write("\u0128\7*\2\2\u0126\u0128\5\36\20\2\u0127\u0123\3\2\2")
-        buf.write("\2\u0127\u0126\3\2\2\2\u0128\u0131\3\2\2\2\u0129\u012a")
-        buf.write("\7\60\2\2\u012a\u012b\7\64\2\2\u012b\u012c\7\22\2\2\u012c")
-        buf.write("\u012d\7\64\2\2\u012d\u0130\7*\2\2\u012e\u0130\5\36\20")
-        buf.write("\2\u012f\u0129\3\2\2\2\u012f\u012e\3\2\2\2\u0130\u0133")
-        buf.write("\3\2\2\2\u0131\u012f\3\2\2\2\u0131\u0132\3\2\2\2\u0132")
-        buf.write("-\3\2\2\2\u0133\u0131\3\2\2\2\u0134\u0135\7.\2\2\u0135")
-        buf.write("\u013b\5\36\20\2\u0136\u0137\7\60\2\2\u0137\u0138\7\64")
-        buf.write("\2\2\u0138\u013a\5\36\20\2\u0139\u0136\3\2\2\2\u013a\u013d")
-        buf.write("\3\2\2\2\u013b\u0139\3\2\2\2\u013b\u013c\3\2\2\2\u013c")
-        buf.write("\u013e\3\2\2\2\u013d\u013b\3\2\2\2\u013e\u013f\7/\2\2")
-        buf.write("\u013f/\3\2\2\2\u0140\u0141\7.\2\2\u0141\u0142\5\36\20")
-        buf.write("\2\u0142\u0143\7\62\2\2\u0143\u0144\5\36\20\2\u0144\u0145")
-        buf.write("\7/\2\2\u0145\61\3\2\2\2\u0146\u0147\7\t\2\2\u0147\u0148")
-        buf.write("\7\63\2\2\u0148\u0149\7\66\2\2\u0149\u014a\7\67\2\2\u014a")
-        buf.write("\u014b\5\64\33\2\u014b\u014c\78\2\2\u014c\63\3\2\2\2\u014d")
-        buf.write("\u014e\5\66\34\2\u014e\u014f\7\66\2\2\u014f\u0151\3\2")
-        buf.write("\2\2\u0150\u014d\3\2\2\2\u0151\u0152\3\2\2\2\u0152\u0150")
-        buf.write("\3\2\2\2\u0152\u0153\3\2\2\2\u0153\65\3\2\2\2\u0154\u015b")
-        buf.write("\7*\2\2\u0155\u0157\7\64\2\2\u0156\u0155\3\2\2\2\u0157")
-        buf.write("\u0158\3\2\2\2\u0158\u0156\3\2\2\2\u0158\u0159\3\2\2\2")
-        buf.write("\u0159\u015a\3\2\2\2\u015a\u015c\58\35\2\u015b\u0156\3")
-        buf.write("\2\2\2\u015b\u015c\3\2\2\2\u015c\67\3\2\2\2\u015d\u0167")
-        buf.write("\5:\36\2\u015e\u0160\7\60\2\2\u015f\u0161\7\64\2\2\u0160")
-        buf.write("\u015f\3\2\2\2\u0161\u0162\3\2\2\2\u0162\u0160\3\2\2\2")
-        buf.write("\u0162\u0163\3\2\2\2\u0163\u0164\3\2\2\2\u0164\u0166\5")
-        buf.write(":\36\2\u0165\u015e\3\2\2\2\u0166\u0169\3\2\2\2\u0167\u0165")
-        buf.write("\3\2\2\2\u0167\u0168\3\2\2\2\u01689\3\2\2\2\u0169\u0167")
-        buf.write("\3\2\2\2\u016a\u016c\7,\2\2\u016b\u016d\7)\2\2\u016c\u016b")
-        buf.write("\3\2\2\2\u016c\u016d\3\2\2\2\u016d\u016e\3\2\2\2\u016e")
-        buf.write("\u0171\7*\2\2\u016f\u0170\7\64\2\2\u0170\u0172\5\36\20")
-        buf.write("\2\u0171\u016f\3\2\2\2\u0171\u0172\3\2\2\2\u0172\u0173")
-        buf.write("\3\2\2\2\u0173\u0174\7-\2\2\u0174;\3\2\2\2\u0175\u0176")
-        buf.write("\t\7\2\2\u0176=\3\2\2\2\u0177\u0178\t\b\2\2\u0178?\3\2")
-        buf.write("\2\2\u0179\u017a\t\t\2\2\u017aA\3\2\2\2&CHT_hpvz\u0082")
-        buf.write("\u0088\u0095\u009a\u00ba\u00d1\u00d3\u00e1\u00eb\u00fb")
-        buf.write("\u00fd\u0108\u010b\u0112\u0118\u011a\u011f\u0127\u012f")
-        buf.write("\u0131\u013b\u0152\u0158\u015b\u0162\u0167\u016c\u0171")
+        buf.write("\3\2\2\2\u0112\u0111\3\2\2\2\u0113\'\3\2\2\2\u0114\u0115")
+        buf.write("\5.\30\2\u0115)\3\2\2\2\u0116\u0117\7+\2\2\u0117\u0119")
+        buf.write("\7,\2\2\u0118\u011a\5,\27\2\u0119\u0118\3\2\2\2\u0119")
+        buf.write("\u011a\3\2\2\2\u011a\u011b\3\2\2\2\u011b\u011c\7-\2\2")
+        buf.write("\u011c+\3\2\2\2\u011d\u011e\7\22\2\2\u011e\u011f\7\64")
+        buf.write("\2\2\u011f\u0122\7*\2\2\u0120\u0122\5\36\20\2\u0121\u011d")
+        buf.write("\3\2\2\2\u0121\u0120\3\2\2\2\u0122\u012b\3\2\2\2\u0123")
+        buf.write("\u0124\7\60\2\2\u0124\u0125\7\64\2\2\u0125\u0126\7\22")
+        buf.write("\2\2\u0126\u0127\7\64\2\2\u0127\u012a\7*\2\2\u0128\u012a")
+        buf.write("\5\36\20\2\u0129\u0123\3\2\2\2\u0129\u0128\3\2\2\2\u012a")
+        buf.write("\u012d\3\2\2\2\u012b\u0129\3\2\2\2\u012b\u012c\3\2\2\2")
+        buf.write("\u012c-\3\2\2\2\u012d\u012b\3\2\2\2\u012e\u012f\7.\2\2")
+        buf.write("\u012f\u0135\5\36\20\2\u0130\u0131\7\60\2\2\u0131\u0132")
+        buf.write("\7\64\2\2\u0132\u0134\5\36\20\2\u0133\u0130\3\2\2\2\u0134")
+        buf.write("\u0137\3\2\2\2\u0135\u0133\3\2\2\2\u0135\u0136\3\2\2\2")
+        buf.write("\u0136\u0138\3\2\2\2\u0137\u0135\3\2\2\2\u0138\u0139\7")
+        buf.write("/\2\2\u0139/\3\2\2\2\u013a\u013b\7.\2\2\u013b\u013c\5")
+        buf.write("\36\20\2\u013c\u013d\7\62\2\2\u013d\u013e\5\36\20\2\u013e")
+        buf.write("\u013f\7/\2\2\u013f\61\3\2\2\2\u0140\u0141\7\t\2\2\u0141")
+        buf.write("\u0142\7\63\2\2\u0142\u0143\7\66\2\2\u0143\u0144\7\67")
+        buf.write("\2\2\u0144\u0145\5\64\33\2\u0145\u0146\78\2\2\u0146\63")
+        buf.write("\3\2\2\2\u0147\u0148\5\66\34\2\u0148\u0149\7\66\2\2\u0149")
+        buf.write("\u014b\3\2\2\2\u014a\u0147\3\2\2\2\u014b\u014c\3\2\2\2")
+        buf.write("\u014c\u014a\3\2\2\2\u014c\u014d\3\2\2\2\u014d\65\3\2")
+        buf.write("\2\2\u014e\u0155\7*\2\2\u014f\u0151\7\64\2\2\u0150\u014f")
+        buf.write("\3\2\2\2\u0151\u0152\3\2\2\2\u0152\u0150\3\2\2\2\u0152")
+        buf.write("\u0153\3\2\2\2\u0153\u0154\3\2\2\2\u0154\u0156\58\35\2")
+        buf.write("\u0155\u0150\3\2\2\2\u0155\u0156\3\2\2\2\u0156\67\3\2")
+        buf.write("\2\2\u0157\u0161\5:\36\2\u0158\u015a\7\60\2\2\u0159\u015b")
+        buf.write("\7\64\2\2\u015a\u0159\3\2\2\2\u015b\u015c\3\2\2\2\u015c")
+        buf.write("\u015a\3\2\2\2\u015c\u015d\3\2\2\2\u015d\u015e\3\2\2\2")
+        buf.write("\u015e\u0160\5:\36\2\u015f\u0158\3\2\2\2\u0160\u0163\3")
+        buf.write("\2\2\2\u0161\u015f\3\2\2\2\u0161\u0162\3\2\2\2\u01629")
+        buf.write("\3\2\2\2\u0163\u0161\3\2\2\2\u0164\u0166\7,\2\2\u0165")
+        buf.write("\u0167\7)\2\2\u0166\u0165\3\2\2\2\u0166\u0167\3\2\2\2")
+        buf.write("\u0167\u0168\3\2\2\2\u0168\u016b\7*\2\2\u0169\u016a\7")
+        buf.write("\64\2\2\u016a\u016c\5\36\20\2\u016b\u0169\3\2\2\2\u016b")
+        buf.write("\u016c\3\2\2\2\u016c\u016d\3\2\2\2\u016d\u016e\7-\2\2")
+        buf.write("\u016e;\3\2\2\2\u016f\u0170\t\7\2\2\u0170=\3\2\2\2\u0171")
+        buf.write("\u0172\t\b\2\2\u0172?\3\2\2\2\u0173\u0174\t\t\2\2\u0174")
+        buf.write("A\3\2\2\2$CHT_hpvz\u0082\u0088\u0095\u009a\u00ba\u00d1")
+        buf.write("\u00d3\u00e1\u00eb\u00fb\u00fd\u0108\u010b\u0112\u0119")
+        buf.write("\u0121\u0129\u012b\u0135\u014c\u0152\u0155\u015c\u0161")
+        buf.write("\u0166\u016b")
         return buf.getvalue()
 
 
@@ -2085,16 +2082,6 @@ class GraphParser ( Parser ):
             return self.getTypedRuleContext(GraphParser.ListStructContext,0)
 
 
-        def DOT(self):
-            return self.getToken(GraphParser.DOT, 0)
-
-        def VAR_ID(self):
-            return self.getToken(GraphParser.VAR_ID, 0)
-
-        def funcCall(self):
-            return self.getTypedRuleContext(GraphParser.FuncCallContext,0)
-
-
         def getRuleIndex(self):
             return GraphParser.RULE_trailer
 
@@ -2120,36 +2107,9 @@ class GraphParser ( Parser ):
         localctx = GraphParser.TrailerContext(self, self._ctx, self.state)
         self.enterRule(localctx, 38, self.RULE_trailer)
         try:
-            self.state = 280
-            self._errHandler.sync(self)
-            token = self._input.LA(1)
-            if token in [GraphParser.OPEN_SQ_BRACKET]:
-                self.enterOuterAlt(localctx, 1)
-                self.state = 274
-                self.listStruct()
-                pass
-            elif token in [GraphParser.DOT]:
-                self.enterOuterAlt(localctx, 2)
-                self.state = 275
-                self.match(GraphParser.DOT)
-                self.state = 278
-                self._errHandler.sync(self)
-                token = self._input.LA(1)
-                if token in [GraphParser.VAR_ID]:
-                    self.state = 276
-                    self.match(GraphParser.VAR_ID)
-                    pass
-                elif token in [GraphParser.FUNC_ID]:
-                    self.state = 277
-                    self.funcCall()
-                    pass
-                else:
-                    raise NoViableAltException(self)
-
-                pass
-            else:
-                raise NoViableAltException(self)
-
+            self.enterOuterAlt(localctx, 1)
+            self.state = 274
+            self.listStruct()
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -2204,19 +2164,19 @@ class GraphParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 282
+            self.state = 276
             self.match(GraphParser.FUNC_ID)
-            self.state = 283
+            self.state = 277
             self.match(GraphParser.OPEN_PAREN)
-            self.state = 285
+            self.state = 279
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << GraphParser.STRING) | (1 << GraphParser.INT) | (1 << GraphParser.FLOAT) | (1 << GraphParser.REF) | (1 << GraphParser.MINUS) | (1 << GraphParser.VAR_ID) | (1 << GraphParser.FUNC_ID) | (1 << GraphParser.OPEN_PAREN) | (1 << GraphParser.OPEN_SQ_BRACKET))) != 0):
-                self.state = 284
+                self.state = 278
                 self.actualParams()
 
 
-            self.state = 287
+            self.state = 281
             self.match(GraphParser.CLOSE_PAREN)
         except RecognitionException as re:
             localctx.exception = re
@@ -2290,52 +2250,52 @@ class GraphParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 293
+            self.state = 287
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [GraphParser.REF]:
-                self.state = 289
+                self.state = 283
                 self.match(GraphParser.REF)
-                self.state = 290
+                self.state = 284
                 self.match(GraphParser.SPACE)
-                self.state = 291
+                self.state = 285
                 self.match(GraphParser.VAR_ID)
                 pass
             elif token in [GraphParser.STRING, GraphParser.INT, GraphParser.FLOAT, GraphParser.MINUS, GraphParser.VAR_ID, GraphParser.FUNC_ID, GraphParser.OPEN_PAREN, GraphParser.OPEN_SQ_BRACKET]:
-                self.state = 292
+                self.state = 286
                 self.expr(0)
                 pass
             else:
                 raise NoViableAltException(self)
 
-            self.state = 303
+            self.state = 297
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << GraphParser.STRING) | (1 << GraphParser.INT) | (1 << GraphParser.FLOAT) | (1 << GraphParser.MINUS) | (1 << GraphParser.VAR_ID) | (1 << GraphParser.FUNC_ID) | (1 << GraphParser.OPEN_PAREN) | (1 << GraphParser.OPEN_SQ_BRACKET) | (1 << GraphParser.COMMA))) != 0):
-                self.state = 301
+                self.state = 295
                 self._errHandler.sync(self)
                 token = self._input.LA(1)
                 if token in [GraphParser.COMMA]:
-                    self.state = 295
+                    self.state = 289
                     self.match(GraphParser.COMMA)
-                    self.state = 296
+                    self.state = 290
                     self.match(GraphParser.SPACE)
 
-                    self.state = 297
+                    self.state = 291
                     self.match(GraphParser.REF)
-                    self.state = 298
+                    self.state = 292
                     self.match(GraphParser.SPACE)
-                    self.state = 299
+                    self.state = 293
                     self.match(GraphParser.VAR_ID)
                     pass
                 elif token in [GraphParser.STRING, GraphParser.INT, GraphParser.FLOAT, GraphParser.MINUS, GraphParser.VAR_ID, GraphParser.FUNC_ID, GraphParser.OPEN_PAREN, GraphParser.OPEN_SQ_BRACKET]:
-                    self.state = 300
+                    self.state = 294
                     self.expr(0)
                     pass
                 else:
                     raise NoViableAltException(self)
 
-                self.state = 305
+                self.state = 299
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
@@ -2405,25 +2365,25 @@ class GraphParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 306
+            self.state = 300
             self.match(GraphParser.OPEN_SQ_BRACKET)
-            self.state = 307
+            self.state = 301
             self.expr(0)
-            self.state = 313
+            self.state = 307
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while _la==GraphParser.COMMA:
-                self.state = 308
+                self.state = 302
                 self.match(GraphParser.COMMA)
-                self.state = 309
+                self.state = 303
                 self.match(GraphParser.SPACE)
-                self.state = 310
+                self.state = 304
                 self.expr(0)
-                self.state = 315
+                self.state = 309
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
-            self.state = 316
+            self.state = 310
             self.match(GraphParser.CLOSE_SQ_BRACKET)
         except RecognitionException as re:
             localctx.exception = re
@@ -2481,15 +2441,15 @@ class GraphParser ( Parser ):
         self.enterRule(localctx, 46, self.RULE_rangerStruct)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 318
+            self.state = 312
             self.match(GraphParser.OPEN_SQ_BRACKET)
-            self.state = 319
+            self.state = 313
             self.expr(0)
-            self.state = 320
+            self.state = 314
             self.match(GraphParser.DOTDOT)
-            self.state = 321
+            self.state = 315
             self.expr(0)
-            self.state = 322
+            self.state = 316
             self.match(GraphParser.CLOSE_SQ_BRACKET)
         except RecognitionException as re:
             localctx.exception = re
@@ -2550,17 +2510,17 @@ class GraphParser ( Parser ):
         self.enterRule(localctx, 48, self.RULE_graph)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 324
+            self.state = 318
             self.match(GraphParser.GRAPH)
-            self.state = 325
+            self.state = 319
             self.match(GraphParser.COLON)
-            self.state = 326
+            self.state = 320
             self.match(GraphParser.NEWLINE)
-            self.state = 327
+            self.state = 321
             self.match(GraphParser.INDENT)
-            self.state = 328
+            self.state = 322
             self.vertices()
-            self.state = 329
+            self.state = 323
             self.match(GraphParser.DEDENT)
         except RecognitionException as re:
             localctx.exception = re
@@ -2616,15 +2576,15 @@ class GraphParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 334 
+            self.state = 328 
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while True:
-                self.state = 331
+                self.state = 325
                 self.vertex()
-                self.state = 332
+                self.state = 326
                 self.match(GraphParser.NEWLINE)
-                self.state = 336 
+                self.state = 330 
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 if not (_la==GraphParser.VAR_ID):
@@ -2684,25 +2644,25 @@ class GraphParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 338
+            self.state = 332
             self.match(GraphParser.VAR_ID)
-            self.state = 345
+            self.state = 339
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if _la==GraphParser.SPACE:
-                self.state = 340 
+                self.state = 334 
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 while True:
-                    self.state = 339
+                    self.state = 333
                     self.match(GraphParser.SPACE)
-                    self.state = 342 
+                    self.state = 336 
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
                     if not (_la==GraphParser.SPACE):
                         break
 
-                self.state = 344
+                self.state = 338
                 self.edges()
 
 
@@ -2766,29 +2726,29 @@ class GraphParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 347
+            self.state = 341
             self.edge()
-            self.state = 357
+            self.state = 351
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while _la==GraphParser.COMMA:
-                self.state = 348
+                self.state = 342
                 self.match(GraphParser.COMMA)
-                self.state = 350 
+                self.state = 344 
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 while True:
-                    self.state = 349
+                    self.state = 343
                     self.match(GraphParser.SPACE)
-                    self.state = 352 
+                    self.state = 346 
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
                     if not (_la==GraphParser.SPACE):
                         break
 
-                self.state = 354
+                self.state = 348
                 self.edge()
-                self.state = 359
+                self.state = 353
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
@@ -2852,29 +2812,29 @@ class GraphParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 360
+            self.state = 354
             self.match(GraphParser.OPEN_PAREN)
-            self.state = 362
+            self.state = 356
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if _la==GraphParser.DIRECTED:
-                self.state = 361
+                self.state = 355
                 self.match(GraphParser.DIRECTED)
 
 
-            self.state = 364
+            self.state = 358
             self.match(GraphParser.VAR_ID)
-            self.state = 367
+            self.state = 361
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if _la==GraphParser.SPACE:
-                self.state = 365
+                self.state = 359
                 self.match(GraphParser.SPACE)
-                self.state = 366
+                self.state = 360
                 self.expr(0)
 
 
-            self.state = 369
+            self.state = 363
             self.match(GraphParser.CLOSE_PAREN)
         except RecognitionException as re:
             localctx.exception = re
@@ -2923,7 +2883,7 @@ class GraphParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 371
+            self.state = 365
             _la = self._input.LA(1)
             if not(_la==GraphParser.VAR_ID or _la==GraphParser.FUNC_ID):
                 self._errHandler.recoverInline(self)
@@ -2977,7 +2937,7 @@ class GraphParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 373
+            self.state = 367
             _la = self._input.LA(1)
             if not(_la==GraphParser.INT or _la==GraphParser.FLOAT):
                 self._errHandler.recoverInline(self)
@@ -3031,7 +2991,7 @@ class GraphParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 375
+            self.state = 369
             _la = self._input.LA(1)
             if not(_la==GraphParser.TRUE or _la==GraphParser.FALSE):
                 self._errHandler.recoverInline(self)
