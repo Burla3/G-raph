@@ -210,7 +210,6 @@ compOp : LESS_THAN | GREATER_THAN | LESS_EQUAL | GREATER_EQUAL | IN | NOT_IN ;
 expr : molecule (SPACE setOp SPACE molecule)+
        |<assoc=right> MINUS expr
        |<assoc=right> expr POWER expr
-       | (ROOT | LOG) OPEN_PAREN expr CLOSE_PAREN SPACE expr
        | expr SPACE factorOp SPACE expr
        | expr SPACE (PLUS | MINUS) SPACE expr
        | OPEN_PAREN expr CLOSE_PAREN
@@ -219,7 +218,7 @@ expr : molecule (SPACE setOp SPACE molecule)+
        ;
 
 setOp: UNION | INTERSECT | DIFF | CONCAT ;
-factorOp : TIMES | DIVIDE | MODULO | FLOORDIVISION | CEILINGDIVISION ;
+factorOp : TIMES | DIVIDE | MODULO ;
 
 molecule : identifier trailer+ | atom ;
 
@@ -294,11 +293,7 @@ CONCAT : 'concat' ;
 TIMES : '*' ;
 DIVIDE : '/' ;
 MODULO : '%' ;
-FLOORDIVISION : '/-' ;
-CEILINGDIVISION : '/+' ;
-LOG : 'log' ;
 POWER : '^' ;
-ROOT : 'root' ;
 DIRECTED : '->' ;
 
 // identifiers
