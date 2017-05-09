@@ -40,10 +40,10 @@ fourSpaces = "    "
 eightSpaces = "        "
 
 # Path and name of the phases and their actions
-phases = [Phase("DeclarationProcessing", "DeclarationProcessor", "process"),
-          Phase("ContextualAnalysis", "ScopeChecker", "check"),
-          Phase("ContextualAnalysis", "TypeChecker", "check"),
-          Phase("CodeGeneration", "CodeGenerator", "generate")]
+phases = [Phase("Template", "DeclarationProcessor", "process"),
+          Phase("Template", "ScopeChecker", "check"),
+          Phase("Template", "TypeChecker", "check"),
+          Phase("Template", "CodeGenerator", "generate")]
 
 # Find defs in visitor
 defs = []
