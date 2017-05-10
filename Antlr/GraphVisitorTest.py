@@ -128,13 +128,23 @@ class GraphVisitor(ParseTreeVisitor):
     def visitCompOp(self, ctx:GraphParser.CompOpContext):
         return ctx.children[0].symbol.text
 
+    def strSub(self, mobj):
+        key = mobj.group(1)[1:-1]
+        scope = self.getCurrentScope()
+        return str(scope.get(key)['value'])
+
 
     # Visit a parse tree produced by GraphParser#expr.
     def visitExpr(self, ctx:GraphParser.ExprContext):
         childrens = ctx.getChildCount()
 
         if childrens == 1:
-            return ctx.children[0].accept(self)
+            value = ctx.children[0].accept(self)
+            if type(value) is str and '\'' in value:
+                value = value[1:-1]  # stripping ' of both ends
+                value = re.sub("(?<![\\\])({(?:[a-z]+[a-z0-9]*)\})", self.strSub, value)
+                value = ValueTypeTuple(value, 'string')
+            return value
         else:
             operator = ctx.children[1].symbol.text
 

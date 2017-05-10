@@ -14,10 +14,13 @@ function GiveBack():
     return 5
 
 @run:
+
     hmm = 2
     bobbob = hmm + 3
     hmm = bobbob + hmm
     Print(hmm)
+
+    andet = '{bobbob}value of\{javel} hmm is: {hmm}'
 
     javel = true
     jamenDog = false
