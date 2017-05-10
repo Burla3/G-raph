@@ -4,7 +4,8 @@ from antlr4 import *
 from ASTBuilder import ASTBuilder
 from Antlr.GraphParser import GraphParser
 
-from GraphVisitor import GraphVisitor
+from Antlr.GraphVisitorTest import GraphVisitor
+from Antlr.GraphVisitorAST import GraphVisitorAST
 
 
 def main():
@@ -13,13 +14,13 @@ def main():
     stream = CommonTokenStream(lexer)
 
 
-    stream.fill()
+    #stream.fill()
 
-    for token in stream.tokens:
-        if '\r\n' in token.text:
-            print('newline', ' ', token.type)
-        elif token.text is not ' ':
-            print(token.text, ' ', token.type)
+    #for token in stream.tokens:
+    #    if '\r\n' in token.text:
+    #        print('newline', ' ', token.type)
+    #    elif token.text is not ' ':
+    #        print(token.text, ' ', token.type)
 
     parser = GraphParser(stream)
     try:
@@ -36,12 +37,19 @@ def main():
     file.write(json)
     file.close()
 
+    #visitor = GraphVisitor()
+    #try:
+    #    visitorResult = visitor.visitProgram(tree)
+    #except Exception as e:
+    #    print(e.args)
+    #    return
+
+    visitor = GraphVisitorAST()
+    visitor.visitProgram(tree)
+
     visitor = GraphVisitor()
-    try:
-        visitorResult = visitor.visitProgram(tree)
-    except Exception as e:
-        print(e.args)
-        return
+    visitorResult = visitor.visitProgram(tree)
+
 
 
 if __name__ == '__main__':

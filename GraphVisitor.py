@@ -1,7 +1,7 @@
-from DeclarationProcessing.DeclarationProcessor import DeclarationProcessor
-from ContextualAnalysis.ScopeChecker import ScopeChecker
-from ContextualAnalysis.TypeChecker import TypeChecker
-from CodeGeneration.CodeGenerator import CodeGenerator
+from Template.DeclarationProcessor import DeclarationProcessor
+from Template.ScopeChecker import ScopeChecker
+from Template.TypeChecker import TypeChecker
+from Template.CodeGenerator import CodeGenerator
 
 from antlr4 import *
 if __name__ is not None and "." in __name__:

@@ -1,2 +1,49 @@
+function Hej():
+    bobbob = 8008
+    Print(bobbob)
+
+function Hejsa(looort):
+    tis = looort + 4
+    Print(tis)
+
+function Toaster(ost, skinke, broed):
+    toast = ost + skinke + broed
+    Print(toast)
+
+function GiveBack():
+    return 5
+
 @run:
-    hmmm = root(2) (3 + 3)
+    hmm = 2
+    bobbob = hmm + 3
+    hmm = bobbob + hmm
+    Print(hmm)
+
+    javel = true
+    jamenDog = false
+
+    hov = bobbob > hmm
+    Print(hov)
+
+    lol = true
+
+    if false:
+        Print(lol)
+    else:
+        Print(hmm)
+
+    Hej()
+    Hejsa(hmm)
+    Toaster(2, 4, 8)
+
+    Print(bobbob)
+
+    i = 0
+
+    while 9 > i:
+        i = i + 1
+        Print(i)
+
+    itsBack = GiveBack()
+
+    Print(itsBack)

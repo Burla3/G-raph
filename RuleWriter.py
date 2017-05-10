@@ -8,8 +8,8 @@ class RuleWriter(GraphListener):
     def enterProgram(self, kurt):
         self.cont.string += "\"Program\":"
 
-    def enterProcDef(self, kurt):
-        self.cont.string += "\"ProcDef\":"
+    def enterFuncDef(self, kurt):
+        self.cont.string += "\"FuncDef\":"
 
     def enterFormalParams(self, kurt):
         self.cont.string += "\"FormalParams\":"
@@ -25,12 +25,6 @@ class RuleWriter(GraphListener):
 
     def enterAssignment(self, kurt):
         self.cont.string += "\"Assignment\":"
-
-    def enterPrintStmt(self, kurt):
-        self.cont.string += "\"PrintStmt\":"
-
-    def enterLengthStmt(self, kurt):
-        self.cont.string += "\"LengthStmt\":"
 
     def enterCompoundStmt(self, kurt):
         self.cont.string += "\"CompoundStmt\":"
@@ -74,14 +68,14 @@ class RuleWriter(GraphListener):
     def enterFuncCall(self, kurt):
         self.cont.string += "\"FuncCall\":"
 
-    def enterGraphKeyword(self, kurt):
-        self.cont.string += "\"GraphKeyword\":"
-
     def enterActualParams(self, kurt):
         self.cont.string += "\"ActualParams\":"
 
     def enterListStruct(self, kurt):
         self.cont.string += "\"ListStruct\":"
+
+    def enterRangerStruct(self, kurt):
+        self.cont.string += "\"RangerStruct\":"
 
     def enterGraph(self, kurt):
         self.cont.string += "\"Graph\":"
