@@ -7,7 +7,7 @@ class SymbolTable():
     def get(self, symkey):
         if symkey in self.symbols:
             if self.symbols[symkey]['type'] == 'ref':
-                return self.symbols[symkey]['value'][self.symbols[symkey]['value']['refkey']]
+                return self.symbols[symkey]['value']['table'].get(self.symbols[symkey]['value']['key'])
             else:
                 return self.symbols[symkey]
         else:
