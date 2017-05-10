@@ -1,24 +1,23 @@
 function Hej():
     bobbob = 8008
-    Print(bobbob)
+    Print('{bobbob}')
 
 function Hejsa(looort):
     tis = looort + 4
-    Print(tis)
+    Print('{tis}')
 
 function Toaster(ost, skinke, broed):
     toast = ost + skinke + broed
-    Print(toast)
+    Print('{toast}')
 
 function GiveBack():
     return 5
 
 @run:
-
     hmm = 2
     bobbob = hmm + 3
     hmm = bobbob + hmm
-    Print(hmm)
+    Print('{hmm}')
 
     andet = '{bobbob}value of\{javel} hmm is: {hmm}'
 
@@ -26,27 +25,30 @@ function GiveBack():
     jamenDog = false
 
     hov = bobbob > hmm
-    Print(hov)
+
 
     lol = true
 
     if false:
-        Print(lol)
+        Print('{lol}')
     else:
-        Print(hmm)
+        Print('{hmm}')
 
     Hej()
     Hejsa(hmm)
     Toaster(2, 4, 8)
 
-    Print(bobbob)
+    Print('{bobbob}')
 
     i = 0
 
     while 9 > i:
         i = i + 1
-        Print(i)
+        Print('{i}')
 
     itsBack = GiveBack()
 
-    Print(itsBack)
+    Print('Hej med dig')
+
+    Print('{itsBack}')
+

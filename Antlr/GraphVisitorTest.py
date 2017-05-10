@@ -115,7 +115,8 @@ class GraphVisitor(ParseTreeVisitor):
                 right = self.getValue(ctx.children[2])
 
                 if left.type != 'number' or right.type != 'number':
-                    raise TypeError('Types do not match')
+                    error = 'Types do not match in test on line ' + str(ctx.start.line) + ':' + str(ctx.start.column)
+                    raise TypeError(error)
 
                 result = left.value > right.value
             else:
@@ -142,7 +143,7 @@ class GraphVisitor(ParseTreeVisitor):
             value = ctx.children[0].accept(self)
             if type(value) is str and '\'' in value:
                 value = value[1:-1]  # stripping ' of both ends
-                value = re.sub("(?<![\\\])({(?:[a-z]+[a-z0-9]*)\})", self.strSub, value)
+                value = re.sub("(?<![\\\])({(?:[a-z]+[a-zA-Z0-9]*)\})", self.strSub, value)
                 value = ValueTypeTuple(value, 'string')
             return value
         else:
@@ -202,8 +203,7 @@ class GraphVisitor(ParseTreeVisitor):
 
         if funcName == 'Print':
             input = ctx.children[1].accept(self)
-            value = self.getCurrentScope().get(input)
-            print(value['value'])
+            print(input.value)
         elif funcName in self.envF:
             result = self.visitDefinedFunction(ctx, funcName)
 
