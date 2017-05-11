@@ -103,7 +103,7 @@ class GraphVisitor(ParseTreeVisitor):
     def visitCompOp(self, ctx:GraphParser.CompOpContext):
         return ctx.children[0].symbol.text
 
-    def strSub(self, mobj):
+    def strSubVars(self, mobj):
         key = mobj.group(1)[1:-1]
         scope = self.getCurrentScope()
         return str(scope.get(key)['value'])
@@ -115,7 +115,8 @@ class GraphVisitor(ParseTreeVisitor):
             value = ctx.children[0].accept(self)
             if type(value) is str and '\'' in value:
                 value = value[1:-1]  # stripping ' of both ends
-                value = re.sub("(?<![\\\])({(?:[a-z]+[a-zA-Z0-9]*)\})", self.strSub, value)
+                value = re.sub("(?<![\\\])({(?:[a-z]+[a-zA-Z0-9]*)\})", self.strSubVars, value)
+                value = re.sub("(\\\)(?={(?:[a-z]+[a-zA-Z0-9]*)\})", '', value)
                 value = ValueTypeTuple(value, 'string')
             return value
         else:
