@@ -220,7 +220,7 @@ expr : molecule (SPACE setOp SPACE molecule)+
 setOp: UNION | INTERSECT | DIFF | CONCAT ;
 factorOp : TIMES | DIVIDE | MODULO ;
 
-molecule : identifier trailer+ | atom ;
+molecule : identifier listStruct+ | atom ;
 
 atom : VAR_ID
      | number
@@ -229,10 +229,9 @@ atom : VAR_ID
      | listStruct
      ;
 
-trailer : listStruct ;
 funcCall : FUNC_ID OPEN_PAREN actualParams? CLOSE_PAREN ;
-actualParams : ((REF SPACE VAR_ID) | expr) (COMMA SPACE ((REF SPACE VAR_ID) | expr))* ;
-listStruct : OPEN_SQ_BRACKET expr (COMMA SPACE expr)* CLOSE_SQ_BRACKET ;
+actualParams : ((REF SPACE VAR_ID) | test) (COMMA SPACE ((REF SPACE VAR_ID) | test))* ;
+listStruct : OPEN_SQ_BRACKET test (COMMA SPACE test)* CLOSE_SQ_BRACKET ;
 rangerStruct : OPEN_SQ_BRACKET expr DOTDOT expr CLOSE_SQ_BRACKET ;
 
 // Graph
@@ -255,8 +254,8 @@ boolean : TRUE | FALSE ;
 STRING : '\'' .*? '\'' ; // .*? matches anything until the first '
 INT : DIGIT+ ;
 FLOAT : DIGIT+ DOT DIGIT+ ;
-TRUE : 'true' ;
-FALSE : 'false' ;
+TRUE : 'True' ;
+FALSE : 'False' ;
 
 // Keywords
 RUN: '@run' ;

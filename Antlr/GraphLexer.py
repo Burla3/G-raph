@@ -85,9 +85,9 @@ def serializedATN():
         buf.write("\u0088\u0086\3\2\2\2\u0088\u0089\3\2\2\2\u0089\u008a\3")
         buf.write("\2\2\2\u008a\u008c\5_\60\2\u008b\u008d\5g\64\2\u008c\u008b")
         buf.write("\3\2\2\2\u008d\u008e\3\2\2\2\u008e\u008c\3\2\2\2\u008e")
-        buf.write("\u008f\3\2\2\2\u008f\b\3\2\2\2\u0090\u0091\7v\2\2\u0091")
+        buf.write("\u008f\3\2\2\2\u008f\b\3\2\2\2\u0090\u0091\7V\2\2\u0091")
         buf.write("\u0092\7t\2\2\u0092\u0093\7w\2\2\u0093\u0094\7g\2\2\u0094")
-        buf.write("\n\3\2\2\2\u0095\u0096\7h\2\2\u0096\u0097\7c\2\2\u0097")
+        buf.write("\n\3\2\2\2\u0095\u0096\7H\2\2\u0096\u0097\7c\2\2\u0097")
         buf.write("\u0098\7n\2\2\u0098\u0099\7u\2\2\u0099\u009a\7g\2\2\u009a")
         buf.write("\f\3\2\2\2\u009b\u009c\7B\2\2\u009c\u009d\7t\2\2\u009d")
         buf.write("\u009e\7w\2\2\u009e\u009f\7p\2\2\u009f\16\3\2\2\2\u00a0")
@@ -243,7 +243,7 @@ class GraphLexer(Lexer):
     modeNames = [ "DEFAULT_MODE" ]
 
     literalNames = [ "<INVALID>",
-            "'true'", "'false'", "'@run'", "'graph'", "'function'", "'return'", 
+            "'True'", "'False'", "'@run'", "'graph'", "'function'", "'return'", 
             "'pass'", "'if'", "'else if'", "'else'", "'while'", "'for each'", 
             "'ref'", "'='", "'or'", "'and'", "'not'", "'<'", "'>'", "'<='", 
             "'>='", "'in'", "'not in'", "'is'", "'is not'", "'+'", "'-'", 

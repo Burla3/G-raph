@@ -14,6 +14,10 @@ function GiveBack():
     return 5
 
 @run:
+    g = [99, 3, 4, 5, 6, 7, True, False]
+    h = g[1]
+    Print('{h}')
+
     hmm = 2
     bobbob = hmm + 3
     hmm = bobbob + hmm
@@ -21,15 +25,15 @@ function GiveBack():
 
     andet = '{bobbob}value of\{javel} hmm is: {hmm}'
 
-    javel = true
-    jamenDog = false
+    javel = True
+    jamenDog = False
 
     hov = bobbob > hmm
 
 
-    lol = true
+    lol = True
 
-    if false:
+    if False:
         Print('{lol}')
     else:
         Print('{hmm}')
@@ -52,3 +56,4 @@ function GiveBack():
 
     Print('{itsBack}')
 
+    b = [1..5]

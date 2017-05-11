@@ -62,9 +62,6 @@ class RuleWriter(GraphListener):
     def enterAtom(self, kurt):
         self.cont.string += "\"Atom\":"
 
-    def enterTrailer(self, kurt):
-        self.cont.string += "\"Trailer\":"
-
     def enterFuncCall(self, kurt):
         self.cont.string += "\"FuncCall\":"
 
