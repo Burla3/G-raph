@@ -24,7 +24,7 @@ function GiveBack():
     Print('{hmm}')
 
     andet = '{bobbob}value of\{javel} hmm is: {hmm}'
-
+    Print('{andet}')
     javel = True
     jamenDog = False
 

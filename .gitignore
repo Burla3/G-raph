@@ -91,3 +91,5 @@ ENV/
 # Custom ignores
 ClassPathCmd.bat
 .idea/
+
+treeInJSON.json
