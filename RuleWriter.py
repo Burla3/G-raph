@@ -41,9 +41,6 @@ class RuleWriter(GraphListener):
     def enterGraphAssignment(self, kurt):
         self.cont.string += "\"GraphAssignment\":"
 
-    def enterTest(self, kurt):
-        self.cont.string += "\"Test\":"
-
     def enterCompOp(self, kurt):
         self.cont.string += "\"CompOp\":"
 

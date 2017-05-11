@@ -99,32 +99,6 @@ class GraphVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by GraphParser#test.
-    def visitTest(self, ctx:GraphParser.TestContext):
-        childs = ctx.getChildCount()
-
-        if childs == 1:
-            return ctx.children[0].accept(self)
-        else:
-            operator = ctx.children[1].accept(self)
-
-            if operator == '>':
-                exprType = 'bool'
-
-                left = self.getValue(ctx.children[0])
-                right = self.getValue(ctx.children[2])
-
-                if left.type != 'number' or right.type != 'number':
-                    error = 'Types do not match in test on line ' + str(ctx.start.line) + ':' + str(ctx.start.column)
-                    raise TypeError(error)
-
-                result = left.value > right.value
-            else:
-                print('Det giver ikke mening')
-
-        return ValueTypeTuple(result, exprType)
-
-
     # Visit a parse tree produced by GraphParser#compOp.
     def visitCompOp(self, ctx:GraphParser.CompOpContext):
         return ctx.children[0].symbol.text
@@ -145,7 +119,11 @@ class GraphVisitor(ParseTreeVisitor):
                 value = ValueTypeTuple(value, 'string')
             return value
         else:
-            operator = ctx.children[1].symbol.text
+            operator = ctx.children[1]
+            if hasattr(operator, 'symbol'):
+                operator = operator.symbol.text
+            else:
+                operator = operator.children[0].symbol.text
 
             left = self.getValue(ctx.children[0])
             right = self.getValue(ctx.children[2])
@@ -158,6 +136,17 @@ class GraphVisitor(ParseTreeVisitor):
                     raise TypeError(error)
 
                 result = left.value + right.value
+            elif operator == '>':
+                exprType = 'bool'
+
+                left = self.getValue(ctx.children[0])
+                right = self.getValue(ctx.children[2])
+
+                if left.type != 'number' or right.type != 'number':
+                    error = 'Types do not match in test on line ' + str(ctx.start.line) + ':' + str(ctx.start.column)
+                    raise TypeError(error)
+
+                result = left.value > right.value
             else:
                 print('Det giver ikke mening')
 
@@ -285,8 +274,8 @@ class GraphVisitor(ParseTreeVisitor):
     def visitListStruct(self, ctx:GraphParser.ListStructContext):
 
         listStruct = []
-        for test in ctx.children:
-            result = self.visitTest(test)
+        for expr in ctx.children:
+            result = self.visitExpr(expr)
             listStruct.append(result)
 
         return ValueTypeTuple(listStruct, 'list')
@@ -346,7 +335,7 @@ class GraphVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by GraphParser#boolean.
     def visitBoolean(self, ctx:GraphParser.BooleanContext):
-        return ValueTypeTuple(ctx.getText() == 'true', 'boolean')
+        return ValueTypeTuple(ctx.getText() == 'True', 'boolean')
 
 
     def isNumber(self, value):

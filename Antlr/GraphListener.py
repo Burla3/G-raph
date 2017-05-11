@@ -116,15 +116,6 @@ class GraphListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by GraphParser#test.
-    def enterTest(self, ctx:GraphParser.TestContext):
-        pass
-
-    # Exit a parse tree produced by GraphParser#test.
-    def exitTest(self, ctx:GraphParser.TestContext):
-        pass
-
-
     # Enter a parse tree produced by GraphParser#compOp.
     def enterCompOp(self, ctx:GraphParser.CompOpContext):
         pass

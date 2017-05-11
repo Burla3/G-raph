@@ -179,7 +179,7 @@ simpleStmt : assignment
            | funcCall
            ;
 
-assignment : molecule SPACE ASSIGN SPACE (expr | test) ;
+assignment : molecule SPACE ASSIGN SPACE (expr | expr) ;
 
 // Compound statements
 compoundStmt : ifStmt
@@ -188,34 +188,27 @@ compoundStmt : ifStmt
              | graphAssignment
              ;
 
-ifStmt : IF SPACE test block (ELSEIF SPACE test block)* (ELSE block)? ;
-whileStmt : WHILE SPACE test block ;
+ifStmt : IF SPACE expr block (ELSEIF SPACE expr block)* (ELSE block)? ;
+whileStmt : WHILE SPACE expr block ;
 foreachStmt : FOREACH SPACE identifier SPACE IN SPACE expr block ;
 graphAssignment : VAR_ID SPACE ASSIGN SPACE graph ;
 
-// Test
-test : test SPACE compOp SPACE test
-     | test SPACE (IS | IS_NOT) SPACE test
-     | NOT SPACE test
-     | test SPACE AND SPACE test
-     | test SPACE OR SPACE test
-     | OPEN_PAREN test CLOSE_PAREN
-     | expr
-     | boolean
-     ;
-
-compOp : LESS_THAN | GREATER_THAN | LESS_EQUAL | GREATER_EQUAL | IN | NOT_IN ;
+compOp : LESS_THAN | GREATER_THAN | LESS_EQUAL | GREATER_EQUAL | IN | NOT_IN | IS | IS_NOT;
 
 // Expressions
-expr : molecule (SPACE setOp SPACE molecule)+
-       |<assoc=right> MINUS expr
-       |<assoc=right> expr POWER expr
-       | expr SPACE factorOp SPACE expr
-       | expr SPACE (PLUS | MINUS) SPACE expr
-       | OPEN_PAREN expr CLOSE_PAREN
-       | funcCall
-       | molecule
-       ;
+expr : funcCall
+     | molecule
+     |<assoc=right> MINUS expr
+     |<assoc=right> expr POWER expr
+     | expr SPACE factorOp SPACE expr
+     | expr SPACE (PLUS | MINUS) SPACE expr
+     | expr SPACE setOp SPACE expr
+     | expr SPACE compOp SPACE expr
+     | NOT SPACE expr
+     | expr SPACE AND SPACE expr
+     | expr SPACE OR SPACE expr
+     | OPEN_PAREN expr CLOSE_PAREN
+     ;
 
 setOp: UNION | INTERSECT | DIFF | CONCAT ;
 factorOp : TIMES | DIVIDE | MODULO ;
@@ -227,11 +220,12 @@ atom : VAR_ID
      | STRING
      | rangerStruct
      | listStruct
+     | boolean
      ;
 
 funcCall : FUNC_ID OPEN_PAREN actualParams? CLOSE_PAREN ;
-actualParams : ((REF SPACE VAR_ID) | test) (COMMA SPACE ((REF SPACE VAR_ID) | test))* ;
-listStruct : OPEN_SQ_BRACKET test (COMMA SPACE test)* CLOSE_SQ_BRACKET ;
+actualParams : ((REF SPACE VAR_ID) | expr) (COMMA SPACE ((REF SPACE VAR_ID) | expr))* ;
+listStruct : OPEN_SQ_BRACKET expr (COMMA SPACE expr)* CLOSE_SQ_BRACKET ;
 rangerStruct : OPEN_SQ_BRACKET expr DOTDOT expr CLOSE_SQ_BRACKET ;
 
 // Graph

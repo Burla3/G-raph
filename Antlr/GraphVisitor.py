@@ -69,11 +69,6 @@ class GraphVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by GraphParser#test.
-    def visitTest(self, ctx:GraphParser.TestContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by GraphParser#compOp.
     def visitCompOp(self, ctx:GraphParser.CompOpContext):
         return self.visitChildren(ctx)

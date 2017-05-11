@@ -10,6 +10,7 @@ from Antlr.GraphVisitorAST import GraphVisitorAST
 
 def main():
     input = FileStream('testPrograms/test.graph')
+    #input = FileStream('testPrograms/assosiativityTest.graph')
     lexer = GraphLexer(input)
     stream = CommonTokenStream(lexer)
 

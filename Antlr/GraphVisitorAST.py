@@ -131,18 +131,6 @@ class GraphVisitorAST(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by GraphParser#test.
-    def visitTest(self, ctx:GraphParser.TestContext):
-        children = ctx.children
-        count = len(children)
-
-        if count > 1:
-            del children[3]
-            del children[1]
-
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by GraphParser#compOp.
     def visitCompOp(self, ctx:GraphParser.CompOpContext):
         return self.visitChildren(ctx)
