@@ -179,15 +179,6 @@ class GraphListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by GraphParser#trailer.
-    def enterTrailer(self, ctx:GraphParser.TrailerContext):
-        pass
-
-    # Exit a parse tree produced by GraphParser#trailer.
-    def exitTrailer(self, ctx:GraphParser.TrailerContext):
-        pass
-
-
     # Enter a parse tree produced by GraphParser#funcCall.
     def enterFuncCall(self, ctx:GraphParser.FuncCallContext):
         pass

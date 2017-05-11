@@ -179,11 +179,6 @@ class GraphVisitorAST(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by GraphParser#trailer.
-    def visitTrailer(self, ctx:GraphParser.TrailerContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by GraphParser#funcCall.
     def visitFuncCall(self, ctx:GraphParser.FuncCallContext):
         children = ctx.children
@@ -218,11 +213,29 @@ class GraphVisitorAST(ParseTreeVisitor):
 
     # Visit a parse tree produced by GraphParser#listStruct.
     def visitListStruct(self, ctx:GraphParser.ListStructContext):
+        children = ctx.children
+        count = len(children)
+
+        del children[count - 1]
+        del children[0]
+
+        if count > 1:
+            times = int((count - 1) / 3)
+            for i in range(0, times):
+                del children[1 + i]
+                del children[1 + i]
+
         return self.visitChildren(ctx)
 
 
     # Visit a parse tree produced by GraphParser#rangerStruct.
     def visitRangerStruct(self, ctx:GraphParser.RangerStructContext):
+        children = ctx.children
+        count = len(children)
+
+        del children[4]
+        del children[2]
+        del children[0]
         return self.visitChildren(ctx)
 
 

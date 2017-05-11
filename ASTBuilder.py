@@ -69,7 +69,9 @@ class ASTBuilder:
             json.string += '}'
         else:
             if not tree.symbol.text.isspace():
-                json.string += '"' + tree.symbol.text + '"'
+                string = tree.symbol.text
+                string = string.replace('\\', '\\\\')
+                json.string += '"' + string + '"'
 
     def WTreeWalk(self, json, tree):
         if hasattr(tree, 'enterRule'):

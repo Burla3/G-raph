@@ -137,9 +137,7 @@ class GraphVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by GraphParser#expr.
     def visitExpr(self, ctx:GraphParser.ExprContext):
-        childrens = ctx.getChildCount()
-
-        if childrens == 1:
+        if ctx.getChildCount() == 1:
             value = ctx.children[0].accept(self)
             if type(value) is str and '\'' in value:
                 value = value[1:-1]  # stripping ' of both ends
@@ -156,7 +154,8 @@ class GraphVisitor(ParseTreeVisitor):
                 exprType = 'number'
 
                 if left.type != 'number' or right.type != 'number':
-                    raise TypeError('Types do not match')
+                    error = 'Types do not match in test on line ' + str(ctx.start.line) + ':' + str(ctx.start.column)
+                    raise TypeError(error)
 
                 result = left.value + right.value
             else:
@@ -181,6 +180,22 @@ class GraphVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by GraphParser#molecule.
     def visitMolecule(self, ctx:GraphParser.MoleculeContext):
+        if ctx.getChildCount() > 1:
+            identifier = ctx.children[0].accept(self)
+            structure = self.lookUp(identifier)
+            index = self.lookUp(ctx.children[1].children[0].accept(self))
+
+            if index.type != 'number':
+                error = 'Value is not of type number ' + str(ctx.start.line) + ':' + str(ctx.start.column)
+                raise TypeError(error)
+            if structure.type != 'list':
+                error = 'Value is not of type list ' + str(ctx.start.line) + ':' + str(ctx.start.column)
+                raise TypeError(error)
+
+            value = structure.value[int(index.value)]
+
+            return value
+
         return self.visitChildren(ctx)
 
 
@@ -190,11 +205,6 @@ class GraphVisitor(ParseTreeVisitor):
             return ctx.children[0].symbol.text
         else:
             return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by GraphParser#trailer.
-    def visitTrailer(self, ctx:GraphParser.TrailerContext):
-        return self.visitChildren(ctx)
 
 
     # Visit a parse tree produced by GraphParser#funcCall.
@@ -273,12 +283,30 @@ class GraphVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by GraphParser#listStruct.
     def visitListStruct(self, ctx:GraphParser.ListStructContext):
-        return self.visitChildren(ctx)
+
+        listStruct = []
+        for test in ctx.children:
+            result = self.visitTest(test)
+            listStruct.append(result)
+
+        return ValueTypeTuple(listStruct, 'list')
 
 
     # Visit a parse tree produced by GraphParser#rangerStruct.
     def visitRangerStruct(self, ctx:GraphParser.RangerStructContext):
-        return self.visitChildren(ctx)
+
+        start = self.visitExpr(ctx.children[0])
+        end = self.visitExpr(ctx.children[1])
+
+        if start.type != 'number' or end.type != 'number':
+            error = 'Types do not match in test on line ' + str(ctx.start.line) + ':' + str(ctx.start.column)
+            raise TypeError(error)
+
+        ranger = []
+        for i in range(int(start.value), int(end.value)):
+            ranger.append(ValueTypeTuple(i, 'number'))
+
+        return ValueTypeTuple(ranger, 'list')
 
 
     # Visit a parse tree produced by GraphParser#graph.
@@ -330,7 +358,7 @@ class GraphVisitor(ParseTreeVisitor):
 
     def lookUp(self, value):
         if type(value) is str:
-            entry = self.symbolTableStack.peek().get(value)
+            entry = self.getCurrentScope().get(value)
             value = ValueTypeTuple(entry['value'], entry['type'])
 
         return value
