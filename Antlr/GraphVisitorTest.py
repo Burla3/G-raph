@@ -1,10 +1,18 @@
 # Generated from Graph.g4 by ANTLR 4.7
-from antlr4 import *
-from SymTab.SymbolTable import SymbolTable
-from Stack import Stack
-from ValueTypeTuple import ValueTypeTuple
-from FormalActualTuple import FormalActualTuple
 import re
+
+#from InterpreterClasses import *
+from InterpreterClasses.EdgeDecleration import EdgeDecleration
+from InterpreterClasses.FormalActualTuple import FormalActualTuple
+from InterpreterClasses.Graph import Graph
+from InterpreterClasses.Stack import Stack
+from InterpreterClasses.ValueTypeTuple import ValueTypeTuple
+from InterpreterClasses.VertexDecleration import VertexDecleration
+from antlr4 import *
+
+from InterpreterClasses.Edge import Edge
+from SymTab.SymbolTable import SymbolTable
+
 if __name__ is not None and "." in __name__:
     from .GraphParser import GraphParser
 else:
@@ -301,28 +309,72 @@ class GraphVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by GraphParser#graph.
     def visitGraph(self, ctx:GraphParser.GraphContext):
+        graph = Graph()
+        vertexDecls = self.visitChildren(ctx)
 
-        return self.visitChildren(ctx)
+        for vDecl in vertexDecls:
+            vertex = vDecl.vertex
+            if vertex not in graph.vertices:
+                dic = {'name': ValueTypeTuple(vertex, 'string')}
+                graph.vertices.append(dic)
+            for eDecl in vDecl.edges:
+                if eDecl.vertex not in graph.vertices:
+                    dic = {'name': ValueTypeTuple(eDecl.vertex, 'string')}
+                    graph.vertices.append(dic)
+
+                edge = Edge(vertex, eDecl.vertex, eDecl.directed)
+
+                if eDecl.label is not None:
+                    edge.labels['label'] = eDecl.label
+
+                graph.edges.append(edge)
+
+        return graph
 
 
     # Visit a parse tree produced by GraphParser#vertices.
     def visitVertices(self, ctx:GraphParser.VerticesContext):
-        return self.visitChildren(ctx)
+        vertexDecls = []
+        for decl in ctx.children:
+            vertexDecls.append(decl.accept(self))
+
+        return vertexDecls
 
 
     # Visit a parse tree produced by GraphParser#vertex.
     def visitVertex(self, ctx:GraphParser.VertexContext):
-        return self.visitChildren(ctx)
+        if ctx.getChildCount() == 1:
+            vertexDecl = VertexDecleration(ctx.children[0].symbol.text, [])
+        else:
+            vertexDecl = VertexDecleration(ctx.children[0].symbol.text, ctx.children[1].accept(self))
+        return vertexDecl
 
 
     # Visit a parse tree produced by GraphParser#edges.
     def visitEdges(self, ctx:GraphParser.EdgesContext):
-        return self.visitChildren(ctx)
+        edges = []
+        for edge in ctx.children:
+            edges.append(edge.accept(self))
+        return edges
 
 
     # Visit a parse tree produced by GraphParser#edge.
     def visitEdge(self, ctx:GraphParser.EdgeContext):
-        return self.visitChildren(ctx)
+        directed = False
+        vertex = None
+        label = None
+
+        for child in ctx.children:
+            if hasattr(child, 'symbol'):
+                text = child.symbol.text
+                if text == '->':
+                    directed = True
+                else:
+                    vertex = text
+            else:
+                label = child.accept(self)
+
+        return EdgeDecleration(directed, vertex, label)
 
 
     # Visit a parse tree produced by GraphParser#identifier.
