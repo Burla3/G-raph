@@ -229,26 +229,70 @@ class GraphVisitorAST(ParseTreeVisitor):
 
     # Visit a parse tree produced by GraphParser#graph.
     def visitGraph(self, ctx:GraphParser.GraphContext):
+        children = ctx.children
+
+        del children[0] # graph
+        del children[0] # :
+        del children[0] # \r\n
+        del children[0] # \r\n
+        del children[1] # \r\n
+
         return self.visitChildren(ctx)
 
 
     # Visit a parse tree produced by GraphParser#vertices.
     def visitVertices(self, ctx:GraphParser.VerticesContext):
+        children = ctx.children
+        count = len(children)
+
+        i = 1
+        while count / 2 < len(children):
+            del children[i]  # \r\n
+            i += 1
+
         return self.visitChildren(ctx)
 
 
     # Visit a parse tree produced by GraphParser#vertex.
     def visitVertex(self, ctx:GraphParser.VertexContext):
+        if len(ctx.children) > 2:
+            del ctx.children[1]  # [ ]
+
         return self.visitChildren(ctx)
 
 
     # Visit a parse tree produced by GraphParser#edges.
     def visitEdges(self, ctx:GraphParser.EdgesContext):
+        children = ctx.children
+        count = len(children)
+
+        i = 1
+        while count / 3 < len(children) - 2:
+            del children[i] # ,
+            del children[i] # [ ]
+            i += 1
+
         return self.visitChildren(ctx)
 
 
     # Visit a parse tree produced by GraphParser#edge.
     def visitEdge(self, ctx:GraphParser.EdgeContext):
+        children = ctx.children
+        count = len(children)
+
+        del ctx.children[0]  # (
+
+        if count is 3:
+            del ctx.children[1]  # )
+        elif count is 4:
+            del ctx.children[2]  # )
+        elif count is 5:
+            del ctx.children[1]  # [ ]
+            del ctx.children[2]  # )
+        elif count is 6:
+            del ctx.children[2]  # [ ]
+            del ctx.children[3]  # )
+
         return self.visitChildren(ctx)
 
 
