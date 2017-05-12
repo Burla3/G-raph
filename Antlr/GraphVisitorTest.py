@@ -301,6 +301,7 @@ class GraphVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by GraphParser#graph.
     def visitGraph(self, ctx:GraphParser.GraphContext):
+
         return self.visitChildren(ctx)
 
 
