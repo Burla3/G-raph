@@ -10,8 +10,21 @@ function Toaster(ost, skinke, broed):
     toast = ost + skinke + broed
     Print('{toast}')
 
+function SomeFunc():
+    return 7
+
 function GiveBack():
-    return 5
+    pass
+    if True:
+        if False:
+            return 9
+        else:
+            pass
+        SomeFunc()
+        return 5
+    else:
+        pass
+    return 4
 
 @run:
     g = [99, 3, 4, 5, 6, 7, True, False]
