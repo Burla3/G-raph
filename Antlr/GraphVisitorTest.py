@@ -55,8 +55,13 @@ class GraphVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by GraphParser#block.
     def visitBlock(self, ctx:GraphParser.BlockContext):
-        return self.visitChildren(ctx)
-
+        for child in ctx.children:
+            if child.start.text == 'return':
+                return self.visitChildren(child)
+            else:
+                retValue = self.visitChildren(child)
+                if retValue is not None:
+                    return retValue
 
     # Visit a parse tree produced by GraphParser#stmt.
     def visitStmt(self, ctx:GraphParser.StmtContext):
@@ -86,9 +91,9 @@ class GraphVisitor(ParseTreeVisitor):
         test = ctx.children[1].accept(self)
 
         if test.value:
-            ctx.children[2].accept(self)
-        else:
-            ctx.children[3].accept(self)
+            return ctx.children[2].accept(self)
+        elif len(ctx.children) > 3:
+            return ctx.children[3].accept(self)
 
 
     # Visit a parse tree produced by GraphParser#whileStmt.
@@ -215,15 +220,16 @@ class GraphVisitor(ParseTreeVisitor):
         elif funcName in self.envF:
             result = self.visitDefinedFunction(ctx, funcName)
 
-            return result
+            if not isinstance(ctx.parentCtx, GraphParser.SimpleStmtContext):
+                return result
         else:
             raise ModuleNotFoundError('Function: ' + funcName + ' do not exist.')
 
     def visitDefinedFunction(self, ctx, funcName):
-        funcBody = self.envF[funcName]
+        funcDef = self.envF[funcName]
 
         actualParams = self.getActualParams(ctx)
-        formalParams = self.getFormalParams(funcBody)
+        formalParams = self.getFormalParams(funcDef)
 
         if len(formalParams) != len(actualParams):
             raise ValueError('Formal parameters and actual parameters is not the same amount in function: ' + funcName)
@@ -234,7 +240,8 @@ class GraphVisitor(ParseTreeVisitor):
 
         self.insertParamsInNewScope(mappedParams)
 
-        result = self.visitChildren(funcBody.children[funcBody.getChildCount() - 1])
+        blockCtx = funcDef.children[funcDef.getChildCount() - 1]
+        result = self.visitBlock(blockCtx)
 
         self.closeScope()
 
@@ -421,4 +428,4 @@ class GraphVisitor(ParseTreeVisitor):
 
         return value
 
-del GraphParser
+#del GraphParser

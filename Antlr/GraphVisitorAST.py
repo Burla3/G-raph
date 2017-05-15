@@ -81,6 +81,9 @@ class GraphVisitorAST(ParseTreeVisitor):
 
     # Visit a parse tree produced by GraphParser#simpleStmt.
     def visitSimpleStmt(self, ctx:GraphParser.SimpleStmtContext):
+        if len(ctx.children) is 3:
+            del ctx.children[1]  # [ ]
+
         return self.visitChildren(ctx)
 
 
