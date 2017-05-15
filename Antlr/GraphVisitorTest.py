@@ -92,7 +92,7 @@ class GraphVisitor(ParseTreeVisitor):
 
         if test.value:
             return ctx.children[2].accept(self)
-        else:
+        elif len(ctx.children) > 3:
             return ctx.children[3].accept(self)
 
 
