@@ -329,7 +329,7 @@ class GraphVisitor(ParseTreeVisitor):
 
                 graph.edges.append(edge)
 
-        return graph
+        return ValueTypeTuple(graph, 'graph')
 
 
     # Visit a parse tree produced by GraphParser#vertices.
@@ -343,10 +343,14 @@ class GraphVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by GraphParser#vertex.
     def visitVertex(self, ctx:GraphParser.VertexContext):
+        vertex = ctx.children[0].accept(self)
+        if vertex.type != 'string':
+            raise TypeError('Vertex name is not a string')
+
         if ctx.getChildCount() == 1:
-            vertexDecl = VertexDecleration(ctx.children[0].symbol.text, [])
+            vertexDecl = VertexDecleration(vertex.value, [])
         else:
-            vertexDecl = VertexDecleration(ctx.children[0].symbol.text, ctx.children[1].accept(self))
+            vertexDecl = VertexDecleration(vertex.value, ctx.children[1].accept(self))
         return vertexDecl
 
 
@@ -361,20 +365,31 @@ class GraphVisitor(ParseTreeVisitor):
     # Visit a parse tree produced by GraphParser#edge.
     def visitEdge(self, ctx:GraphParser.EdgeContext):
         directed = False
-        vertex = None
         label = None
 
-        for child in ctx.children:
-            if hasattr(child, 'symbol'):
-                text = child.symbol.text
-                if text == '->':
-                    directed = True
-                else:
-                    vertex = text
+        count = ctx.getChildCount()
+
+        if count == 1:
+             vertex = self.getVertexName(ctx.children[0].accept(self))
+        elif count == 2:
+            if hasattr(ctx.children[0], 'symbol'):
+                directed = True
+                vertex = self.getVertexName(ctx.children[1].accept(self))
             else:
-                label = child.accept(self)
+                vertex = self.getVertexName(ctx.children[0].accept(self))
+                label = ctx.children[1].accept(self)
+        else:
+            directed = True
+            vertex = self.getVertexName(ctx.children[1].accept(self))
+            label = ctx.children[2].accept(self)
 
         return EdgeDecleration(directed, vertex, label)
+
+    def getVertexName(self, vertex):
+        if vertex.type != 'string':
+            raise TypeError('Edge name is not a string.')
+
+        return vertex.value
 
 
     # Visit a parse tree produced by GraphParser#identifier.

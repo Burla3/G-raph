@@ -143,18 +143,18 @@ def serializedATN():
         buf.write("\2\u012c/\3\2\2\2\u012d\u012e\5\62\32\2\u012e\u012f\7")
         buf.write("\66\2\2\u012f\u0131\3\2\2\2\u0130\u012d\3\2\2\2\u0131")
         buf.write("\u0132\3\2\2\2\u0132\u0130\3\2\2\2\u0132\u0133\3\2\2\2")
-        buf.write("\u0133\61\3\2\2\2\u0134\u0137\7*\2\2\u0135\u0136\7\64")
-        buf.write("\2\2\u0136\u0138\5\64\33\2\u0137\u0135\3\2\2\2\u0137\u0138")
-        buf.write("\3\2\2\2\u0138\63\3\2\2\2\u0139\u0143\5\66\34\2\u013a")
-        buf.write("\u013c\7\60\2\2\u013b\u013d\7\64\2\2\u013c\u013b\3\2\2")
-        buf.write("\2\u013d\u013e\3\2\2\2\u013e\u013c\3\2\2\2\u013e\u013f")
-        buf.write("\3\2\2\2\u013f\u0140\3\2\2\2\u0140\u0142\5\66\34\2\u0141")
-        buf.write("\u013a\3\2\2\2\u0142\u0145\3\2\2\2\u0143\u0141\3\2\2\2")
-        buf.write("\u0143\u0144\3\2\2\2\u0144\65\3\2\2\2\u0145\u0143\3\2")
-        buf.write("\2\2\u0146\u0148\7,\2\2\u0147\u0149\7)\2\2\u0148\u0147")
+        buf.write("\u0133\61\3\2\2\2\u0134\u0137\5\34\17\2\u0135\u0136\7")
+        buf.write("\64\2\2\u0136\u0138\5\64\33\2\u0137\u0135\3\2\2\2\u0137")
+        buf.write("\u0138\3\2\2\2\u0138\63\3\2\2\2\u0139\u0143\5\66\34\2")
+        buf.write("\u013a\u013c\7\60\2\2\u013b\u013d\7\64\2\2\u013c\u013b")
+        buf.write("\3\2\2\2\u013d\u013e\3\2\2\2\u013e\u013c\3\2\2\2\u013e")
+        buf.write("\u013f\3\2\2\2\u013f\u0140\3\2\2\2\u0140\u0142\5\66\34")
+        buf.write("\2\u0141\u013a\3\2\2\2\u0142\u0145\3\2\2\2\u0143\u0141")
+        buf.write("\3\2\2\2\u0143\u0144\3\2\2\2\u0144\65\3\2\2\2\u0145\u0143")
+        buf.write("\3\2\2\2\u0146\u0148\7,\2\2\u0147\u0149\7)\2\2\u0148\u0147")
         buf.write("\3\2\2\2\u0148\u0149\3\2\2\2\u0149\u014a\3\2\2\2\u014a")
-        buf.write("\u014d\7*\2\2\u014b\u014c\7\64\2\2\u014c\u014e\5\34\17")
-        buf.write("\2\u014d\u014b\3\2\2\2\u014d\u014e\3\2\2\2\u014e\u014f")
+        buf.write("\u014d\5\34\17\2\u014b\u014c\7\64\2\2\u014c\u014e\5\34")
+        buf.write("\17\2\u014d\u014b\3\2\2\2\u014d\u014e\3\2\2\2\u014e\u014f")
         buf.write("\3\2\2\2\u014f\u0150\7-\2\2\u0150\67\3\2\2\2\u0151\u0152")
         buf.write("\t\6\2\2\u01529\3\2\2\2\u0153\u0154\t\7\2\2\u0154;\3\2")
         buf.write("\2\2\u0155\u0156\t\b\2\2\u0156=\3\2\2\2\37?DP[dlrv~\u0084")
@@ -2382,7 +2382,7 @@ class GraphParser ( Parser ):
                 self.state = 304 
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if not (_la==GraphParser.VAR_ID):
+                if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << GraphParser.STRING) | (1 << GraphParser.INT) | (1 << GraphParser.FLOAT) | (1 << GraphParser.TRUE) | (1 << GraphParser.FALSE) | (1 << GraphParser.NOT) | (1 << GraphParser.MINUS) | (1 << GraphParser.VAR_ID) | (1 << GraphParser.FUNC_ID) | (1 << GraphParser.OPEN_PAREN) | (1 << GraphParser.OPEN_SQ_BRACKET))) != 0)):
                     break
 
         except RecognitionException as re:
@@ -2399,8 +2399,9 @@ class GraphParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def VAR_ID(self):
-            return self.getToken(GraphParser.VAR_ID, 0)
+        def expr(self):
+            return self.getTypedRuleContext(GraphParser.ExprContext,0)
+
 
         def SPACE(self):
             return self.getToken(GraphParser.SPACE, 0)
@@ -2437,7 +2438,7 @@ class GraphParser ( Parser ):
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 306
-            self.match(GraphParser.VAR_ID)
+            self.expr(0)
             self.state = 309
             self._errHandler.sync(self)
             _la = self._input.LA(1)
@@ -2551,8 +2552,12 @@ class GraphParser ( Parser ):
         def OPEN_PAREN(self):
             return self.getToken(GraphParser.OPEN_PAREN, 0)
 
-        def VAR_ID(self):
-            return self.getToken(GraphParser.VAR_ID, 0)
+        def expr(self, i:int=None):
+            if i is None:
+                return self.getTypedRuleContexts(GraphParser.ExprContext)
+            else:
+                return self.getTypedRuleContext(GraphParser.ExprContext,i)
+
 
         def CLOSE_PAREN(self):
             return self.getToken(GraphParser.CLOSE_PAREN, 0)
@@ -2562,10 +2567,6 @@ class GraphParser ( Parser ):
 
         def SPACE(self):
             return self.getToken(GraphParser.SPACE, 0)
-
-        def expr(self):
-            return self.getTypedRuleContext(GraphParser.ExprContext,0)
-
 
         def getRuleIndex(self):
             return GraphParser.RULE_edge
@@ -2605,7 +2606,7 @@ class GraphParser ( Parser ):
 
 
             self.state = 328
-            self.match(GraphParser.VAR_ID)
+            self.expr(0)
             self.state = 331
             self._errHandler.sync(self)
             _la = self._input.LA(1)

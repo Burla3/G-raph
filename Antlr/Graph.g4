@@ -231,9 +231,9 @@ rangerStruct : OPEN_SQ_BRACKET expr DOTDOT expr CLOSE_SQ_BRACKET ;
 // Graph
 graph : GRAPH COLON NEWLINE INDENT vertices DEDENT ;
 vertices : (vertex NEWLINE)+ ;
-vertex : VAR_ID (SPACE edges)? ;
+vertex : expr (SPACE edges)? ;
 edges : edge (COMMA SPACE+ edge)* ;
-edge : OPEN_PAREN DIRECTED? VAR_ID (SPACE expr)? CLOSE_PAREN ;
+edge : OPEN_PAREN DIRECTED? expr (SPACE expr)? CLOSE_PAREN ;
 
 // Identifier
 identifier: VAR_ID | FUNC_ID ;
