@@ -48,7 +48,12 @@ class GraphVisitor(ParseTreeVisitor):
     def visitBlock(self, ctx:GraphParser.BlockContext):
         for child in ctx.children:
             if child.start.text == 'return':
-                return self.visitChildren(child)
+                retValue = self.visitChildren(child)
+                if retValue is not None:
+                    return retValue
+                else:
+                    return '\u0000'
+                #return self.visitChildren(child)
             else:
                 retValue = self.visitChildren(child)
                 if retValue is not None:
@@ -68,6 +73,9 @@ class GraphVisitor(ParseTreeVisitor):
     def visitAssignment(self, ctx:GraphParser.AssignmentContext):
         identifier = ctx.children[0].accept(self)
         value = ctx.children[1].accept(self)
+
+        if value == '\u0000':  # void returned
+            raise ValueError()
 
         self.getCurrentScope().set(identifier, value.type, value.value)
 
