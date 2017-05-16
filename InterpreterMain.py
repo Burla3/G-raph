@@ -48,7 +48,12 @@ class GraphVisitor(ParseTreeVisitor):
     def visitBlock(self, ctx:GraphParser.BlockContext):
         for child in ctx.children:
             if child.start.text == 'return':
-                return self.visitChildren(child)
+                retValue = self.visitChildren(child)
+                if retValue is not None:
+                    return retValue
+                else:
+                    return '\u0000'
+                #return self.visitChildren(child)
             else:
                 retValue = self.visitChildren(child)
                 if retValue is not None:
@@ -69,6 +74,9 @@ class GraphVisitor(ParseTreeVisitor):
         identifier = ctx.children[0].accept(self)
         value = ctx.children[1].accept(self)
 
+        if value == '\u0000':  # void returned
+            raise ValueError()
+
         self.getCurrentScope().set(identifier, value.type, value.value)
 
 
@@ -79,23 +87,47 @@ class GraphVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by GraphParser#ifStmt.
     def visitIfStmt(self, ctx:GraphParser.IfStmtContext):
-        test = ctx.children[1].accept(self)
+        count = 0
 
-        if test.value:
-            return ctx.children[2].accept(self)
-        elif len(ctx.children) > 3:
-            return ctx.children[3].accept(self)
+        for child in ctx.children:
+            if isinstance(child, GraphParser.ExprContext) and self.evaluateBool(child):
+                return ctx.children[count + 1].accept(self)
+            count += 1
+
+        if isinstance(ctx.children[count - 2], GraphParser.BlockContext):
+            return ctx.children[count - 1].accept(self)
 
 
     # Visit a parse tree produced by GraphParser#whileStmt.
     def visitWhileStmt(self, ctx:GraphParser.WhileStmtContext):
-        while ctx.children[1].accept(self).value:
-            ctx.children[2].accept(self)
+        while self.evaluateBool(ctx.children[1]):
+            retValue = ctx.children[2].accept(self)
+            if retValue is not None:
+                return retValue
 
+    def evaluateBool(self, ctx):
+        result = ctx.accept(self)
+        if result.type != Types.Bool:
+            raise TypeError('Expr do not evaluate to a boolean.')
+        return result.value
 
     # Visit a parse tree produced by GraphParser#foreachStmt.
     def visitForeachStmt(self, ctx:GraphParser.ForeachStmtContext):
-        return self.visitChildren(ctx)
+        identifier = ctx.children[1].accept(self)
+        structure = ctx.children[2].accept(self)
+        structure = self.lookUp(structure)
+
+        if structure.type not in [Types.Edge, Types.Vertex, Types.List]:
+            raise ValueError('Type is wrong.')
+        for ele in structure.value:
+            self.getCurrentScope().set(identifier, ele.type, ele.value)
+            retValue = ctx.children[3].accept(self)
+            if retValue is not None:
+                self.getCurrentScope().delete(identifier)
+                return retValue
+
+        self.getCurrentScope().delete(identifier)
+
 
 
     # Visit a parse tree produced by GraphParser#graphAssignment.
@@ -124,7 +156,7 @@ class GraphVisitor(ParseTreeVisitor):
                 value = value[1:-1]  # stripping ' of both ends
                 value = re.sub("(?<![\\\])({(?:[a-z]+[a-zA-Z0-9]*)\})", self.strSubVars, value)
                 value = re.sub("(\\\)(?={(?:[a-z]+[a-zA-Z0-9]*)\})", '', value)
-                value = ValueTypeTuple(value, 'string')
+                value = ValueTypeTuple(value, Types.String)
             return value
         else:
             operator = ctx.children[1]
@@ -137,20 +169,20 @@ class GraphVisitor(ParseTreeVisitor):
             right = self.getValue(ctx.children[2])
 
             if operator == '+':
-                exprType = 'number'
+                exprType = Types.Number
 
-                if left.type != 'number' or right.type != 'number':
+                if left.type != Types.Number or right.type != Types.Number:
                     error = 'Types do not match in test on line ' + str(ctx.start.line) + ':' + str(ctx.start.column)
                     raise TypeError(error)
 
                 result = left.value + right.value
             elif operator == '>':
-                exprType = 'bool'
+                exprType = Types.Bool
 
                 left = self.getValue(ctx.children[0])
                 right = self.getValue(ctx.children[2])
 
-                if left.type != 'number' or right.type != 'number':
+                if left.type != Types.Number or right.type != Types.Number:
                     error = 'Types do not match in test on line ' + str(ctx.start.line) + ':' + str(ctx.start.column)
                     raise TypeError(error)
 
@@ -182,18 +214,18 @@ class GraphVisitor(ParseTreeVisitor):
             structure = self.lookUp(identifier)
             index = self.lookUp(ctx.children[1].children[0].accept(self))
 
-            if structure.type == 'list':
-                if index.type != 'number':
+            if structure.type == Types.List:
+                if index.type != Types.Number:
                     error = 'Value is not of type number ' + str(ctx.start.line) + ':' + str(ctx.start.column)
                     raise TypeError(error)
 
                 value = structure.value[int(index.value)]
             elif structure.type in ['vertex', 'edge']:
-                if index.type != 'string':
+                if index.type != Types.String:
                     error = 'Value is not of type string ' + str(ctx.start.line) + ':' + str(ctx.start.column)
                     raise TypeError(error)
 
-                value = structure[index]
+                value = structure.value[index.value]
             else:
                 error = 'Value is not of type edge or vertex ' + str(ctx.start.line) + ':' + str(ctx.start.column)
                 raise TypeError(error)
@@ -219,7 +251,20 @@ class GraphVisitor(ParseTreeVisitor):
             input = ctx.children[1].accept(self)
             print(input.value)
         elif funcName == 'GetVertex':
-            print('bøgse')
+            params = self.getActualParams(ctx)
+            if len(params) != 2:
+                raise ValueError('GetVertex requires 2 parameters a graph and a name')
+
+            graph = self.lookUp(params[0].accept(self))
+            if graph.type != Types.Graph:
+                raise TypeError('First parameter is not of type graph.')
+            vertex = params[1].accept(self)
+            if vertex.type != Types.String:
+                raise TypeError('Second parameter is not of type string.')
+
+            result = graph.value.getVertex(vertex)
+
+            return result
         elif funcName in self.envF:
             result = self.visitDefinedFunction(ctx, funcName)
 
@@ -297,7 +342,7 @@ class GraphVisitor(ParseTreeVisitor):
             result = self.visitExpr(expr)
             listStruct.append(result)
 
-        return ValueTypeTuple(listStruct, 'list')
+        return ValueTypeTuple(listStruct, Types.List)
 
 
     # Visit a parse tree produced by GraphParser#rangerStruct.
@@ -306,15 +351,15 @@ class GraphVisitor(ParseTreeVisitor):
         start = self.visitExpr(ctx.children[0])
         end = self.visitExpr(ctx.children[1])
 
-        if start.type != 'number' or end.type != 'number':
+        if start.type != Types.Number or end.type != Types.Number:
             error = 'Types do not match in test on line ' + str(ctx.start.line) + ':' + str(ctx.start.column)
             raise TypeError(error)
 
         ranger = []
         for i in range(int(start.value), int(end.value)):
-            ranger.append(ValueTypeTuple(i, 'number'))
+            ranger.append(ValueTypeTuple(i, Types.Number))
 
-        return ValueTypeTuple(ranger, 'list')
+        return ValueTypeTuple(ranger, Types.List)
 
 
     # Visit a parse tree produced by GraphParser#graph.
@@ -325,21 +370,21 @@ class GraphVisitor(ParseTreeVisitor):
         for vDecl in vertexDecls:
             vertex = vDecl.vertex
             if vertex not in graph.vertices:
-                dic = {'name': ValueTypeTuple(vertex, 'string')}
-                graph.vertices.append(ValueTypeTuple(dic, 'vertex'))
+                dic = {'name': ValueTypeTuple(vertex, Types.String)}
+                graph.vertices.append(ValueTypeTuple(dic, Types.Vertex))
             for eDecl in vDecl.edges:
                 if eDecl.vertex not in graph.vertices:
-                    dic = {'name': ValueTypeTuple(eDecl.vertex, 'string')}
-                    graph.vertices.append(dic)
+                    dic = {'name': ValueTypeTuple(eDecl.vertex, Types.String)}
+                    graph.vertices.append(ValueTypeTuple(dic, Types.Vertex))
 
                 edge = Edge(vertex, eDecl.vertex, eDecl.directed)
 
                 if eDecl.label is not None:
                     edge.labels['label'] = eDecl.label
 
-                graph.edges.append(ValueTypeTuple(edge, 'edge'))
+                graph.edges.append(ValueTypeTuple(edge, Types.Edge))
 
-        return ValueTypeTuple(graph, 'graph')
+        return ValueTypeTuple(graph, Types.Graph)
 
 
     # Visit a parse tree produced by GraphParser#vertices.
@@ -354,7 +399,7 @@ class GraphVisitor(ParseTreeVisitor):
     # Visit a parse tree produced by GraphParser#vertex.
     def visitVertex(self, ctx:GraphParser.VertexContext):
         vertex = ctx.children[0].accept(self)
-        if vertex.type != 'string':
+        if vertex.type != Types.String:
             raise TypeError('Vertex name is not a string')
 
         if ctx.getChildCount() == 1:
@@ -396,7 +441,7 @@ class GraphVisitor(ParseTreeVisitor):
         return EdgeDecleration(directed, vertex, label)
 
     def getVertexName(self, vertex):
-        if vertex.type != 'string':
+        if vertex.type != Types.String:
             raise TypeError('Edge name is not a string.')
 
         return vertex.value
@@ -409,12 +454,12 @@ class GraphVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by GraphParser#number.
     def visitNumber(self, ctx:GraphParser.NumberContext):
-        return ValueTypeTuple(self.isNumber(ctx.getText()), 'number')
+        return ValueTypeTuple(self.isNumber(ctx.getText()), Types.Number)
 
 
     # Visit a parse tree produced by GraphParser#boolean.
     def visitBoolean(self, ctx:GraphParser.BooleanContext):
-        return ValueTypeTuple(ctx.getText() == 'True', 'boolean')
+        return ValueTypeTuple(ctx.getText() == 'True', Types.Bool)
 
 
     def isNumber(self, value):

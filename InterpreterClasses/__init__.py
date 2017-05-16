@@ -24,4 +24,4 @@ from InterpreterClasses.Graph import Graph
 from InterpreterClasses.Stack import Stack
 from InterpreterClasses.ValueTypeTuple import ValueTypeTuple
 from InterpreterClasses.VertexDecleration import VertexDecleration
-
+from InterpreterClasses.Types import Types
