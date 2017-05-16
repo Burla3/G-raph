@@ -79,12 +79,15 @@ class GraphVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by GraphParser#ifStmt.
     def visitIfStmt(self, ctx:GraphParser.IfStmtContext):
-        test = ctx.children[1].accept(self)
+        count = 0
 
-        if test.value:
-            return ctx.children[2].accept(self)
-        elif len(ctx.children) > 3:
-            return ctx.children[4].accept(self)
+        for child in ctx.children:
+            if isinstance(child, GraphParser.ExprContext) and child.accept(self).value:
+                return ctx.children[count + 1].accept(self)
+            count += 1
+
+        if isinstance(ctx.children[count - 2], GraphParser.BlockContext):
+            return ctx.children[count - 1].accept(self)
 
 
     # Visit a parse tree produced by GraphParser#whileStmt.
