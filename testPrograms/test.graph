@@ -86,3 +86,11 @@ function HovHov():
 /*
     vertex = GetVertex(graphVar, 'a')
 */
+    if 1 > 2:
+        Print('if')
+    else if False:
+        Print('else if')
+    else if True:
+        Print('else if 2')
+    else:
+        Print('else')

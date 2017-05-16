@@ -1,5 +1,7 @@
 # Generated from Graph.g4 by ANTLR 4.7
 from antlr4 import *
+from antlr4.tree import Tree
+import copy
 if __name__ is not None and "." in __name__:
     from Antlr.GraphParser import GraphParser
 else:
@@ -106,10 +108,14 @@ class ASTBuilder(ParseTreeVisitor):
 
     # Visit a parse tree produced by GraphParser#ifStmt.
     def visitIfStmt(self, ctx:GraphParser.IfStmtContext):
-        children = ctx.children
-        count = len(children)
+        children = copy.copy(ctx.children)
+        counter = 0
 
-        del children[1]
+        for child in children:
+            if isinstance(child, Tree.TerminalNodeImpl):
+                del ctx.children[counter]
+            else:
+                counter += 1
 
         return self.visitChildren(ctx)
 
