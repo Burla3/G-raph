@@ -101,7 +101,9 @@ class GraphVisitor(ParseTreeVisitor):
     # Visit a parse tree produced by GraphParser#whileStmt.
     def visitWhileStmt(self, ctx:GraphParser.WhileStmtContext):
         while self.evaluateBool(ctx.children[1]):
-            ctx.children[2].accept(self)
+            retValue = ctx.children[2].accept(self)
+            if retValue is not None:
+                return retValue
 
     def evaluateBool(self, ctx):
         result = ctx.accept(self)
@@ -119,7 +121,10 @@ class GraphVisitor(ParseTreeVisitor):
             raise ValueError('Type is wrong.')
         for ele in structure.value:
             self.getCurrentScope().set(identifier, ele.type, ele.value)
-            ctx.children[3].accept(self)
+            retValue = ctx.children[3].accept(self)
+            if retValue is not None:
+                self.getCurrentScope().delete(identifier)
+                return retValue
 
         self.getCurrentScope().delete(identifier)
 
