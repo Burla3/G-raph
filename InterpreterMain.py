@@ -84,7 +84,7 @@ class GraphVisitor(ParseTreeVisitor):
         if test.value:
             return ctx.children[2].accept(self)
         elif len(ctx.children) > 3:
-            return ctx.children[3].accept(self)
+            return ctx.children[4].accept(self)
 
 
     # Visit a parse tree produced by GraphParser#whileStmt.
@@ -193,7 +193,7 @@ class GraphVisitor(ParseTreeVisitor):
                     error = 'Value is not of type string ' + str(ctx.start.line) + ':' + str(ctx.start.column)
                     raise TypeError(error)
 
-                value = structure[index]
+                value = structure.value[index.value]
             else:
                 error = 'Value is not of type edge or vertex ' + str(ctx.start.line) + ':' + str(ctx.start.column)
                 raise TypeError(error)
@@ -219,7 +219,20 @@ class GraphVisitor(ParseTreeVisitor):
             input = ctx.children[1].accept(self)
             print(input.value)
         elif funcName == 'GetVertex':
-            print('bøgse')
+            params = self.getActualParams(ctx)
+            if len(params) != 2:
+                raise ValueError('GetVertex requires 2 parameters a graph and a name')
+
+            graph = self.lookUp(params[0].accept(self))
+            if graph.type != 'graph':
+                raise TypeError('First parameter is not of type graph.')
+            vertex = params[1].accept(self)
+            if vertex.type != 'string':
+                raise TypeError('Second parameter is not of type string.')
+
+            result = graph.value.getVertex(vertex)
+
+            return result
         elif funcName in self.envF:
             result = self.visitDefinedFunction(ctx, funcName)
 
@@ -330,7 +343,7 @@ class GraphVisitor(ParseTreeVisitor):
             for eDecl in vDecl.edges:
                 if eDecl.vertex not in graph.vertices:
                     dic = {'name': ValueTypeTuple(eDecl.vertex, 'string')}
-                    graph.vertices.append(dic)
+                    graph.vertices.append(ValueTypeTuple(dic, 'vertex'))
 
                 edge = Edge(vertex, eDecl.vertex, eDecl.directed)
 

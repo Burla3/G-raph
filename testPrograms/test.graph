@@ -52,7 +52,7 @@ function HovHov():
     if False:
         Print('{lol}')
     else:
-        Print('{hmm}')
+        Print('HOVHOV')
 
     Hej()
     Hejsa(hmm)
@@ -83,6 +83,9 @@ function HovHov():
         'f' (->'g' 8), (->'h' 4), ('i' 6)
 
     HovHov()
-/*
+
     vertex = GetVertex(graphVar, 'a')
-*/
+    vName = vertex['name']
+    Print('{vName}')
+
+
