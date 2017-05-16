@@ -13,6 +13,9 @@ class SymbolTable():
         else:
             raise KeyError('Symbol key {0} not found in table'.format(symkey))
 
+    def delete(self, symkey):
+        del self.symbols[symkey]
+
     def _create_sym(self, symkey, symtype, value):
         self.symbols[symkey] = {'type': symtype, 'value': value}
 

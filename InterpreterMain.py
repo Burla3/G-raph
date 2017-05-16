@@ -111,7 +111,18 @@ class GraphVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by GraphParser#foreachStmt.
     def visitForeachStmt(self, ctx:GraphParser.ForeachStmtContext):
-        return self.visitChildren(ctx)
+        identifier = ctx.children[1].accept(self)
+        structure = ctx.children[2].accept(self)
+        structure = self.lookUp(structure)
+
+        if structure.type not in [Types.Edge, Types.Vertex, Types.List]:
+            raise ValueError('Type is wrong.')
+        for ele in structure.value:
+            self.getCurrentScope().set(identifier, ele.type, ele.value)
+            ctx.children[3].accept(self)
+
+        self.getCurrentScope().delete(identifier)
+
 
 
     # Visit a parse tree produced by GraphParser#graphAssignment.
