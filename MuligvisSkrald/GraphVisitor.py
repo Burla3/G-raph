@@ -1,9 +1,10 @@
+from Template.CodeGenerator import CodeGenerator
 from Template.DeclarationProcessor import DeclarationProcessor
 from Template.ScopeChecker import ScopeChecker
-from Template.TypeChecker import TypeChecker
-from Template.CodeGenerator import CodeGenerator
-
 from antlr4 import *
+
+from MuligvisSkrald.Template.TypeChecker import TypeChecker
+
 if __name__ is not None and "." in __name__:
     from Antlr.GraphParser import GraphParser
 else:

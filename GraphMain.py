@@ -1,11 +1,10 @@
-from Antlr.GraphLexer import GraphLexer
 from antlr4 import *
 
 from ASTBuilder import ASTBuilder
+from Antlr.GraphLexer import GraphLexer
 from Antlr.GraphParser import GraphParser
-
-from Antlr.GraphVisitorTest import GraphVisitor
-from Antlr.GraphVisitorAST import GraphVisitorAST
+from InterpreterMain import GraphVisitor
+from JSONBuilder import JSONBuilder
 
 
 def main():
@@ -30,8 +29,7 @@ def main():
         print(e.args)
         return
 
-    astb = ASTBuilder(tree)
-    #astb.BuildAST()
+    astb = JSONBuilder(tree)
 
     file = open('treeInJSON.json', 'w')
     json = astb.ConvertToJSON()
@@ -45,7 +43,7 @@ def main():
     #    print(e.args)
     #    return
 
-    visitor = GraphVisitorAST()
+    visitor = ASTBuilder()
     visitor.visitProgram(tree)
 
     visitor = GraphVisitor()
