@@ -1,13 +1,7 @@
 # Generated from Graph.g4 by ANTLR 4.7
 import re
 
-#from InterpreterClasses import *
-from InterpreterClasses.EdgeDecleration import EdgeDecleration
-from InterpreterClasses.FormalActualTuple import FormalActualTuple
-from InterpreterClasses.Graph import Graph
-from InterpreterClasses.Stack import Stack
-from InterpreterClasses.ValueTypeTuple import ValueTypeTuple
-from InterpreterClasses.VertexDecleration import VertexDecleration
+from InterpreterClasses import *
 from antlr4 import *
 
 from InterpreterClasses.Edge import Edge
