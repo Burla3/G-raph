@@ -1,3 +1,13 @@
+def listcomp(vale, valf):
+    if len(vale) != len(valf):
+        return False
+    count = 0
+    for ve in vale:
+        if ve != valf[count].value:
+            return False
+        count += 1
+    return True
+
 tests = [
     {
         'file': 'arith_op.graph',
@@ -34,10 +44,10 @@ tests = [
     {
         'file': 'range_ex.graph',
         'state': [
-            ('listVar', [1]),
-            ('listVar2', [1, 5, 8]),
-            ('ascendingOrderRange', [3, 4, 5, 6, 7, 8, 9]),
-            ('descendingOrderRange', [9, 8, 7, 6, 5, 4, 3]),
+            ('listVar', [1], listcomp),
+            ('listVar2', [1, 5, 8], listcomp),
+            ('ascendingOrderRange', [3, 4, 5, 6, 7, 8, 9], listcomp),
+            ('descendingOrderRange', [9, 8, 7, 6, 5, 4, 3], listcomp),
         ],
         'output': [
 

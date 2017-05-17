@@ -83,7 +83,7 @@ def main():
                 continue
 
             if len(testtup) is 3:
-                comp = testtup[2](value, testtup[1])
+                comp = testtup[2](testtup[1], value)
             else:
                 comp = value == testtup[1]
 
@@ -96,8 +96,8 @@ def main():
                 localtesterrors += 1
 
 
-            print('\x1b[{color}m {state} \x1b[0m T#{tnumber:03d}. Want: {lookfor}({ltype}) Found: {got}({gtype})'.format(
-                tnumber=localtestcount,
+            print('\x1b[{color}m {state} \x1b[0m T#{tnumber:03d}. Expected: {lookfor}({ltype}) Found: {got}({gtype})'.format(
+                tnumber=localtestcount + 1,
                 lookfor=testtup[1],
                 ltype=type(testtup[1]).__name__,
                 got=value,
