@@ -71,7 +71,14 @@ class GraphVisitor(ParseTreeVisitor):
         if value == '\u0000' or value is None:  # void returned
             raise ValueError()
 
-        self.getCurrentScope().set(identifier, value.type, value.value)
+        if hasattr(identifier, 'value') and isinstance(identifier.value, Molecule):
+            molecule = identifier.value
+            list = self.getCurrentScope().get(molecule.atom)
+            list['value'][molecule.trailer] = value
+            print('Hallo')
+        else:
+            self.getCurrentScope().set(identifier, value.type, value.value)
+
 
 
     def visitCompoundStmt(self, ctx:GraphParser.CompoundStmtContext):
@@ -205,14 +212,19 @@ class GraphVisitor(ParseTreeVisitor):
                 if index.type != Types.Number:
                     error = 'Value is not of type number ' + str(ctx.start.line) + ':' + str(ctx.start.column)
                     raise TypeError(error)
-
-                value = structure.value[int(index.value)]
+                if isinstance(ctx.parentCtx, GraphParser.AssignmentContext):
+                    value = ValueTypeTuple(Molecule(identifier, index), Types.Molecule)
+                else:
+                    value = structure.value[int(index.value)]
             elif structure.type in ['vertex', 'edge']:
                 if index.type != Types.String:
                     error = 'Value is not of type string ' + str(ctx.start.line) + ':' + str(ctx.start.column)
                     raise TypeError(error)
 
-                value = structure.value[index.value]
+                if isinstance(ctx.parentCtx, GraphParser.AssignmentContext):
+                    value = ValueTypeTuple(Molecule(identifier, index), Types.Molecule)
+                else:
+                    value = structure.value[index.value]
             else:
                 error = 'Value is not of type edge or vertex ' + str(ctx.start.line) + ':' + str(ctx.start.column)
                 raise TypeError(error)
