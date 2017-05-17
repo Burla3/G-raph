@@ -1,7 +1,3 @@
-
-
-
-
 tests = [
     {
         'file': 'arith_op.graph',

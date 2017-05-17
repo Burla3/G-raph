@@ -244,11 +244,11 @@ class GraphVisitor(ParseTreeVisitor):
             elif operator == 'is':
                 exprType = Types.Bool
 
-                result = left.value is right.value
+                result = left.value == right.value
             elif operator == 'is not':
                 exprType = Types.Bool
 
-                result = left.value is not right.value
+                result = left.value != right.value
             elif operator == 'and':
                 exprType = Types.Bool
 
@@ -261,6 +261,12 @@ class GraphVisitor(ParseTreeVisitor):
                 self.checkTypes(ctx, left, right, Types.Bool, Types.Bool)
 
                 result = left.value or right.value
+            elif operator == 'in':
+                exprType = Types.Bool
+
+                self.checkType(ctx, right, Types.List)
+
+                result = left.value in right.value
             else:
                 raise KeyError('Operator do not exist.')
 

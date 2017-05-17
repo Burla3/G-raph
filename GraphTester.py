@@ -44,6 +44,8 @@ def testrunner(filepath):
     # return f.getvalue().split('\n')
     while visitor.symbolTableStack.size() > 0:
         visitor.closeScope()
+    while lexer.tokens.poll():
+        pass
     return visitor.closedScopes
 
 def getFromSymtable(tables, key):
@@ -58,16 +60,17 @@ def main():
     globaltestcount = 0
     globaltesterrors = 0
     for test in tests:
+        print('Testing {0}:'.format(test['file']))
         try:
             progoutput = testrunner('testPrograms/' + test['file'])
         except Exception as e:
             globaltestcount += 1
             globaltesterrors += 1
-            print('Error interpreting G-raph code: ' + str(e))
+            print(traceback.format_exc())
+            # print('Error interpreting G-raph code: ' + str(e))
             print('------------------------------')
             continue
 
-        print('Testing {0}:'.format(test['file']))
         localtestcount = 0
         localtesterrors = 0
         for testtup in test['state']:

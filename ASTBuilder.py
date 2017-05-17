@@ -165,8 +165,10 @@ class ASTBuilder(ParseTreeVisitor):
         children = ctx.children
         count = len(children)
 
-        if count > 1:
+        if count == 5:
             del children[3]
+            del children[1]
+        elif count == 3 and isinstance(children[0], Tree.TerminalNodeImpl):
             del children[1]
         return self.visitChildren(ctx)
 
