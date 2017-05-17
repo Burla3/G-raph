@@ -141,8 +141,7 @@ class GraphVisitor(ParseTreeVisitor):
 
     def strSubVars(self, mobj):
         key = mobj.group(1)[1:-1]
-        scope = self.getCurrentScope()
-        return str(scope.get(key)['value'])
+        return str(self.lookUp(key))
 
 
     def visitExpr(self, ctx:GraphParser.ExprContext):
@@ -341,7 +340,7 @@ class GraphVisitor(ParseTreeVisitor):
 
         if funcName == 'Print':
             input = ctx.children[1].accept(self)
-            print(input.value)
+            print(str(input.value))
         elif funcName == 'GetVertex':
             params = self.getActualParams(ctx)
             if len(params) != 2:
@@ -450,8 +449,8 @@ class GraphVisitor(ParseTreeVisitor):
             raise TypeError(error)
 
         ranger = []
-        for i in range(int(start.value), int(end.value)):
-            ranger.append(ValueTypeTuple(i, Types.Number))
+        for i in range(int(start.value), int(end.value) + 1):
+            ranger.append(ValueTypeTuple(float(i), Types.Number))
 
         return ValueTypeTuple(ranger, Types.List)
 
