@@ -75,7 +75,7 @@ class GraphVisitor(ParseTreeVisitor):
         identifier = ctx.children[0].accept(self)
         value = ctx.children[1].accept(self)
 
-        if value == '\u0000':  # void returned
+        if value == '\u0000' or value is None:  # void returned
             raise ValueError()
 
         self.getCurrentScope().set(identifier, value.type, value.value)
@@ -233,6 +233,7 @@ class GraphVisitor(ParseTreeVisitor):
 
             return value
 
+        return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GraphParser#atom.
     def visitAtom(self, ctx:GraphParser.AtomContext):
