@@ -1,0 +1,19 @@
+@run:
+    graphVar = graph:
+        a                       /* A vertex not connected to other vertices */
+        b (c)                   /* A vertex connected to vertex c */
+        c (d 5)                 /* A vertex connected to vertex d with a label of 5 */
+        d (->e)                 /* A vertex connected to vertex e pointing from d to e */
+        e (->f 7), (->g 3)      /* A vertex connected to multiple vertices (f, g) */
+
+    vertices = GetVertices(graphVar)        /* [a, b, c, d, e] */
+    edges = GetEdges(graphVar)              /* [b-c, c-d, d->e, e->f, e->g] */
+
+    edgesFromE = GetEdgesFrom(graphVar, 'e')      /* [e->f, e->g] */
+    edgesToE = GetEdgesTo(graphVar, 'e')          /* [d->e] */
+
+    vertices['a']['d'] = 3          /* Vertex a has a label d with the value 3 */
+    edges['b-c'][0]['w'] = 2        /* The first edge b-c has a label w with the value 2 */
+
+    graphVar = SetVertices(vertices)        /* Vertices updated with changes made */
+    graphVar = SetEdges(edges)              /* Edges updated with changes made */
