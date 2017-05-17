@@ -71,7 +71,14 @@ class GraphVisitor(ParseTreeVisitor):
         if value == '\u0000' or value is None:  # void returned
             raise ValueError()
 
-        self.getCurrentScope().set(identifier, value.type, value.value)
+        if hasattr(identifier, 'value') and isinstance(identifier.value, Molecule):
+            molecule = identifier.value
+            list = self.getCurrentScope().get(molecule.atom)
+            list['value'][molecule.trailer] = value
+            print('Hallo')
+        else:
+            self.getCurrentScope().set(identifier, value.type, value.value)
+
 
 
     def visitCompoundStmt(self, ctx:GraphParser.CompoundStmtContext):
@@ -134,8 +141,7 @@ class GraphVisitor(ParseTreeVisitor):
 
     def strSubVars(self, mobj):
         key = mobj.group(1)[1:-1]
-        scope = self.getCurrentScope()
-        return str(scope.get(key)['value'])
+        return str(self.lookUp(key))
 
 
     def visitExpr(self, ctx:GraphParser.ExprContext):
@@ -306,14 +312,19 @@ class GraphVisitor(ParseTreeVisitor):
                 if index.type != Types.Number:
                     error = 'Value is not of type number ' + str(ctx.start.line) + ':' + str(ctx.start.column)
                     raise TypeError(error)
-
-                value = structure.value[int(index.value)]
+                if isinstance(ctx.parentCtx, GraphParser.AssignmentContext):
+                    value = ValueTypeTuple(Molecule(identifier, index), Types.Molecule)
+                else:
+                    value = structure.value[int(index.value)]
             elif structure.type in ['vertex', 'edge']:
                 if index.type != Types.String:
                     error = 'Value is not of type string ' + str(ctx.start.line) + ':' + str(ctx.start.column)
                     raise TypeError(error)
 
-                value = structure.value[index.value]
+                if isinstance(ctx.parentCtx, GraphParser.AssignmentContext):
+                    value = ValueTypeTuple(Molecule(identifier, index), Types.Molecule)
+                else:
+                    value = structure.value[index.value]
             else:
                 error = 'Value is not of type edge or vertex ' + str(ctx.start.line) + ':' + str(ctx.start.column)
                 raise TypeError(error)
@@ -335,7 +346,7 @@ class GraphVisitor(ParseTreeVisitor):
 
         if funcName == 'Print':
             input = ctx.children[1].accept(self)
-            print(input.value)
+            print(str(input.value))
         elif funcName == 'GetVertex':
             params = self.getActualParams(ctx)
             if len(params) != 2:
@@ -444,8 +455,8 @@ class GraphVisitor(ParseTreeVisitor):
             raise TypeError(error)
 
         ranger = []
-        for i in range(int(start.value), int(end.value)):
-            ranger.append(ValueTypeTuple(i, Types.Number))
+        for i in range(int(start.value), int(end.value) + 1):
+            ranger.append(ValueTypeTuple(float(i), Types.Number))
 
         return ValueTypeTuple(ranger, Types.List)
 
@@ -456,11 +467,11 @@ class GraphVisitor(ParseTreeVisitor):
 
         for vDecl in vertexDecls:
             vertex = vDecl.vertex
-            if vertex not in graph.vertices:
+            if not self.vertexExistsInGraph(graph, vertex):
                 dic = {'name': ValueTypeTuple(vertex, Types.String)}
                 graph.vertices.append(ValueTypeTuple(dic, Types.Vertex))
             for eDecl in vDecl.edges:
-                if eDecl.vertex not in graph.vertices:
+                if not self.vertexExistsInGraph(graph, eDecl.vertex):
                     dic = {'name': ValueTypeTuple(eDecl.vertex, Types.String)}
                     graph.vertices.append(ValueTypeTuple(dic, Types.Vertex))
 
@@ -473,6 +484,11 @@ class GraphVisitor(ParseTreeVisitor):
 
         return ValueTypeTuple(graph, Types.Graph)
 
+    def vertexExistsInGraph(self, graph, vertex):
+        for v in graph.vertices:
+            if vertex == v.value['name'].value:
+                return True
+        return False
 
     def visitVertices(self, ctx:GraphParser.VerticesContext):
         vertexDecls = []

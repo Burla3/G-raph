@@ -25,3 +25,4 @@ from InterpreterClasses.Stack import Stack
 from InterpreterClasses.ValueTypeTuple import ValueTypeTuple
 from InterpreterClasses.VertexDecleration import VertexDecleration
 from InterpreterClasses.Types import Types
+from InterpreterClasses.Molecule import Molecule

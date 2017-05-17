@@ -6,3 +6,4 @@ class Types():
     Edge = 'edge'
     Vertex = 'vertex'
     Graph = 'graph'
+    Molecule = 'molecule'

@@ -32,6 +32,8 @@ function HovHov():
 @run:
     g = [99, 3, 4, 5, 6, 7, True, False]
 
+    g[1] = 67567
+
     for each ele in g:
         Print('{ele}')
 
@@ -90,6 +92,9 @@ function HovHov():
 
     vertex = GetVertex(graphVar, 'a')
     vName = vertex['name']
+    vertex['bob'] = 34
+    vLabel = vertex['bob']
+    Print('{vLabel}')
     Print('{vName}')
 
     if 1 > 2:
@@ -100,3 +105,10 @@ function HovHov():
         Print('else if 2')
     else:
         Print('else')
+
+    b = [1..5]
+    c = [1, [2, 3], 4]
+
+    Print('{b}')
+    Print('{c}')
+    Print('{graphVar}')
