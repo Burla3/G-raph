@@ -70,7 +70,7 @@ def main():
         print('Testing {0}:'.format(test['file']))
         localtestcount = 0
         localtesterrors = 0
-        for testtup in test['output']:
+        for testtup in test['state']:
             try:
                 value = getFromSymtable(progoutput, testtup[0])['value']
             except KeyError as e:

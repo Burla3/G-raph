@@ -5,7 +5,7 @@
 tests = [
     {
         'file': 'arith_op.graph',
-        'output': [
+        'state': [
             ('plus', 6),
             ('minus', 0),
             ('mul', 9),
@@ -13,11 +13,14 @@ tests = [
             ('mod', 0),
             ('power', 9),
             ('unaryMinus', -3),
+        ],
+        'output': [
+
         ]
     },
     {
         'file': 'comp_op.graph',
-        'output': [
+        'state': [
             ('less', False),
             ('greater', True),
             ('leEq', True),
@@ -27,15 +30,33 @@ tests = [
             ('andComb', False),
             ('orComb', True),
             ('neg', False),
+        ],
+        'output': [
+
         ]
     },
     {
-        'file': 'comp_op.graph',
-        'output': [
+        'file': 'range_ex.graph',
+        'state': [
             ('listVar', [1]),
             ('listVar2', [1, 5, 8]),
             ('ascendingOrderRange', [3, 4, 5, 6, 7, 8, 9]),
             ('descendingOrderRange', [9, 8, 7, 6, 5, 4, 3]),
+        ],
+        'output': [
+
+        ]
+    },
+    {
+        'file': 'range_ex.graph',
+        'state': [
+            ('listVar', [1]),
+            ('listVar2', [1, 5, 8]),
+            ('ascendingOrderRange', [3, 4, 5, 6, 7, 8, 9]),
+            ('descendingOrderRange', [9, 8, 7, 6, 5, 4, 3]),
+        ],
+        'output': [
+
         ]
     },
 ]
