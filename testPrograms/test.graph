@@ -106,7 +106,7 @@ function HovHov():
     else:
         Print('else')
 
-    b = [1..5]
+    b = [5..1]
     c = [1, [2, 3], 4]
 
     Print('{b}')
