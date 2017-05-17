@@ -454,9 +454,26 @@ class GraphVisitor(ParseTreeVisitor):
             error = 'Types do not match in test on line ' + str(ctx.start.line) + ':' + str(ctx.start.column)
             raise TypeError(error)
 
+        lowStart = int(start.value)
+        highEnd = int(end.value) + 1
+
+        if lowStart == highEnd:
+            elem = ValueTypeTuple(float(start.value), Types.Number)
+            return ValueTypeTuple([elem], Types.List)
+
+        shouldReverse = False
+
+        if lowStart > highEnd:
+            lowStart = highEnd - 1
+            highEnd = int(start.value) + 1
+            shouldReverse = True
+
         ranger = []
-        for i in range(int(start.value), int(end.value) + 1):
+        for i in range(lowStart, highEnd):
             ranger.append(ValueTypeTuple(float(i), Types.Number))
+
+        if shouldReverse:
+            ranger.reverse()
 
         return ValueTypeTuple(ranger, Types.List)
 
