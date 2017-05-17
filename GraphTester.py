@@ -1,3 +1,4 @@
+import traceback
 from antlr4 import *
 
 from ASTBuilder import ASTBuilder
@@ -10,6 +11,14 @@ from io import StringIO
 
 from testPrograms.TestStructure import tests
 
+
+class TestVisitor(GraphVisitor):
+    closedScopes = []
+
+    def closeScope(self):
+        self.closedScopes.append(self.getCurrentScope())
+        print(len(self.closedScopes))
+        self.symbolTableStack.pop()
 
 
 def testrunner(filepath):
@@ -24,36 +33,58 @@ def testrunner(filepath):
         print(e.args)
         return
 
-    visitor = ASTBuilder()
-    visitor.visitProgram(tree)
+    ASTvisitor = ASTBuilder()
+    ASTvisitor.visitProgram(tree)
 
-    visitor = GraphVisitor()
+    visitor = TestVisitor()
     f = StringIO()
     with redirect_stdout(f):
         visitorResult = visitor.visitProgram(tree)
 
-    return f.getvalue().split('\n')
+    # return f.getvalue().split('\n')
+    while visitor.symbolTableStack.size() > 0:
+        visitor.closeScope()
+    return visitor.closedScopes
+
+def getFromSymtable(tables, key):
+    for symtab in tables:
+        try:
+            return symtab.get(key)
+        except KeyError:
+            continue
+    raise KeyError('Key not in any table')
 
 def main():
     globaltestcount = 0
     globaltesterrors = 0
-    toofew = False
     for test in tests:
-        progoutput = testrunner('testPrograms/' + test['file'])
-        tcount = 0
+        try:
+            progoutput = testrunner('testPrograms/' + test['file'])
+        except Exception as e:
+            globaltestcount += 1
+            globaltesterrors += 1
+            print('Error interpreting G-raph code: ' + str(e))
+            print('------------------------------')
+            continue
+
         print('Testing {0}:'.format(test['file']))
         localtestcount = 0
         localtesterrors = 0
-        if len(test['output']) < len(progoutput):
-            toofew = True
-            print('\x1b[0;31;40m Too few tests \x1b[0m')
-        for testline in test['output']:
+        for testtup in test['output']:
             try:
-                progoutput[tcount]
-            except:
-                KeyError('Not enough program output')
+                value = getFromSymtable(progoutput, testtup[0])['value']
+            except KeyError as e:
+                localtestcount += 1
+                localtesterrors += 1
+                print(e)
+                continue
 
-            if progoutput[tcount] == testline:
+            if len(testtup) is 3:
+                comp = testtup[2](value, testtup[1])
+            else:
+                comp = value == testtup[1]
+
+            if comp:
                 color = '0;32;40'
                 state = '[PASSED]'
             else:
@@ -63,15 +94,14 @@ def main():
 
 
             print('\x1b[{color}m {state} \x1b[0m T#{tnumber:03d}. Want: {lookfor}({ltype}) Found: {got}({gtype})'.format(
-                tnumber=tcount,
-                lookfor=testline,
-                ltype=type(testline).__name__,
-                got=progoutput[tcount],
-                gtype=type(progoutput[tcount]).__name__,
+                tnumber=localtestcount,
+                lookfor=testtup[1],
+                ltype=type(testtup[1]).__name__,
+                got=value,
+                gtype=type(value).__name__,
                 color=color,
                 state=state))
             localtestcount += 1
-            tcount += 1
 
         print('------------------------------')
         if localtesterrors == 0:
@@ -85,7 +115,7 @@ def main():
         globaltestcount += localtestcount
         globaltesterrors += localtesterrors
 
-    print('============Totals============')
+    print('\n\n============Totals============')
     if globaltesterrors == 0:
         color = '0;32;40'
     else:
@@ -93,9 +123,7 @@ def main():
 
     print('\x1b[{color}m {fail} of {total} tests passed \x1b[0m'.format(color=color, fail=globaltestcount-globaltesterrors,
                                                                         total=globaltestcount))
-    if toofew:
-        print('\x1b[0;31;40m At least one file had too few tests \x1b[0m')
-    print('==============================')
+
 
 
 

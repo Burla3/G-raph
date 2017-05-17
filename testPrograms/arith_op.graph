@@ -1,0 +1,10 @@
+@run:
+    /* Operation */         /* Result  */
+    plus = 3 + 3            /* = 6     */
+    minus = 3 - 3           /* = 0     */
+    mul = 3 * 3             /* = 9     */
+    div = 3 / 3             /* = 1     */
+    mod = 3 % 3             /* = 0     */
+    power = 3^2             /* = 9     */
+    unaryMinus = -3         /* = -3    */
+

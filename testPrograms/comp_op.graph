@@ -1,0 +1,11 @@
+@run:
+    /* Operation */                 /* Result   */
+    less = 3 < 3                    /* = False  */
+    greater = 33 > 3                /* = True   */
+    leEq = 3 <= 3                   /* = True   */
+    grEq = 3 >= 33                  /* = False  */
+    equal = 3 is 3                  /* = True   */
+    notEq = 3 is not 3              /* = False  */
+    andComb = 3 < 33 and 33 < 3     /* = False  */
+    orComb = 3 < 33 or 33 < 3       /* = True   */
+    neg = not True                  /* = False  */

@@ -1,26 +1,41 @@
+
+
+
+
 tests = [
     {
-        'file': 'test.graph',
+        'file': 'arith_op.graph',
         'output': [
-            '3.0',
-            '7.0',
-            '5.0value of{javel} hmm is: 7.0',
-            '8008.0',
-            '11.0',
-            '14.0',
-            '5.0',
-            '1.0',
-            '2.0',
-            '3.0',
-            '4.0',
-            '5.0',
-            '6.0',
-            '7.0',
-            '8.0',
-            '9.0',
-            'Hej med dig',
-            '5.0',
-            '',
+            ('plus', 6),
+            ('minus', 0),
+            ('mul', 9),
+            ('div', 1),
+            ('mod', 0),
+            ('power', 9),
+            ('unaryMinus', -3),
         ]
-    }
+    },
+    {
+        'file': 'comp_op.graph',
+        'output': [
+            ('less', False),
+            ('greater', True),
+            ('leEq', True),
+            ('grEq', False),
+            ('equal', True),
+            ('notEq', False),
+            ('andComb', False),
+            ('orComb', True),
+            ('neg', False),
+        ]
+    },
+    {
+        'file': 'comp_op.graph',
+        'output': [
+            ('listVar', [1]),
+            ('listVar2', [1, 5, 8]),
+            ('ascendingOrderRange', [3, 4, 5, 6, 7, 8, 9]),
+            ('descendingOrderRange', [9, 8, 7, 6, 5, 4, 3]),
+        ]
+    },
 ]
