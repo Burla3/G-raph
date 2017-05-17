@@ -59,6 +59,7 @@ class GraphVisitor(ParseTreeVisitor):
                 if retValue is not None:
                     return retValue
 
+
     # Visit a parse tree produced by GraphParser#stmt.
     def visitStmt(self, ctx:GraphParser.StmtContext):
         return self.visitChildren(ctx)
@@ -227,8 +228,6 @@ class GraphVisitor(ParseTreeVisitor):
 
             return value
 
-        return self.visitChildren(ctx)
-
 
     # Visit a parse tree produced by GraphParser#atom.
     def visitAtom(self, ctx:GraphParser.AtomContext):
@@ -268,6 +267,7 @@ class GraphVisitor(ParseTreeVisitor):
         else:
             raise ModuleNotFoundError('Function: ' + funcName + ' do not exist.')
 
+
     def visitDefinedFunction(self, ctx, funcName):
         funcDef = self.envF[funcName]
 
@@ -294,6 +294,7 @@ class GraphVisitor(ParseTreeVisitor):
         for i in range(0, len(paramsCollected.formal)):
             self.getCurrentScope().set(paramsCollected.formal[i], paramsCollected.actual[i].type, paramsCollected.actual[i].value)
 
+
     def mapParams(self, formalParams, actualParams):
         actualValues = []
         formalNames = []
@@ -308,6 +309,7 @@ class GraphVisitor(ParseTreeVisitor):
 
         return FormalActualTuple(formalNames, actualValues)
 
+
     def getActualParams(self, ctx):
         if ctx.getChildCount() == 2:
             formalParams = ctx.children[1].children
@@ -316,6 +318,7 @@ class GraphVisitor(ParseTreeVisitor):
 
         return formalParams
 
+
     def getFormalParams(self, ctx):
         if ctx.getChildCount() == 3:
             actualParams = ctx.children[1].children
@@ -323,6 +326,7 @@ class GraphVisitor(ParseTreeVisitor):
             actualParams = []
 
         return actualParams
+
 
     # Visit a parse tree produced by GraphParser#actualParams.
     def visitActualParams(self, ctx:GraphParser.ActualParamsContext):
@@ -435,6 +439,7 @@ class GraphVisitor(ParseTreeVisitor):
 
         return EdgeDecleration(directed, vertex, label)
 
+
     def getVertexName(self, vertex):
         if vertex.type != Types.String:
             raise TypeError('Edge name is not a string.')
@@ -463,6 +468,7 @@ class GraphVisitor(ParseTreeVisitor):
             return number
         except ValueError:
             return False
+
 
     def lookUp(self, value):
         if type(value) is str:
