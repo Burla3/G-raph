@@ -462,11 +462,11 @@ class GraphVisitor(ParseTreeVisitor):
 
         for vDecl in vertexDecls:
             vertex = vDecl.vertex
-            if vertex not in graph.vertices:
+            if not self.vertexExistsInGraph(graph, vertex):
                 dic = {'name': ValueTypeTuple(vertex, Types.String)}
                 graph.vertices.append(ValueTypeTuple(dic, Types.Vertex))
             for eDecl in vDecl.edges:
-                if eDecl.vertex not in graph.vertices:
+                if not self.vertexExistsInGraph(graph, eDecl.vertex):
                     dic = {'name': ValueTypeTuple(eDecl.vertex, Types.String)}
                     graph.vertices.append(ValueTypeTuple(dic, Types.Vertex))
 
@@ -479,6 +479,11 @@ class GraphVisitor(ParseTreeVisitor):
 
         return ValueTypeTuple(graph, Types.Graph)
 
+    def vertexExistsInGraph(self, graph, vertex):
+        for v in graph.vertices:
+            if vertex == v.value['name'].value:
+                return True
+        return False
 
     def visitVertices(self, ctx:GraphParser.VerticesContext):
         vertexDecls = []
