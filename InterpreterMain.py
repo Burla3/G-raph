@@ -154,7 +154,30 @@ class GraphVisitor(ParseTreeVisitor):
                 value = re.sub("(\\\)(?={(?:[a-z]+[a-zA-Z0-9]*)\})", '', value)
                 value = ValueTypeTuple(value, Types.String)
             return value
-        else:
+        elif ctx.getChildCount() == 2:
+            operator = ctx.children[0]
+
+            if hasattr(operator, 'symbol'):
+                operator = operator.symbol.text
+            else:
+                operator = operator.children[0].symbol.text
+
+            right = self.getValue(ctx.children[1])
+
+            if operator == '-':
+                exprType = Types.Number
+
+                self.checkType(ctx, right, Types.Number)
+
+                result = -right.value
+            elif operator == 'not':
+                exprType = Types.Bool
+
+                self.checkType(ctx, right, Types.Bool)
+
+                result = not right.value
+
+        elif ctx.getChildCount() == 3:
             operator = ctx.children[1]
 
             if hasattr(operator, 'symbol'):
@@ -171,12 +194,80 @@ class GraphVisitor(ParseTreeVisitor):
                 self.checkTypes(ctx, left, right, Types.Number, Types.Number)
 
                 result = left.value + right.value
+            elif operator == '-':
+                exprType = Types.Number
+
+                self.checkTypes(ctx, left, right, Types.Number, Types.Number)
+
+                result = left.value - right.value
+            elif operator == '*':
+                exprType = Types.Number
+
+                self.checkTypes(ctx, left, right, Types.Number, Types.Number)
+
+                result = left.value * right.value
+            elif operator == '/':
+                exprType = Types.Number
+
+                self.checkTypes(ctx, left, right, Types.Number, Types.Number)
+
+                result = left.value / right.value
+            elif operator == '%':
+                exprType = Types.Number
+
+                self.checkTypes(ctx, left, right, Types.Number, Types.Number)
+
+                result = left.value % right.value
+            elif operator == '^':
+                exprType = Types.Number
+
+                self.checkTypes(ctx, left, right, Types.Number, Types.Number)
+
+                result = left.value**right.value
+            elif operator == '<':
+                exprType = Types.Bool
+
+                self.checkTypes(ctx, left, right, Types.Number, Types.Number)
+
+                result = left.value < right.value
             elif operator == '>':
                 exprType = Types.Bool
 
                 self.checkTypes(ctx, left, right, Types.Number, Types.Number)
 
                 result = left.value > right.value
+            elif operator == '<=':
+                exprType = Types.Bool
+
+                self.checkTypes(ctx, left, right, Types.Number, Types.Number)
+
+                result = left.value <= right.value
+            elif operator == '>=':
+                exprType = Types.Bool
+
+                self.checkTypes(ctx, left, right, Types.Number, Types.Number)
+
+                result = left.value >= right.value
+            elif operator == 'is':
+                exprType = Types.Bool
+
+                result = left.value is right.value
+            elif operator == 'is not':
+                exprType = Types.Bool
+
+                result = left.value is not right.value
+            elif operator == 'and':
+                exprType = Types.Bool
+
+                self.checkTypes(ctx, left, right, Types.Bool, Types.Bool)
+
+                result = left.value and right.value
+            elif operator == 'or':
+                exprType = Types.Bool
+
+                self.checkTypes(ctx, left, right, Types.Bool, Types.Bool)
+
+                result = left.value or right.value
             else:
                 raise KeyError('Operator do not exist.')
 
@@ -188,6 +279,10 @@ class GraphVisitor(ParseTreeVisitor):
             error = 'Types do not match in expression on line ' + str(ctx.start.line) + ':' + str(ctx.start.column)
             raise TypeError(error)
 
+    def checkType(self, ctx, val, valType):
+        if val.type != valType:
+            error = 'Incorrect type on line ' + str(ctx.start.line) + ':' + str(ctx.start.column)
+            raise TypeError(error)
 
     def getValue(self, ctx):
         val = ctx.accept(self)
