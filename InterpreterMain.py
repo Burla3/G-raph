@@ -322,6 +322,8 @@ class GraphVisitor(ParseTreeVisitor):
                     raise TypeError(error)
 
                 if isinstance(ctx.parentCtx, GraphParser.AssignmentContext):
+                    if index.value == 'name':
+                        raise KeyError('You can not rename a vertex.')
                     value = ValueTypeTuple(Molecule(identifier, index), Types.Molecule)
                 else:
                     value = structure.value[index.value]
