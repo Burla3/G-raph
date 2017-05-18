@@ -21,6 +21,9 @@ class ValueTypeTuple():
         return str(self.value)
 
     def __eq__(self, other):
+        if not isinstance(other, ValueTypeTuple):
+            return False
+
         if self.type != other.type:
             return False
 
