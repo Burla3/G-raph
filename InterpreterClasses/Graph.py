@@ -11,6 +11,43 @@ class Graph():
                 return vertex
         raise KeyError('Vertex is not in the graph')
 
+    def getEdgesFrom(self, vertexName):
+        edges = []
+        for edge in self.edges:
+            if not edge.value.directed:
+                if edge.value.fromV == vertexName.value or edge.value.toV == vertexName.value:
+                    edges.append(edge)
+            elif edge.value.fromV == vertexName:
+                edges.append(edge)
+
+        return edges
+
+    def getEdgesTo(self, vertexName):
+        edges = []
+        for edge in self.edges:
+            if not edge.value.directed:
+                if edge.value.fromV == vertexName.value or edge.value.toV == vertexName.value:
+                    edges.append(edge)
+            elif edge.value.toV == vertexName:
+                edges.append(edge)
+
+        return edges
+
+
+    def verticesAdjacentTo(self, vertexName):
+        vertices = []
+        for edge in self.edges:
+            if not edge.value.directed:
+                if edge.value.fromV == vertexName.value:
+                    vertices.append(edge.value.toV)
+                elif edge.value.toV == vertexName.value:
+                    vertices.append(edge.value.fromV)
+            elif edge.value.fromV == vertexName:
+                vertices.append(edge.value.toV)
+
+        return vertices
+
+
     def __str__(self):
         buildStr = ''
         for vertex in self.vertices:

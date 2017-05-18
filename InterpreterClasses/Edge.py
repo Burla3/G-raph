@@ -29,3 +29,25 @@ class Edge():
 
     def __ne__(self, other):
         return not self == other
+
+    def __str__(self):
+        buildStr = ''
+
+        buildStr += self.fromV
+        if self.directed:
+            buildStr += '->'
+        else:
+            buildStr += '-'
+        buildStr += self.toV
+        buildStr += ' { '
+        first = True
+        for key in self.labels:
+            if not first:
+                buildStr += ', '
+                first = False
+            buildStr += key
+            buildStr += ': '
+            buildStr += str(self.labels[key].value)
+        buildStr += '}'
+
+        return buildStr

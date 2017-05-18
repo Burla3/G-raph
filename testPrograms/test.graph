@@ -30,6 +30,23 @@ function HovHov():
     pass
 
 @run:
+    graphVar2 = graph:
+        'a'
+        'b' ('c')
+        'c' ('d' 5)
+
+    eF = GetEdgesFrom(graphVar2, 'b')
+    eT = GetEdgesTo(graphVar2, 'c')
+    adj = VerticesAdjacentTo(graphVar2, 'b')
+
+    Print('eF {eF}')
+    Print('eT {eT}')
+    Print('adj {adj}')
+
+    listgraph = [graphVar2]
+
+    Print('{listgraph}')
+
     g = [99, 3, 4, 5, 6, 7, True, False]
 
     g[1] = 67567
@@ -83,18 +100,21 @@ function HovHov():
     graphVar = graph:
         'a'
         'b' ('c')
-        'c' ('d' 5)
-        'd' (->'e')
-        'e' (->'f' 7), (->'g' 3)
-        'f' (->'g' 8), (->'h' 4), ('i' 6)
+
+    graphVar2 = graph:
+        'a'
+        'q' ('w' 3)
 
     HovHov()
 
     vertex = GetVertex(graphVar, 'a')
     vName = vertex['name']
+    /*
     vertex['bob'] = 34
     vLabel = vertex['bob']
+
     Print('{vLabel}')
+    */
     Print('{vName}')
 
     if 1 > 2:
@@ -113,3 +133,30 @@ function HovHov():
     Print('{c}')
     Print('{graphVar}')
 
+    Print('')
+    Print('Graph Operations')
+    Print('------------------------------------------------------')
+
+    diffedGraph = graphVar diff graphVar2
+    Print('Diffed graph')
+    Print('{diffedGraph}')
+
+    intersectedGraph = graphVar intersect graphVar2
+    Print('Intersected graph')
+    Print('{intersectedGraph}')
+
+    unionedGraph = graphVar union graphVar2
+    Print('Unioned graph')
+    Print('{unionedGraph}')
+
+    list1 = [1, 2, 3, 4]
+    list2 = [4, 5, 6, graphVar2]
+
+    listConcat = list1 concat list2
+
+    Print('')
+    Print('List concatenation')
+    Print('------------------------------------------------------')
+
+
+    Print('{listConcat}')

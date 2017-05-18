@@ -273,11 +273,102 @@ class GraphVisitor(ParseTreeVisitor):
                 self.checkType(ctx, right, Types.List)
 
                 result = left.value in right.value
+            elif operator == 'not in':
+                exprType = Types.Bool
+
+                self.checkType(ctx, right, Types.List)
+
+                result = left.value not in right.value
+            elif operator == 'union':
+                exprType = Types.Graph
+
+                self.checkTypes(ctx, left, right, Types.Graph, Types.Graph)
+
+                result = self.union(left.value, right.value)
+            elif operator == 'intersect':
+                exprType = Types.Graph
+
+                self.checkTypes(ctx, left, right, Types.Graph, Types.Graph)
+
+                result = self.intersect(left.value, right.value)
+            elif operator == 'diff':
+                exprType = Types.Graph
+
+                self.checkTypes(ctx, left, right, Types.Graph, Types.Graph)
+
+                result = self.diff(left.value, right.value)
+            elif operator == 'concat':
+                exprType = Types.List
+
+                self.checkTypes(ctx, left, right, Types.List, Types.List)
+
+                result = left.value + right.value
             else:
                 raise KeyError('Operator do not exist.')
 
         return ValueTypeTuple(result, exprType)
 
+
+    def diff(self, left, right):
+        graph = Graph()
+
+        for vertex in left.vertices:
+            if not self.vertexExistsInGraph(right, vertex):
+                graph.vertices.append(vertex)
+
+        for edge in left.edges:
+            if not self.edgeExistsInGraph(right, edge):
+                graph.edges.append(edge)
+
+        return graph
+
+
+    def intersect(self, left, right):
+        graph = Graph()
+
+        for vertex in left.vertices:
+            if self.vertexExistsInGraph(right, vertex):
+                graph.vertices.append(vertex)
+
+        for edge in left.edges:
+            if self.edgeExistsInGraph(right, edge):
+                graph.edges.append(edge)
+
+        return graph
+
+
+    def union(self, left, right):
+        graph = Graph()
+
+        for vertex in left.vertices:
+            graph.vertices.append(vertex)
+
+        for vertex in right.vertices:
+            if not self.vertexExistsInGraph(graph, vertex):
+                graph.vertices.append(vertex)
+
+        for edge in left.edges:
+            graph.edges.append(edge)
+
+        for edge in right.edges:
+            if not self.edgeExistsInGraph(graph, edge):
+                graph.edges.append(edge)
+
+        return graph
+
+    def vertexExistsInGraph(self, graph, vertex):
+        for v in graph.vertices:
+            if vertex.value['name'].value == v.value['name'].value:
+                if vertex != v:
+                    raise NameError('Vertices has the same name but is not equals.')
+                return True
+        return False
+
+    def edgeExistsInGraph(self, graph, edge):
+        for e in graph.edges:
+            if edge == e:
+                return True
+        return False
 
     def checkTypes(self, ctx, left, right, leftType, rightType):
         if left.type != leftType or right.type != rightType:
@@ -350,18 +441,19 @@ class GraphVisitor(ParseTreeVisitor):
             input = ctx.children[1].accept(self)
             print(str(input.value))
         elif funcName == 'GetVertex':
-            params = self.getActualParams(ctx)
-            if len(params) != 2:
-                raise ValueError('GetVertex requires 2 parameters a graph and a name')
+            result = self.getVertex(ctx)
 
-            graph = self.lookUp(params[0].accept(self))
-            if graph.type != Types.Graph:
-                raise TypeError('First parameter is not of type graph.')
-            vertex = params[1].accept(self)
-            if vertex.type != Types.String:
-                raise TypeError('Second parameter is not of type string.')
+            return result
+        elif funcName == 'GetEdgesFrom':
+            result = self.getEdgesFrom(ctx)
 
-            result = graph.value.getVertex(vertex)
+            return result
+        elif funcName == 'GetEdgesTo':
+            result = self.getEdgesTo(ctx)
+
+            return result
+        elif funcName == 'VerticesAdjacentTo':
+            result = self.verticesAdjacentTo(ctx)
 
             return result
         elif funcName in self.envF:
@@ -372,6 +464,64 @@ class GraphVisitor(ParseTreeVisitor):
         else:
             raise ModuleNotFoundError('Function: ' + funcName + ' do not exist.')
 
+
+    def verticesAdjacentTo(self, ctx):
+        params = self.getActualParams(ctx)
+        if len(params) != 2:
+            raise ValueError('GetVertex requires 2 parameters a graph and a name')
+
+        graph = self.lookUp(params[0].accept(self))
+        self.checkType(ctx, graph, Types.Graph)
+
+        vertex = params[1].accept(self)
+        self.checkType(ctx, vertex, Types.String)
+
+        vertices = graph.value.verticesAdjacentTo(vertex)
+
+        return ValueTypeTuple(vertices, Types.List)
+
+    def getVertex(self, ctx):
+        params = self.getActualParams(ctx)
+        if len(params) != 2:
+            raise ValueError('GetVertex requires 2 parameters a graph and a name')
+
+        graph = self.lookUp(params[0].accept(self))
+        self.checkType(ctx, graph, Types.Graph)
+
+        vertex = params[1].accept(self)
+        self.checkType(ctx, vertex, Types.String)
+
+        return graph.value.getVertex(vertex)
+
+    def getEdgesFrom(self, ctx):
+        params = self.getActualParams(ctx)
+        if len(params) != 2:
+            raise ValueError('GetVertex requires 2 parameters a graph and a name')
+
+        graph = self.lookUp(params[0].accept(self))
+        self.checkType(ctx, graph, Types.Graph)
+
+        vertex = params[1].accept(self)
+        self.checkType(ctx, vertex, Types.String)
+
+        edges = graph.value.getEdgesFrom(vertex)
+
+        return ValueTypeTuple(edges, Types.List)
+
+    def getEdgesTo(self, ctx):
+        params = self.getActualParams(ctx)
+        if len(params) != 2:
+            raise ValueError('GetVertex requires 2 parameters a graph and a name')
+
+        graph = self.lookUp(params[0].accept(self))
+        self.checkType(ctx, graph, Types.Graph)
+
+        vertex = params[1].accept(self)
+        self.checkType(ctx, vertex, Types.String)
+
+        edges = graph.value.getEdgesTo(vertex)
+
+        return ValueTypeTuple(edges, Types.List)
 
     def visitDefinedFunction(self, ctx, funcName):
         funcDef = self.envF[funcName]
@@ -442,6 +592,7 @@ class GraphVisitor(ParseTreeVisitor):
         listStruct = []
         for expr in ctx.children:
             result = self.visitExpr(expr)
+            result = self.lookUp(result)
             listStruct.append(result)
 
         return ValueTypeTuple(listStruct, Types.List)
@@ -486,13 +637,15 @@ class GraphVisitor(ParseTreeVisitor):
 
         for vDecl in vertexDecls:
             vertex = vDecl.vertex
-            if not self.vertexExistsInGraph(graph, vertex):
-                dic = {'name': ValueTypeTuple(vertex, Types.String)}
-                graph.vertices.append(ValueTypeTuple(dic, Types.Vertex))
+            dic = {'name': ValueTypeTuple(vertex, Types.String)}
+            v = ValueTypeTuple(dic, Types.Vertex)
+            if not self.vertexExistsInGraph(graph, v):
+                graph.vertices.append(v)
             for eDecl in vDecl.edges:
-                if not self.vertexExistsInGraph(graph, eDecl.vertex):
-                    dic = {'name': ValueTypeTuple(eDecl.vertex, Types.String)}
-                    graph.vertices.append(ValueTypeTuple(dic, Types.Vertex))
+                dic = {'name': ValueTypeTuple(eDecl.vertex, Types.String)}
+                v = ValueTypeTuple(dic, Types.Vertex)
+                if not self.vertexExistsInGraph(graph, v):
+                    graph.vertices.append(v)
 
                 if not eDecl.directed and vertex > eDecl.vertex:
                     edge = Edge(eDecl.vertex, vertex, eDecl.directed)
@@ -505,12 +658,6 @@ class GraphVisitor(ParseTreeVisitor):
                 graph.edges.append(ValueTypeTuple(edge, Types.Edge))
 
         return ValueTypeTuple(graph, Types.Graph)
-
-    def vertexExistsInGraph(self, graph, vertex):
-        for v in graph.vertices:
-            if vertex == v.value['name'].value:
-                return True
-        return False
 
     def visitVertices(self, ctx:GraphParser.VerticesContext):
         vertexDecls = []
