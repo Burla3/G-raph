@@ -55,3 +55,30 @@ class Graph():
                     if index < len(edge.value.labels):
                         buildStr += ', '
         return buildStr
+
+    def __eq__(self, other):
+        if not isinstance(other, Graph):
+            return False
+
+        if len(self.vertices) != len(other.vertices):
+            return False
+
+        if len(self.edges) != len(other.edges):
+            return False
+
+        sortedSelfVertices = sorted(self.vertices, key=lambda x: x.value['name'].value)
+        sortedOtherVertices = sorted(other.vertices, key=lambda x: x.value['name'].value)
+
+        if sortedSelfVertices != sortedOtherVertices:
+            return False
+
+        sortedSelfEdges = sorted(self.edges, key=lambda x: (x.value.fromV, x.value.directed, x.value.toV))
+        sortedOtherEdges = sorted(other.edges, key=lambda x: (x.value.fromV, x.value.directed, x.value.toV))
+
+        if sortedSelfEdges != sortedOtherEdges:
+            return False
+
+        return True
+
+    def __ne__(self, other):
+        return not self == other

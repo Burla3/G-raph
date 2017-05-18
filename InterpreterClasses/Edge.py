@@ -4,3 +4,28 @@ class Edge():
         self.toV = toV
         self.directed = directed
         self.labels = {}
+
+    def __eq__(self, other):
+        if self.directed != other.directed:
+            return False
+
+        if self.fromV != other.fromV:
+            return False
+
+        if self.toV != other.toV:
+            return False
+
+        if len(self.labels) != len(other.labels):
+            return False
+
+        for key in self.labels:
+            if key not in other.labels:
+                return False
+
+            if self.labels[key] != other.labels[key]:
+                return False
+
+        return True
+
+    def __ne__(self, other):
+        return not self == other

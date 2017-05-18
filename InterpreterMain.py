@@ -494,7 +494,10 @@ class GraphVisitor(ParseTreeVisitor):
                     dic = {'name': ValueTypeTuple(eDecl.vertex, Types.String)}
                     graph.vertices.append(ValueTypeTuple(dic, Types.Vertex))
 
-                edge = Edge(vertex, eDecl.vertex, eDecl.directed)
+                if not eDecl.directed and vertex > eDecl.vertex:
+                    edge = Edge(eDecl.vertex, vertex, eDecl.directed)
+                else:
+                    edge = Edge(vertex, eDecl.vertex, eDecl.directed)
 
                 if eDecl.label is not None:
                     edge.labels['label'] = eDecl.label

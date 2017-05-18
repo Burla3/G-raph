@@ -19,3 +19,15 @@ class ValueTypeTuple():
             return buildStr
 
         return str(self.value)
+
+    def __eq__(self, other):
+        if self.type != other.type:
+            return False
+
+        if self.value != other.value:
+            return False
+
+        return True
+
+    def __ne__(self, other):
+        return not self == other
