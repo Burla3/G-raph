@@ -56,6 +56,31 @@ def getFromSymtable(tables, key):
             continue
     raise KeyError('Key not in any table')
 
+def testexec(testtup, value, localtestcount):
+    localtesterrors = 0
+    if len(testtup) is 3:
+        comp = testtup[2](testtup[1], value)
+    else:
+        comp = value == testtup[1]
+
+    if comp:
+        color = '0;32;40'
+        state = '[PASSED]'
+    else:
+        color = '0;31;40'
+        state = '[FAILED]'
+        localtesterrors += 1
+
+    print('\x1b[{color}m {state} \x1b[0m T#{tnumber:03d}. Expected: {lookfor}({ltype}) Found: {got}({gtype})'.format(
+        tnumber=localtestcount + 1,
+        lookfor=testtup[1],
+        ltype=type(testtup[1]).__name__,
+        got=value,
+        gtype=type(value).__name__,
+        color=color,
+        state=state))
+    return localtesterrors
+
 def main():
     globaltestcount = 0
     globaltesterrors = 0
@@ -82,28 +107,12 @@ def main():
                 print(e)
                 continue
 
-            if len(testtup) is 3:
-                comp = testtup[2](testtup[1], value)
-            else:
-                comp = value == testtup[1]
+            localtesterrors += testexec(testtup, value, localtestcount)
+            localtestcount += 1
 
-            if comp:
-                color = '0;32;40'
-                state = '[PASSED]'
-            else:
-                color = '0;31;40'
-                state = '[FAILED]'
-                localtesterrors += 1
-
-
-            print('\x1b[{color}m {state} \x1b[0m T#{tnumber:03d}. Expected: {lookfor}({ltype}) Found: {got}({gtype})'.format(
-                tnumber=localtestcount + 1,
-                lookfor=testtup[1],
-                ltype=type(testtup[1]).__name__,
-                got=value,
-                gtype=type(value).__name__,
-                color=color,
-                state=state))
+        for testval in test['output']:
+            testtup = (testval, testval)
+            localtesterrors += testexec(testtup, testval, localtestcount)
             localtestcount += 1
 
         print('------------------------------')
