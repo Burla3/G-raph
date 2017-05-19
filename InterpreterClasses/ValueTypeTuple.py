@@ -18,6 +18,21 @@ class ValueTypeTuple():
             buildStr += str(self.value[index]) + ']'
             return buildStr
 
+        if self.type == Types.Vertex:
+            vertexName = str(self.value['name'])
+            buildStr = vertexName + ' { '
+
+            # Append labels
+            index = 0
+            for label in self.value:
+                if label != 'name':
+                    buildStr += str(label) + ': ' + str(self.value[label])
+                    index += 1
+                    if index < len(self.value) - 1:
+                        buildStr += ', '
+            buildStr += ' }'
+            return buildStr
+
         return str(self.value)
 
     def __eq__(self, other):
