@@ -26,21 +26,16 @@ class GraphVisitor(ParseTreeVisitor):
     def getCurrentScope(self):
         return self.symbolTableStack.peek()
 
-
-
     def visitProgram(self, ctx:GraphParser.ProgramContext):
         self.symbolTableStack.push(SymbolTable())
         return self.visitChildren(ctx)
-
 
     def visitFuncDef(self, ctx:GraphParser.FuncDefContext):
         name = ctx.children[0].symbol.text
         self.envF[name] = ctx
 
-
     def visitFormalParams(self, ctx:GraphParser.FormalParamsContext):
         return self.visitChildren(ctx)
-
 
     def visitBlock(self, ctx:GraphParser.BlockContext):
         for child in ctx.children:
@@ -56,14 +51,11 @@ class GraphVisitor(ParseTreeVisitor):
                 if retValue is not None:
                     return retValue
 
-
     def visitStmt(self, ctx:GraphParser.StmtContext):
         return self.visitChildren(ctx)
 
-
     def visitSimpleStmt(self, ctx:GraphParser.SimpleStmtContext):
         return self.visitChildren(ctx)
-
 
     def visitAssignment(self, ctx:GraphParser.AssignmentContext):
         identifier = ctx.children[0].accept(self)
@@ -79,11 +71,8 @@ class GraphVisitor(ParseTreeVisitor):
         else:
             self.getCurrentScope().set(identifier, value.type, value.value)
 
-
-
     def visitCompoundStmt(self, ctx:GraphParser.CompoundStmtContext):
         return self.visitChildren(ctx)
-
 
     def visitIfStmt(self, ctx:GraphParser.IfStmtContext):
         count = 0
@@ -96,20 +85,17 @@ class GraphVisitor(ParseTreeVisitor):
         if isinstance(ctx.children[count - 2], GraphParser.BlockContext):
             return ctx.children[count - 1].accept(self)
 
-
     def visitWhileStmt(self, ctx:GraphParser.WhileStmtContext):
         while self.evaluateBool(ctx.children[1]):
             retValue = ctx.children[2].accept(self)
             if retValue is not None:
                 return retValue
 
-
     def evaluateBool(self, ctx):
         result = ctx.accept(self)
         if result.type != Types.Bool:
             raise TypeError('Expr do not evaluate to a boolean.')
         return result.value
-
 
     def visitForeachStmt(self, ctx:GraphParser.ForeachStmtContext):
         identifier = ctx.children[1].accept(self)
@@ -127,14 +113,11 @@ class GraphVisitor(ParseTreeVisitor):
 
         self.getCurrentScope().delete(identifier)
 
-
-
     def visitGraphAssignment(self, ctx:GraphParser.GraphAssignmentContext):
         identifier = ctx.children[0].symbol.text
         value = ctx.children[1].accept(self)
 
         self.getCurrentScope().set(identifier, value.type, value.value)
-
 
     def visitCompOp(self, ctx:GraphParser.CompOpContext):
         return ctx.children[0].symbol.text
@@ -142,7 +125,6 @@ class GraphVisitor(ParseTreeVisitor):
     def strSubVars(self, mobj):
         key = mobj.group(1)[1:-1]
         return str(self.lookUp(key))
-
 
     def visitExpr(self, ctx:GraphParser.ExprContext):
         if ctx.getChildCount() == 1:
@@ -308,7 +290,6 @@ class GraphVisitor(ParseTreeVisitor):
 
         return ValueTypeTuple(result, exprType)
 
-
     def diff(self, left, right):
         graph = Graph()
 
@@ -322,7 +303,6 @@ class GraphVisitor(ParseTreeVisitor):
 
         return graph
 
-
     def intersect(self, left, right):
         graph = Graph()
 
@@ -335,7 +315,6 @@ class GraphVisitor(ParseTreeVisitor):
                 graph.edges.append(edge)
 
         return graph
-
 
     def union(self, left, right):
         graph = Graph()
@@ -389,14 +368,11 @@ class GraphVisitor(ParseTreeVisitor):
         val = ctx.accept(self)
         return self.lookUp(val)
 
-
     def visitSetOp(self, ctx:GraphParser.SetOpContext):
         return ctx.children[0].symbol.text
 
-
     def visitFactorOp(self, ctx:GraphParser.FactorOpContext):
         return ctx.children[0].symbol.text
-
 
     def visitMolecule(self, ctx:GraphParser.MoleculeContext):
         if ctx.getChildCount() > 1:
@@ -431,13 +407,11 @@ class GraphVisitor(ParseTreeVisitor):
 
         return self.visitChildren(ctx)
 
-
     def visitAtom(self, ctx:GraphParser.AtomContext):
         if hasattr(ctx.children[0], 'symbol'):
             return ctx.children[0].symbol.text
         else:
             return self.visitChildren(ctx)
-
 
     def visitFuncCall(self, ctx:GraphParser.FuncCallContext):
         funcName = ctx.children[0].symbol.text
@@ -615,7 +589,6 @@ class GraphVisitor(ParseTreeVisitor):
             else:
                 currentScope.set(params.formal[i], params.actual[i].value.type, params.actual[i].value.value)
 
-
     def mapParams(self, formalParams, actualParams):
         formalNames = []
 
@@ -623,7 +596,6 @@ class GraphVisitor(ParseTreeVisitor):
             formalNames.append(formalParams[param].symbol.text)
 
         return FormalActualTuple(formalNames, actualParams)
-
 
     def getActualParams(self, ctx):
         if ctx.getChildCount() == 2:
@@ -650,7 +622,6 @@ class GraphVisitor(ParseTreeVisitor):
 
         return actualParams
 
-
     def getFormalParams(self, ctx):
         if ctx.getChildCount() == 3:
             formalParams = ctx.children[1].children
@@ -659,10 +630,8 @@ class GraphVisitor(ParseTreeVisitor):
 
         return formalParams
 
-
     def visitActualParams(self, ctx:GraphParser.ActualParamsContext):
         return self.visitChildren(ctx)
-
 
     def visitListStruct(self, ctx:GraphParser.ListStructContext):
 
@@ -673,7 +642,6 @@ class GraphVisitor(ParseTreeVisitor):
             listStruct.append(result)
 
         return ValueTypeTuple(listStruct, Types.List)
-
 
     def visitRangerStruct(self, ctx:GraphParser.RangerStructContext):
 
@@ -706,7 +674,6 @@ class GraphVisitor(ParseTreeVisitor):
             ranger.reverse()
 
         return ValueTypeTuple(ranger, Types.List)
-
 
     def visitGraph(self, ctx:GraphParser.GraphContext):
         graph = Graph()
@@ -743,7 +710,6 @@ class GraphVisitor(ParseTreeVisitor):
 
         return vertexDecls
 
-
     def visitVertex(self, ctx:GraphParser.VertexContext):
         vertex = ctx.children[0].accept(self)
         if vertex.type != Types.String:
@@ -755,13 +721,11 @@ class GraphVisitor(ParseTreeVisitor):
             vertexDecl = VertexDecleration(vertex.value, ctx.children[1].accept(self))
         return vertexDecl
 
-
     def visitEdges(self, ctx:GraphParser.EdgesContext):
         edges = []
         for edge in ctx.children:
             edges.append(edge.accept(self))
         return edges
-
 
     def visitEdge(self, ctx:GraphParser.EdgeContext):
         directed = False
@@ -785,25 +749,20 @@ class GraphVisitor(ParseTreeVisitor):
 
         return EdgeDecleration(directed, vertex, label)
 
-
     def getVertexName(self, vertex):
         if vertex.type != Types.String:
             raise TypeError('Edge name is not a string.')
 
         return vertex.value
 
-
     def visitIdentifier(self, ctx:GraphParser.IdentifierContext):
         return ctx.getText()
-
 
     def visitNumber(self, ctx:GraphParser.NumberContext):
         return ValueTypeTuple(self.isNumber(ctx.getText()), Types.Number)
 
-
     def visitBoolean(self, ctx:GraphParser.BooleanContext):
         return ValueTypeTuple(ctx.getText() == 'True', Types.Bool)
-
 
     def isNumber(self, value):
         try:
@@ -811,7 +770,6 @@ class GraphVisitor(ParseTreeVisitor):
             return number
         except ValueError:
             raise TypeError('Wut? That is just wrong mate.')
-
 
     def lookUp(self, value):
         if type(value) is str:
