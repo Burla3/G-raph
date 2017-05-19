@@ -93,6 +93,7 @@ class GraphVisitor(ParseTreeVisitor):
 
     def evaluateBool(self, ctx):
         result = ctx.accept(self)
+        result = self.lookUp(result)
         if result.type != Types.Bool:
             raise TypeError('Expr do not evaluate to a boolean.')
         return result.value
@@ -460,7 +461,7 @@ class GraphVisitor(ParseTreeVisitor):
         if len(params) != 1:
             raise ValueError('Length requires 1 parameter. A list, vertex, edge or a string.')
 
-        input = self.lookUp(params[0].accept(self))
+        input = params[0].value
         self.checkTypeList(ctx, input, [Types.Vertex, Types.List, Types.Edge, Types.String])
 
         return ValueTypeTuple(len(input.value), Types.Number)

@@ -1,0 +1,37 @@
+@run:
+    /* If structure */
+    grade = 12
+
+    if grade < 02:
+        Print('Failed\n')
+    else if grade >= 02 and grade <= 7:
+        Print('Passed: Average')
+    else:
+        Print('Passed: Excellent')
+
+    /* While structure */
+    hungry = True
+
+    while hungry:
+        Print('I am hungry')
+        hungry = False
+
+    Print('Countdown')
+
+    /* For each structure */
+    for each number in [3..1]:
+        Print('{number}')
+
+    Print('GO!')
+
+/*
+ * Output:
+ *
+ * Passed: Excellent
+ * I am hungry
+ * Countdown
+ * 3
+ * 2
+ * 1
+ * GO!
+ */
