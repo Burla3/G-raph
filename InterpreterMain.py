@@ -381,6 +381,11 @@ class GraphVisitor(ParseTreeVisitor):
             error = 'Incorrect type on line ' + str(ctx.start.line) + ':' + str(ctx.start.column)
             raise TypeError(error)
 
+    def checkTypeList(self, ctx, val, typeList):
+        if val.type not in typeList:
+            error = 'Incorrect type on line ' + str(ctx.start.line) + ':' + str(ctx.start.column)
+            raise TypeError(error)
+
     def getValue(self, ctx):
         val = ctx.accept(self)
         return self.lookUp(val)
@@ -441,6 +446,10 @@ class GraphVisitor(ParseTreeVisitor):
         if funcName == 'Print':
             input = ctx.children[1].accept(self)
             print(str(input.value))
+        elif funcName == 'Length':
+            result = self.getLength(ctx)
+
+            return result
         elif funcName == 'GetVertex':
             result = self.getVertex(ctx)
 
@@ -473,6 +482,15 @@ class GraphVisitor(ParseTreeVisitor):
         else:
             raise ModuleNotFoundError('Function: ' + funcName + ' do not exist.')
 
+    def getLength(self, ctx):
+        params = self.getActualParams(ctx)
+        if len(params) != 1:
+            raise ValueError('Length requires 1 parameter. A list, vertex, edge or a string.')
+
+        input = self.lookUp(params[0].accept(self))
+        self.checkTypeList(ctx, input, [Types.Vertex, Types.List, Types.Edge, Types.String])
+
+        return ValueTypeTuple(len(input.value), Types.Number)
 
     def verticesAdjacentTo(self, ctx):
         params = self.getActualParams(ctx)

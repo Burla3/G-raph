@@ -164,11 +164,9 @@ function HovHov(tal):
     vertex['johnny'] = 34
 
     vertexList = GetVertices(graphVar2)
-
     Print('{vertexList}')
 
     edgeList = GetEdges(graphVar2)
-
     Print('{edgeList}')
 
     Print('')
@@ -180,3 +178,15 @@ function HovHov(tal):
     Print('{tal}')
     HovHov(ref tal)
     Print('{tal}')
+
+    vertexListLength = Length(vertexList)
+    vertexLength = Length(vertex)
+
+    Print('{vertexListLength}')
+    Print('{vertexLength}')
+
+    stringLength = Length('Halli Hallo')
+    listLength = Length([1..6])
+
+    Print('{stringLength}')
+    Print('{listLength}')
