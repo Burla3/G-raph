@@ -26,8 +26,8 @@ function GiveBack():
         pass
     return 4
 
-function HovHov():
-    pass
+function HovHov(tal):
+    tal = tal + 2
 
 @run:
     graphVar2 = graph:
@@ -78,7 +78,7 @@ function HovHov():
         Print('HOVHOV')
 
     Hej()
-    Hejsa(hmm)
+    Hejsa(ref hmm)
     Toaster(2, 4, 8)
 
     Print('{bobbob}')
@@ -104,8 +104,6 @@ function HovHov():
     graphVar2 = graph:
         'a'
         'q' ('w' 3)
-
-    HovHov()
 
     vertex = GetVertex(graphVar, 'a')
     vName = vertex['name']
@@ -160,6 +158,7 @@ function HovHov():
 
     Print('{listConcat}')
 
+
     vertex = GetVertex(graphVar2, 'a')
     vertex['bob'] = 34
     vertex['johnny'] = 34
@@ -171,3 +170,13 @@ function HovHov():
     edgeList = GetEdges(graphVar2)
 
     Print('{edgeList}')
+
+    Print('')
+    Print('Ref')
+    Print('------------------------------------------------------')
+
+    tal = 5
+    HovHov(tal)
+    Print('{tal}')
+    HovHov(ref tal)
+    Print('{tal}')

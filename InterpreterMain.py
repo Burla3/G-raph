@@ -3,6 +3,7 @@ import re
 
 from InterpreterClasses import *
 from antlr4 import *
+from antlr4.tree import Tree
 
 from InterpreterClasses.Edge import Edge
 from SymTab.SymbolTable import SymbolTable
@@ -478,10 +479,13 @@ class GraphVisitor(ParseTreeVisitor):
         if len(params) != 2:
             raise ValueError('GetVertex requires 2 parameters a graph and a name')
 
-        graph = self.lookUp(params[0].accept(self))
+        if params[0].type != 'value':
+            raise TypeError('This methods do not take a ref as input.')
+
+        graph = params[0].value
         self.checkType(ctx, graph, Types.Graph)
 
-        vertex = params[1].accept(self)
+        vertex = params[1].value
         self.checkType(ctx, vertex, Types.String)
 
         vertices = graph.value.verticesAdjacentTo(vertex)
@@ -492,11 +496,13 @@ class GraphVisitor(ParseTreeVisitor):
         params = self.getActualParams(ctx)
         if len(params) != 2:
             raise ValueError('GetVertex requires 2 parameters a graph and a name')
+        if params[0].type != 'value':
+            raise TypeError('This methods do not take a ref as input.')
 
-        graph = self.lookUp(params[0].accept(self))
+        graph = params[0].value
         self.checkType(ctx, graph, Types.Graph)
 
-        vertex = params[1].accept(self)
+        vertex = params[1].value
         self.checkType(ctx, vertex, Types.String)
 
         return graph.value.getVertex(vertex)
@@ -505,8 +511,10 @@ class GraphVisitor(ParseTreeVisitor):
         params = self.getActualParams(ctx)
         if len(params) != 1:
             raise ValueError('GetVertices requires 1 parameter. A graph.')
+        if params[0].type != 'value':
+            raise TypeError('This methods do not take a ref as input.')
 
-        graph = self.lookUp(params[0].accept(self))
+        graph = params[0].value
         self.checkType(ctx, graph, Types.Graph)
 
         return ValueTypeTuple(graph.value.vertices, Types.List)
@@ -515,8 +523,10 @@ class GraphVisitor(ParseTreeVisitor):
         params = self.getActualParams(ctx)
         if len(params) != 1:
             raise ValueError('GetEdges requires 1 parameter. A graph.')
+        if params[0].type != 'value':
+            raise TypeError('This methods do not take a ref as input.')
 
-        graph = self.lookUp(params[0].accept(self))
+        graph = params[0].value
         self.checkType(ctx, graph, Types.Graph)
 
         return ValueTypeTuple(graph.value.edges, Types.List)
@@ -525,11 +535,14 @@ class GraphVisitor(ParseTreeVisitor):
         params = self.getActualParams(ctx)
         if len(params) != 2:
             raise ValueError('GetVertex requires 2 parameters a graph and a name')
+        if params[0].type != 'value':
+            raise TypeError('This methods do not take a ref as input.')
 
-        graph = self.lookUp(params[0].accept(self))
+
+        graph = params[0].value
         self.checkType(ctx, graph, Types.Graph)
 
-        vertex = params[1].accept(self)
+        vertex = params[1].value
         self.checkType(ctx, vertex, Types.String)
 
         edges = graph.value.getEdgesFrom(vertex)
@@ -540,11 +553,13 @@ class GraphVisitor(ParseTreeVisitor):
         params = self.getActualParams(ctx)
         if len(params) != 2:
             raise ValueError('GetVertex requires 2 parameters a graph and a name')
+        if params[0].type != 'value':
+            raise TypeError('This methods do not take a ref as input.')
 
-        graph = self.lookUp(params[0].accept(self))
+        graph = params[0].value
         self.checkType(ctx, graph, Types.Graph)
 
-        vertex = params[1].accept(self)
+        vertex = params[1].value
         self.checkType(ctx, vertex, Types.String)
 
         edges = graph.value.getEdgesTo(vertex)
@@ -562,9 +577,11 @@ class GraphVisitor(ParseTreeVisitor):
 
         mappedParams = self.mapParams(formalParams, actualParams)
 
+        currentScope = self.getCurrentScope()
+
         self.newScope()
 
-        self.insertParamsInNewScope(mappedParams)
+        self.insertParamsInNewScope(mappedParams, currentScope)
 
         blockCtx = funcDef.children[funcDef.getChildCount() - 1]
         result = self.visitBlock(blockCtx)
@@ -573,42 +590,57 @@ class GraphVisitor(ParseTreeVisitor):
 
         return result
 
-    def insertParamsInNewScope(self, paramsCollected):
-        for i in range(0, len(paramsCollected.formal)):
-            self.getCurrentScope().set(paramsCollected.formal[i], paramsCollected.actual[i].type, paramsCollected.actual[i].value)
+    def insertParamsInNewScope(self, params, oldScope):
+        currentScope = self.getCurrentScope()
+        for i in range(0, len(params.formal)):
+            if params.actual[i].type == Types.Ref:
+                currentScope.set(params.formal[i], params.actual[i].type, None, oldScope, params.actual[i].value)
+            else:
+                currentScope.set(params.formal[i], params.actual[i].value.type, params.actual[i].value.value)
 
 
     def mapParams(self, formalParams, actualParams):
-        actualValues = []
         formalNames = []
-
-        for i in range(0, len(actualParams)):
-            actualVal = actualParams[i].accept(self)
-            actualVal = self.lookUp(actualVal)
-            actualValues.append(actualVal)
 
         for param in range(0, len(formalParams)):
             formalNames.append(formalParams[param].symbol.text)
 
-        return FormalActualTuple(formalNames, actualValues)
+        return FormalActualTuple(formalNames, actualParams)
 
 
     def getActualParams(self, ctx):
         if ctx.getChildCount() == 2:
+            actualParams = []
+            params = ctx.children[1].children
+            count = len(params)
+            index = 0
+
+            while index < count:
+                if isinstance(params[index], Tree.TerminalNodeImpl) and params[index].symbol.text == 'ref':
+                    index += 1
+                    if not hasattr(params[index], 'symbol'):
+                        raise TypeError('You can only ref variables.')
+
+                    actualParam = params[index].symbol.text
+                    actualParams.append(ValueTypeTuple(actualParam, Types.Ref))
+                    index += 1
+                else:
+                    actualParam = self.lookUp(params[index].accept(self))
+                    actualParams.append(ValueTypeTuple(actualParam, Types.Value))
+                    index += 1
+        else:
+            actualParams = []
+
+        return actualParams
+
+
+    def getFormalParams(self, ctx):
+        if ctx.getChildCount() == 3:
             formalParams = ctx.children[1].children
         else:
             formalParams = []
 
         return formalParams
-
-
-    def getFormalParams(self, ctx):
-        if ctx.getChildCount() == 3:
-            actualParams = ctx.children[1].children
-        else:
-            actualParams = []
-
-        return actualParams
 
 
     def visitActualParams(self, ctx:GraphParser.ActualParamsContext):
@@ -761,7 +793,7 @@ class GraphVisitor(ParseTreeVisitor):
             number = float(value)
             return number
         except ValueError:
-            return False
+            raise TypeError('Wut? That is just wrong mate.')
 
 
     def lookUp(self, value):

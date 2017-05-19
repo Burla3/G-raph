@@ -216,11 +216,18 @@ class ASTBuilder(ParseTreeVisitor):
         children = ctx.children
         count = len(children)
 
+        #if count > 1:
+        #    times = int((count - 1) / 3)
+        #    for i in range(0, times):
+        #        del children[1 + i]
+        #        del children[1 + i]
+
         if count > 1:
-            times = int((count - 1) / 3)
-            for i in range(0, times):
-                del children[1 + i]
-                del children[1 + i]
+            index = count - 1
+            while index > 0:
+                if isinstance(children[index], Tree.TerminalNodeImpl) and children[index].symbol.text in [' ', ',']:
+                    del children[index]
+                index -= 1
 
         return self.visitChildren(ctx)
 

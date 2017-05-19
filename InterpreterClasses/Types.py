@@ -7,3 +7,5 @@ class Types():
     Vertex = 'vertex'
     Graph = 'graph'
     Molecule = 'molecule'
+    Ref = 'ref'
+    Value = 'value'

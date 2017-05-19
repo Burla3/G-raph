@@ -7,7 +7,7 @@ class SymbolTable():
     def get(self, symkey):
         if symkey in self.symbols:
             if self.symbols[symkey]['type'] == 'ref':
-                return self.symbols[symkey]['value']['table'].get(self.symbols[symkey]['value']['key'])
+                return self.symbols[symkey]['value']['reftab'].get(self.symbols[symkey]['value']['refkey'])
             else:
                 return self.symbols[symkey]
         else:
@@ -32,7 +32,7 @@ class SymbolTable():
                 raise ValueError(
                     'When creating a symbol reference type, you must supply a table(reftab) and key(refkey)'
                 )
-            value = {'table': reftab, 'key': refkey}
+            value = {'reftab': reftab, 'refkey': refkey}
 
         if symkey in self.symbols:
             if self.symbols[symkey]['type'] == 'ref':
