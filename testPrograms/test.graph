@@ -158,5 +158,16 @@ function HovHov():
     Print('List concatenation')
     Print('------------------------------------------------------')
 
-
     Print('{listConcat}')
+
+    vertex = GetVertex(graphVar2, 'a')
+    vertex['bob'] = 34
+    vertex['johnny'] = 34
+
+    vertexList = GetVertices(graphVar2)
+
+    Print('{vertexList}')
+
+    edgeList = GetEdges(graphVar2)
+
+    Print('{edgeList}')

@@ -444,6 +444,14 @@ class GraphVisitor(ParseTreeVisitor):
             result = self.getVertex(ctx)
 
             return result
+        elif funcName == 'GetVertices':
+            result = self.getVertices(ctx)
+
+            return result
+        elif funcName == 'GetEdges':
+            result = self.getEdges(ctx)
+
+            return result
         elif funcName == 'GetEdgesFrom':
             result = self.getEdgesFrom(ctx)
 
@@ -492,6 +500,26 @@ class GraphVisitor(ParseTreeVisitor):
         self.checkType(ctx, vertex, Types.String)
 
         return graph.value.getVertex(vertex)
+
+    def getVertices(self, ctx):
+        params = self.getActualParams(ctx)
+        if len(params) != 1:
+            raise ValueError('GetVertices requires 1 parameter. A graph.')
+
+        graph = self.lookUp(params[0].accept(self))
+        self.checkType(ctx, graph, Types.Graph)
+
+        return ValueTypeTuple(graph.value.vertices, Types.List)
+
+    def getEdges(self, ctx):
+        params = self.getActualParams(ctx)
+        if len(params) != 1:
+            raise ValueError('GetEdges requires 1 parameter. A graph.')
+
+        graph = self.lookUp(params[0].accept(self))
+        self.checkType(ctx, graph, Types.Graph)
+
+        return ValueTypeTuple(graph.value.edges, Types.List)
 
     def getEdgesFrom(self, ctx):
         params = self.getActualParams(ctx)
