@@ -76,7 +76,6 @@ class GraphVisitor(ParseTreeVisitor):
             molecule = identifier.value
             list = self.getCurrentScope().get(molecule.atom)
             list['value'][molecule.trailer] = value
-            print('Hallo')
         else:
             self.getCurrentScope().set(identifier, value.type, value.value)
 
