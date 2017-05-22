@@ -5,6 +5,7 @@ from InterpreterClasses import *
 from antlr4 import *
 from antlr4.tree import Tree
 
+import copy
 from InterpreterClasses.Edge import Edge
 from SymTab.SymbolTable import SymbolTable
 
@@ -66,8 +67,12 @@ class GraphVisitor(ParseTreeVisitor):
 
         if hasattr(identifier, 'value') and isinstance(identifier.value, Molecule):
             molecule = identifier.value
-            list = self.getCurrentScope().get(molecule.atom)
-            list['value'][molecule.trailer] = value
+            structure = self.lookUp(molecule.atom)
+
+            if structure.type == Types.Edge:
+                structure.value.labels[molecule.trailer] = value
+            else:
+                structure.value[molecule.trailer] = value
         else:
             self.getCurrentScope().set(identifier, value.type, value.value)
 
@@ -100,14 +105,17 @@ class GraphVisitor(ParseTreeVisitor):
 
     def visitForeachStmt(self, ctx:GraphParser.ForeachStmtContext):
         identifier = ctx.children[1].accept(self)
-        structure = ctx.children[2].accept(self)
-        structure = self.lookUp(structure)
+        structureName = ctx.children[2].accept(self)
+        structure = self.lookUp(structureName)
 
-        if structure.type not in [Types.Edge, Types.Vertex, Types.List]:
+        if structure.type != Types.List:
             raise ValueError('Type is wrong.')
-        for ele in structure.value:
-            self.getCurrentScope().set(identifier, ele.type, ele.value)
+
+        #for ele in structure.value:
+        for i in range(0, len(structure.value)):
+            self.getCurrentScope().set(identifier, structure.value[i].type, structure.value[i].value)
             retValue = ctx.children[3].accept(self)
+            structure.value[i] = self.lookUp(identifier)
             if retValue is not None:
                 self.getCurrentScope().delete(identifier)
                 return retValue
@@ -425,31 +433,31 @@ class GraphVisitor(ParseTreeVisitor):
 
             return result
         elif funcName == 'GetVertex':
-            result = self.getVertex(ctx)
+            result = copy.deepcopy(self.getVertex(ctx))
 
             return result
         elif funcName == 'GetVertices':
-            result = self.getVertices(ctx)
+            result = copy.deepcopy(self.getVertices(ctx))
 
             return result
         elif funcName == 'GetEdges':
-            result = self.getEdges(ctx)
+            result = copy.deepcopy(self.getEdges(ctx))
 
             return result
         elif funcName == 'GetEdgesFrom':
-            result = self.getEdgesFrom(ctx)
+            result = copy.deepcopy(self.getEdgesFrom(ctx))
 
             return result
         elif funcName == 'GetEdgesTo':
-            result = self.getEdgesTo(ctx)
+            result = copy.deepcopy(self.getEdgesTo(ctx))
 
             return result
         elif funcName == 'VerticesAdjacentTo':
-            result = self.verticesAdjacentTo(ctx)
+            result = copy.deepcopy(self.verticesAdjacentTo(ctx))
 
             return result
         elif funcName in self.envF:
-            result = self.visitDefinedFunction(ctx, funcName)
+            result = copy.deepcopy(self.visitDefinedFunction(ctx, funcName))
 
             if not isinstance(ctx.parentCtx, GraphParser.SimpleStmtContext):
                 return result

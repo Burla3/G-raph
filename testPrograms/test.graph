@@ -30,6 +30,7 @@ function HovHov(tal):
     tal = tal + 2
 
 @run:
+
     graphVar2 = graph:
         'a'
         'b' ('c')
@@ -52,7 +53,10 @@ function HovHov(tal):
     g[1] = 67567
 
     for each ele in g:
-        Print('{ele}')
+        if ele is True or ele is False:
+            ele = 5
+
+    Print('{g}')
 
     h = g[1]
     Print('{h}')
@@ -107,12 +111,12 @@ function HovHov(tal):
 
     vertex = GetVertex(graphVar, 'a')
     vName = vertex['name']
-    /*
+
     vertex['bob'] = 34
     vLabel = vertex['bob']
 
     Print('{vLabel}')
-    */
+
     Print('{vName}')
 
     if 1 > 2:
@@ -190,3 +194,51 @@ function HovHov(tal):
 
     Print('{stringLength}')
     Print('{listLength}')
+
+    Print('')
+    Print('For each edge test')
+    Print('------------------------------------------------------')
+
+    graphEdge = graph:
+        'a' ('b' 3), ('c' 4), ('v' 8)
+        'b' ('d' 7), ('j' 8)
+
+    edges = GetEdges(graphEdge)
+
+    for each edge in edges:
+        Print('{edge}')
+
+    for each edge in edges:
+        edge['bob'] = 'bob'
+
+    for each edge in edges:
+        Print('{edge}')
+
+    edgesAfter = GetEdges(graphEdge)
+
+    for each edge in edgesAfter:
+        Print('{edge}')
+
+    Print('')
+    Print('For each vertex test')
+    Print('------------------------------------------------------')
+
+    graphEdge = graph:
+        'a' ('b' 3), ('c' 4), ('v' 8)
+        'b' ('d' 7), ('j' 8)
+
+    vertices = GetVertices(graphEdge)
+
+    for each vertex in vertices:
+        Print('{vertex}')
+
+    for each vertex in vertices:
+        vertex['bob'] = 'bob'
+
+    for each vertex in vertices:
+        Print('{vertex}')
+
+    verticesAfter = GetVertices(graphEdge)
+
+    for each vertex in verticesAfter:
+        Print('{vertex}')
