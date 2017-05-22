@@ -8,6 +8,7 @@ def listcomp(vale, valf):
         count += 1
     return True
 
+
 tests = [
     {
         'file': 'arith_op.graph',
@@ -53,16 +54,40 @@ tests = [
 
         ]
     },
+
     {
-        'file': 'range_ex.graph',
+        'file': 'string_manip.graph',
         'state': [
-            ('listVar', [1]),
-            ('listVar2', [1, 5, 8]),
-            ('ascendingOrderRange', [3, 4, 5, 6, 7, 8, 9]),
-            ('descendingOrderRange', [9, 8, 7, 6, 5, 4, 3]),
+
         ],
         'output': [
-
+            'The 3 elephants?',
+            'The 25 elephants?',
+            'The amount monkeys?',
+            'The 25 monkeys?',
+        ]
+    },
+    {
+        'file': 'ctrl_strc.graph',
+        'state': [
+        ],
+        'output': [
+            'Passed: Excellent',
+            'I am hungry',
+            'Countdown',
+            '3',
+            '2',
+            '1',
+            'GO!',
+        ]
+    },
+    {
+        'file': 'func_ex.graph',
+        'state': [
+        ],
+        'output': [
+            'Hello, Peter!',
+            'My name is Peter',
         ]
     },
 ]

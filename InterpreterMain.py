@@ -63,7 +63,7 @@ class GraphVisitor(ParseTreeVisitor):
         value = ctx.children[1].accept(self)
 
         if value == '\u0000' or value is None:  # void returned
-            raise ValueError()
+            raise ValueError('Function has no return value that can be assigned', ctx)
 
         if hasattr(identifier, 'value') and isinstance(identifier.value, Molecule):
             molecule = identifier.value
@@ -100,7 +100,7 @@ class GraphVisitor(ParseTreeVisitor):
         result = ctx.accept(self)
         result = self.lookUp(result)
         if result.type != Types.Bool:
-            raise TypeError('Expr do not evaluate to a boolean.')
+            raise TypeError('Expr do not evaluate to a boolean.', ctx)
         return result.value
 
     def visitForeachStmt(self, ctx:GraphParser.ForeachStmtContext):
@@ -108,10 +108,10 @@ class GraphVisitor(ParseTreeVisitor):
         structureName = ctx.children[2].accept(self)
         structure = self.lookUp(structureName)
 
-        if structure.type != Types.List:
-            raise ValueError('Type is wrong.')
 
-        #for ele in structure.value:
+        if structure.type not in [Types.Edge, Types.Vertex, Types.List]:
+            raise ValueError('Type is wrong.', ctx)
+
         for i in range(0, len(structure.value)):
             self.getCurrentScope().set(identifier, structure.value[i].type, structure.value[i].value)
             retValue = ctx.children[3].accept(self)
@@ -275,19 +275,19 @@ class GraphVisitor(ParseTreeVisitor):
 
                 self.checkTypes(ctx, left, right, Types.Graph, Types.Graph)
 
-                result = self.union(left.value, right.value)
+                result = self.union(left.value, right.value, ctx)
             elif operator == 'intersect':
                 exprType = Types.Graph
 
                 self.checkTypes(ctx, left, right, Types.Graph, Types.Graph)
 
-                result = self.intersect(left.value, right.value)
+                result = self.intersect(left.value, right.value, ctx)
             elif operator == 'diff':
                 exprType = Types.Graph
 
                 self.checkTypes(ctx, left, right, Types.Graph, Types.Graph)
 
-                result = self.diff(left.value, right.value)
+                result = self.diff(left.value, right.value, ctx)
             elif operator == 'concat':
                 exprType = Types.List
 
@@ -295,15 +295,15 @@ class GraphVisitor(ParseTreeVisitor):
 
                 result = left.value + right.value
             else:
-                raise KeyError('Operator do not exist.')
+                raise KeyError('Operator does not exist.', ctx)
 
         return ValueTypeTuple(result, exprType)
 
-    def diff(self, left, right):
+    def diff(self, left, right, ctx):
         graph = Graph()
 
         for vertex in left.vertices:
-            if not self.vertexExistsInGraph(right, vertex):
+            if not self.vertexExistsInGraph(right, vertex, ctx):
                 graph.vertices.append(vertex)
 
         for edge in left.edges:
@@ -312,11 +312,11 @@ class GraphVisitor(ParseTreeVisitor):
 
         return graph
 
-    def intersect(self, left, right):
+    def intersect(self, left, right, ctx):
         graph = Graph()
 
         for vertex in left.vertices:
-            if self.vertexExistsInGraph(right, vertex):
+            if self.vertexExistsInGraph(right, vertex, ctx):
                 graph.vertices.append(vertex)
 
         for edge in left.edges:
@@ -325,14 +325,14 @@ class GraphVisitor(ParseTreeVisitor):
 
         return graph
 
-    def union(self, left, right):
+    def union(self, left, right, ctx):
         graph = Graph()
 
         for vertex in left.vertices:
             graph.vertices.append(vertex)
 
         for vertex in right.vertices:
-            if not self.vertexExistsInGraph(graph, vertex):
+            if not self.vertexExistsInGraph(graph, vertex, ctx):
                 graph.vertices.append(vertex)
 
         for edge in left.edges:
@@ -344,11 +344,11 @@ class GraphVisitor(ParseTreeVisitor):
 
         return graph
 
-    def vertexExistsInGraph(self, graph, vertex):
+    def vertexExistsInGraph(self, graph, vertex, ctx):
         for v in graph.vertices:
             if vertex.value['name'].value == v.value['name'].value:
                 if vertex != v:
-                    raise NameError('Vertices has the same name but is not equals.')
+                    raise NameError('Vertices has the same name but is not equals.', ctx)
                 return True
         return False
 
@@ -361,17 +361,17 @@ class GraphVisitor(ParseTreeVisitor):
     def checkTypes(self, ctx, left, right, leftType, rightType):
         if left.type != leftType or right.type != rightType:
             error = 'Types do not match in expression on line ' + str(ctx.start.line) + ':' + str(ctx.start.column)
-            raise TypeError(error)
+            raise TypeError(error, ctx)
 
     def checkType(self, ctx, val, valType):
         if val.type != valType:
             error = 'Incorrect type on line ' + str(ctx.start.line) + ':' + str(ctx.start.column)
-            raise TypeError(error)
+            raise TypeError(error, ctx)
 
     def checkTypeList(self, ctx, val, typeList):
         if val.type not in typeList:
             error = 'Incorrect type on line ' + str(ctx.start.line) + ':' + str(ctx.start.column)
-            raise TypeError(error)
+            raise TypeError(error, ctx)
 
     def getValue(self, ctx):
         val = ctx.accept(self)
@@ -392,7 +392,7 @@ class GraphVisitor(ParseTreeVisitor):
             if structure.type == Types.List:
                 if index.type != Types.Number:
                     error = 'Value is not of type number ' + str(ctx.start.line) + ':' + str(ctx.start.column)
-                    raise TypeError(error)
+                    raise TypeError(error, ctx)
                 if isinstance(ctx.parentCtx, GraphParser.AssignmentContext):
                     value = ValueTypeTuple(Molecule(identifier, index), Types.Molecule)
                 else:
@@ -400,17 +400,17 @@ class GraphVisitor(ParseTreeVisitor):
             elif structure.type in ['vertex', 'edge']:
                 if index.type != Types.String:
                     error = 'Value is not of type string ' + str(ctx.start.line) + ':' + str(ctx.start.column)
-                    raise TypeError(error)
+                    raise TypeError(error, ctx)
 
                 if isinstance(ctx.parentCtx, GraphParser.AssignmentContext):
                     if index.value == 'name':
-                        raise KeyError('You can not rename a vertex.')
+                        raise KeyError('You can not rename a vertex.', ctx)
                     value = ValueTypeTuple(Molecule(identifier, index), Types.Molecule)
                 else:
                     value = structure.value[index.value]
             else:
                 error = 'Value is not of type edge or vertex ' + str(ctx.start.line) + ':' + str(ctx.start.column)
-                raise TypeError(error)
+                raise TypeError(error, ctx)
 
             return value
 
@@ -470,7 +470,7 @@ class GraphVisitor(ParseTreeVisitor):
             if not isinstance(ctx.parentCtx, GraphParser.SimpleStmtContext):
                 return result
         else:
-            raise ModuleNotFoundError('Function: ' + funcName + ' do not exist.')
+            raise ModuleNotFoundError('Function: ' + funcName + ' do not exist.', ctx)
 
     def setVertices(self, ctx):
         params = self.getActualParams(ctx)
@@ -500,7 +500,7 @@ class GraphVisitor(ParseTreeVisitor):
     def getLength(self, ctx):
         params = self.getActualParams(ctx)
         if len(params) != 1:
-            raise ValueError('Length requires 1 parameter. A list, vertex, edge or a string.')
+            raise ValueError('Length requires 1 parameter. A list, vertex, edge or a string.', ctx)
 
         input = params[0].value
         self.checkTypeList(ctx, input, [Types.Vertex, Types.List, Types.Edge, Types.String])
@@ -510,10 +510,9 @@ class GraphVisitor(ParseTreeVisitor):
     def verticesAdjacentTo(self, ctx):
         params = self.getActualParams(ctx)
         if len(params) != 2:
-            raise ValueError('GetVertex requires 2 parameters a graph and a name')
-
+            raise ValueError('GetVertex requires 2 parameters a graph and a name', ctx)
         if params[0].type != Types.Value:
-            raise TypeError('This methods do not take a ref as input.')
+            raise TypeError('This methods do not take a ref as input.', ctx)
 
         graph = params[0].value
         self.checkType(ctx, graph, Types.Graph)
@@ -528,9 +527,9 @@ class GraphVisitor(ParseTreeVisitor):
     def getVertex(self, ctx):
         params = self.getActualParams(ctx)
         if len(params) != 2:
-            raise ValueError('GetVertex requires 2 parameters a graph and a name')
+            raise ValueError('GetVertex requires 2 parameters a graph and a name', ctx)
         if params[0].type != Types.Value:
-            raise TypeError('This methods do not take a ref as input.')
+            raise TypeError('This methods do not take a ref as input.', ctx)
 
         graph = params[0].value
         self.checkType(ctx, graph, Types.Graph)
@@ -543,9 +542,9 @@ class GraphVisitor(ParseTreeVisitor):
     def getVertices(self, ctx):
         params = self.getActualParams(ctx)
         if len(params) != 1:
-            raise ValueError('GetVertices requires 1 parameter. A graph.')
+            raise ValueError('GetVertices requires 1 parameter. A graph.', ctx)
         if params[0].type != Types.Value:
-            raise TypeError('This methods do not take a ref as input.')
+            raise TypeError('This methods do not take a ref as input.', ctx)
 
         graph = params[0].value
         self.checkType(ctx, graph, Types.Graph)
@@ -555,9 +554,9 @@ class GraphVisitor(ParseTreeVisitor):
     def getEdges(self, ctx):
         params = self.getActualParams(ctx)
         if len(params) != 1:
-            raise ValueError('GetEdges requires 1 parameter. A graph.')
+            raise ValueError('GetEdges requires 1 parameter. A graph.', ctx)
         if params[0].type != Types.Value:
-            raise TypeError('This methods do not take a ref as input.')
+            raise TypeError('This methods do not take a ref as input.', ctx)
 
         graph = params[0].value
         self.checkType(ctx, graph, Types.Graph)
@@ -567,9 +566,9 @@ class GraphVisitor(ParseTreeVisitor):
     def getEdgesFrom(self, ctx):
         params = self.getActualParams(ctx)
         if len(params) != 2:
-            raise ValueError('GetVertex requires 2 parameters a graph and a name')
+            raise ValueError('GetVertex requires 2 parameters a graph and a name', ctx)
         if params[0].type != Types.Value:
-            raise TypeError('This methods do not take a ref as input.')
+            raise TypeError('This methods do not take a ref as input.', ctx)
 
 
         graph = params[0].value
@@ -585,9 +584,9 @@ class GraphVisitor(ParseTreeVisitor):
     def getEdgesTo(self, ctx):
         params = self.getActualParams(ctx)
         if len(params) != 2:
-            raise ValueError('GetVertex requires 2 parameters a graph and a name')
+            raise ValueError('GetVertex requires 2 parameters a graph and a name', ctx)
         if params[0].type != Types.Value:
-            raise TypeError('This methods do not take a ref as input.')
+            raise TypeError('This methods do not take a ref as input.', ctx)
 
         graph = params[0].value
         self.checkType(ctx, graph, Types.Graph)
@@ -606,7 +605,7 @@ class GraphVisitor(ParseTreeVisitor):
         formalParams = self.getFormalParams(funcDef)
 
         if len(formalParams) != len(actualParams):
-            raise ValueError('Formal parameters and actual parameters is not the same amount in function: ' + funcName)
+            raise ValueError('Formal parameters and actual parameters is not the same amount in function: ' + funcName, ctx)
 
         mappedParams = self.mapParams(formalParams, actualParams)
 
@@ -650,7 +649,7 @@ class GraphVisitor(ParseTreeVisitor):
                 if isinstance(params[index], Tree.TerminalNodeImpl) and params[index].symbol.text == 'ref':
                     index += 1
                     if not hasattr(params[index], 'symbol'):
-                        raise TypeError('You can only ref variables.')
+                        raise TypeError('You can only ref variables.', ctx)
 
                     actualParam = params[index].symbol.text
                     actualParams.append(ValueTypeTuple(actualParam, Types.Ref))
@@ -692,7 +691,7 @@ class GraphVisitor(ParseTreeVisitor):
 
         if start.type != Types.Number or end.type != Types.Number:
             error = 'Types do not match in test on line ' + str(ctx.start.line) + ':' + str(ctx.start.column)
-            raise TypeError(error)
+            raise TypeError(error, ctx)
 
         lowStart = int(start.value)
         highEnd = int(end.value) + 1
@@ -755,7 +754,7 @@ class GraphVisitor(ParseTreeVisitor):
     def visitVertex(self, ctx:GraphParser.VertexContext):
         vertex = ctx.children[0].accept(self)
         if vertex.type != Types.String:
-            raise TypeError('Vertex name is not a string')
+            raise TypeError('Vertex name is not a string', ctx)
 
         if ctx.getChildCount() == 1:
             vertexDecl = VertexDecleration(vertex.value, [])
@@ -776,24 +775,24 @@ class GraphVisitor(ParseTreeVisitor):
         count = ctx.getChildCount()
 
         if count == 1:
-             vertex = self.getVertexName(ctx.children[0].accept(self))
+             vertex = self.getVertexName(ctx.children[0].accept(self), ctx)
         elif count == 2:
             if hasattr(ctx.children[0], 'symbol'):
                 directed = True
-                vertex = self.getVertexName(ctx.children[1].accept(self))
+                vertex = self.getVertexName(ctx.children[1].accept(self), ctx)
             else:
-                vertex = self.getVertexName(ctx.children[0].accept(self))
+                vertex = self.getVertexName(ctx.children[0].accept(self), ctx)
                 label = ctx.children[1].accept(self)
         else:
             directed = True
-            vertex = self.getVertexName(ctx.children[1].accept(self))
+            vertex = self.getVertexName(ctx.children[1].accept(self), ctx)
             label = ctx.children[2].accept(self)
 
         return EdgeDecleration(directed, vertex, label)
 
-    def getVertexName(self, vertex):
+    def getVertexName(self, vertex, ctx):
         if vertex.type != Types.String:
-            raise TypeError('Edge name is not a string.')
+            raise TypeError('Edge name is not a string.', ctx)
 
         return vertex.value
 
@@ -807,11 +806,9 @@ class GraphVisitor(ParseTreeVisitor):
         return ValueTypeTuple(ctx.getText() == 'True', Types.Bool)
 
     def isNumber(self, value):
-        try:
-            number = float(value)
-            return number
-        except ValueError:
-            raise TypeError('Wut? That is just wrong mate.')
+        number = float(value)
+        return number
+
 
     def lookUp(self, value):
         if type(value) is str:

@@ -31,6 +31,11 @@ function HovHov(tal):
 
 @run:
 
+    noget = 'hej'
+    if 3 + noget:
+        noget = 3
+
+
     graphVar2 = graph:
         'a'
         'b' ('c')

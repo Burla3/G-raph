@@ -1,0 +1,19 @@
+function Greet(greeting, name):
+    Print('{greeting}, {name} !\n')
+
+function MyName(name):
+    return 'My name is {name}.'
+
+@run:
+    greeting = 'Hello'
+    name = 'Peter'
+    Greet(greeting, name)
+    myName = MyName(name)
+    Print('{myName}')
+
+/*
+ * Output:
+ *
+ * Hello, Peter!
+ * My name is Peter
+ */
