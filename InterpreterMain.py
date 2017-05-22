@@ -495,7 +495,26 @@ class GraphVisitor(ParseTreeVisitor):
         return graph
 
     def setEdges(self, ctx):
-        pass
+        params = self.getActualParams(ctx)
+        if len(params) != 2:
+            raise ValueError('GetVertices requires 2 parameters. A graph and a list of edges.', ctx)
+        if params[0].type != Types.Value:
+            raise TypeError('This methods do not take a ref as input.', ctx)
+        if params[1].type != Types.Value:
+            raise TypeError('This methods do not take a ref as input.', ctx)
+        if params[0].value.type != Types.Graph:
+            raise TypeError('The second parameter has to be a graph.', ctx)
+        if params[1].value.type != Types.List:
+            raise TypeError('The second parameter has to be a list.', ctx)
+
+        for e in params[1].value.value:
+            if e.type != Types.Edge:
+                raise TypeError('The second parameter has to be a list containing only edges.', ctx)
+
+        graph = params[0].value
+        graph.value.edges = params[1].value.value
+
+        return graph
 
     def getLength(self, ctx):
         params = self.getActualParams(ctx)
@@ -724,12 +743,12 @@ class GraphVisitor(ParseTreeVisitor):
             vertex = vDecl.vertex
             dic = {'name': ValueTypeTuple(vertex, Types.String)}
             v = ValueTypeTuple(dic, Types.Vertex)
-            if not self.vertexExistsInGraph(graph, v):
+            if not self.vertexExistsInGraph(graph, v, ctx):
                 graph.vertices.append(v)
             for eDecl in vDecl.edges:
                 dic = {'name': ValueTypeTuple(eDecl.vertex, Types.String)}
                 v = ValueTypeTuple(dic, Types.Vertex)
-                if not self.vertexExistsInGraph(graph, v):
+                if not self.vertexExistsInGraph(graph, v, ctx):
                     graph.vertices.append(v)
 
                 if not eDecl.directed and vertex > eDecl.vertex:
