@@ -473,7 +473,26 @@ class GraphVisitor(ParseTreeVisitor):
             raise ModuleNotFoundError('Function: ' + funcName + ' do not exist.')
 
     def setVertices(self, ctx):
-        pass
+        params = self.getActualParams(ctx)
+        if len(params) != 2:
+            raise ValueError('GetVertices requires 2 parameters. A graph and a list of vertices.', ctx)
+        if params[0].type != Types.Value:
+            raise TypeError('This methods do not take a ref as input.', ctx)
+        if params[1].type != Types.Value:
+            raise TypeError('This methods do not take a ref as input.', ctx)
+        if params[0].value.type != Types.Graph:
+            raise TypeError('The second parameter has to be a graph.', ctx)
+        if params[1].value.type != Types.List:
+            raise TypeError('The second parameter has to be a list.', ctx)
+
+        for e in params[1].value.value:
+            if e.type != Types.Vertex:
+                raise TypeError('The second parameter has to be a list containing only vertices.', ctx)
+
+        graph = params[0].value
+        graph.value.vertices = params[1].value.value
+
+        return graph
 
     def setEdges(self, ctx):
         pass
@@ -493,7 +512,7 @@ class GraphVisitor(ParseTreeVisitor):
         if len(params) != 2:
             raise ValueError('GetVertex requires 2 parameters a graph and a name')
 
-        if params[0].type != 'value':
+        if params[0].type != Types.Value:
             raise TypeError('This methods do not take a ref as input.')
 
         graph = params[0].value
@@ -510,7 +529,7 @@ class GraphVisitor(ParseTreeVisitor):
         params = self.getActualParams(ctx)
         if len(params) != 2:
             raise ValueError('GetVertex requires 2 parameters a graph and a name')
-        if params[0].type != 'value':
+        if params[0].type != Types.Value:
             raise TypeError('This methods do not take a ref as input.')
 
         graph = params[0].value
@@ -525,7 +544,7 @@ class GraphVisitor(ParseTreeVisitor):
         params = self.getActualParams(ctx)
         if len(params) != 1:
             raise ValueError('GetVertices requires 1 parameter. A graph.')
-        if params[0].type != 'value':
+        if params[0].type != Types.Value:
             raise TypeError('This methods do not take a ref as input.')
 
         graph = params[0].value
@@ -537,7 +556,7 @@ class GraphVisitor(ParseTreeVisitor):
         params = self.getActualParams(ctx)
         if len(params) != 1:
             raise ValueError('GetEdges requires 1 parameter. A graph.')
-        if params[0].type != 'value':
+        if params[0].type != Types.Value:
             raise TypeError('This methods do not take a ref as input.')
 
         graph = params[0].value
@@ -549,7 +568,7 @@ class GraphVisitor(ParseTreeVisitor):
         params = self.getActualParams(ctx)
         if len(params) != 2:
             raise ValueError('GetVertex requires 2 parameters a graph and a name')
-        if params[0].type != 'value':
+        if params[0].type != Types.Value:
             raise TypeError('This methods do not take a ref as input.')
 
 
@@ -567,7 +586,7 @@ class GraphVisitor(ParseTreeVisitor):
         params = self.getActualParams(ctx)
         if len(params) != 2:
             raise ValueError('GetVertex requires 2 parameters a graph and a name')
-        if params[0].type != 'value':
+        if params[0].type != Types.Value:
             raise TypeError('This methods do not take a ref as input.')
 
         graph = params[0].value
