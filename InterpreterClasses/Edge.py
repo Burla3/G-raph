@@ -42,9 +42,10 @@ class Edge():
         buildStr += ' { '
         first = True
         for key in self.labels:
-            if not first:
-                buildStr += ', '
+            if first:
                 first = False
+            else:
+                buildStr += ', '
             buildStr += key
             buildStr += ': '
             buildStr += str(self.labels[key].value)
