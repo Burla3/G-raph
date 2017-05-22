@@ -49,6 +49,8 @@ def testrunner(filepath):
     return visitor.closedScopes
 
 def getFromSymtable(tables, key):
+    if not tables:
+        tables = []
     for symtab in tables:
         try:
             return symtab.get(key)
@@ -104,7 +106,7 @@ def main():
             except KeyError as e:
                 localtestcount += 1
                 localtesterrors += 1
-                print(e)
+                print('\x1b[0;31;40m [FAILED] \x1b[0m' + str(e))
                 continue
 
             localtesterrors += testexec(testtup, value, localtestcount)

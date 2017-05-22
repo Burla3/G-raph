@@ -1,0 +1,16 @@
+@run:
+    amount = 25
+    animals = 'monkeys'
+    Print('The 3 elephants?\n')
+    Print('The {amount} elephants?\n')
+    Print('The amount {animals}?\n')
+    Print('The {amount} {animals}?')
+
+/*
+ * Output:
+ *
+ * The 3 elephants?
+ * The 25 elephants?
+ * The amount monkeys?
+ * The 25 monkeys?
+ */

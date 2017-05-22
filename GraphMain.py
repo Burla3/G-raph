@@ -6,9 +6,42 @@ from Antlr.GraphParser import GraphParser
 from InterpreterMain import GraphVisitor
 from JSONBuilder import JSONBuilder
 
+from contextlib import redirect_stdout
+from io import StringIO
+
+def errorPrinter(e, filename):
+    '\x1b[0;31;40m {state} \x1b[0m'
+    start = e.args[1].start
+    stop = e.args[1].stop
+
+    with open(filename) as f:
+        content = f.read().splitlines()
+
+    line = content[start.line-1]
+    output = ['', '', '']
+
+    if (start.line-2) >= 0:
+        output[0] = '{linenumber}:{line}'.format(linenumber=start.line-1, line=content[start.line-2])
+
+
+    output[1] = '{linenumber}:{begin}\x1b[0;31;40m{error}\x1b[0m{end}'.format(
+        linenumber=start.line,
+        begin=line[:start.column],
+        error=line[start.column:stop.column],
+        end=line[stop.column:]
+    )
+
+    if (start.line) <= len(content):
+        output[2] = '{linenumber}:{line}'.format(linenumber=start.line+1, line=content[start.line])
+
+
+    print(e.args[0])
+    print('\n'.join(output))
+
 
 def main():
-    input = FileStream('testPrograms/test.graph')
+    filename = 'testPrograms/test.graph'
+    input = FileStream(filename)
     #input = FileStream('testPrograms/assosiativityTest.graph')
     lexer = GraphLexer(input)
     stream = CommonTokenStream(lexer)
@@ -22,12 +55,21 @@ def main():
     #    elif token.text is not ' ':
     #        print(token.text, ' ', token.type)
 
+    f = StringIO()
+
     parser = GraphParser(stream)
     try:
-        tree = parser.program()
+        with redirect_stdout(f):
+            tree = parser.program()
     except Exception as e:
         print(e.args)
-        return
+        # return True
+
+    fl = f.getvalue()
+    if len(fl) > 0:
+        for line in fl.split('\n'):
+            print(line + '\n')
+        # return True
 
     astb = JSONBuilder(tree)
 
@@ -47,7 +89,10 @@ def main():
     visitor.visitProgram(tree)
 
     visitor = GraphVisitor()
-    visitorResult = visitor.visitProgram(tree)
+    try:
+        visitorResult = visitor.visitProgram(tree)
+    except BaseException as e:
+        errorPrinter(e, filename)
 
 
 
