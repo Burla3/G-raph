@@ -9,8 +9,8 @@ from JSONBuilder import JSONBuilder
 from contextlib import redirect_stdout
 from io import StringIO
 
-def errorPrinter(e, filename):
-    '\x1b[0;31;40m {state} \x1b[0m'
+
+def errorprinter(e, filename):
     start = e.args[1].start
     stop = e.args[1].stop
 
@@ -23,7 +23,6 @@ def errorPrinter(e, filename):
     if (start.line-2) >= 0:
         output[0] = '{linenumber}:{line}'.format(linenumber=start.line-1, line=content[start.line-2])
 
-
     output[1] = '{linenumber}:{begin}\x1b[0;31;40m{error}\x1b[0m{end}'.format(
         linenumber=start.line,
         begin=line[:start.column],
@@ -33,7 +32,6 @@ def errorPrinter(e, filename):
 
     if (start.line) <= len(content):
         output[2] = '{linenumber}:{line}'.format(linenumber=start.line+1, line=content[start.line])
-
 
     print(e.args[0])
     print('\n'.join(output))
@@ -92,7 +90,7 @@ def main():
     try:
         visitorResult = visitor.visitProgram(tree)
     except BaseException as e:
-        errorPrinter(e, filename)
+        errorprinter(e, filename)
 
 
 
