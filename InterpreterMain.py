@@ -724,12 +724,12 @@ class GraphVisitor(ParseTreeVisitor):
             vertex = vDecl.vertex
             dic = {'name': ValueTypeTuple(vertex, Types.String)}
             v = ValueTypeTuple(dic, Types.Vertex)
-            if not self.vertexExistsInGraph(graph, v):
+            if not self.vertexExistsInGraph(graph, v, ctx):
                 graph.vertices.append(v)
             for eDecl in vDecl.edges:
                 dic = {'name': ValueTypeTuple(eDecl.vertex, Types.String)}
                 v = ValueTypeTuple(dic, Types.Vertex)
-                if not self.vertexExistsInGraph(graph, v):
+                if not self.vertexExistsInGraph(graph, v, ctx):
                     graph.vertices.append(v)
 
                 if not eDecl.directed and vertex > eDecl.vertex:
