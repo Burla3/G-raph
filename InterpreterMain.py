@@ -456,6 +456,14 @@ class GraphVisitor(ParseTreeVisitor):
             result = copy.deepcopy(self.verticesAdjacentTo(ctx))
 
             return result
+        elif funcName == 'SetVertices':
+            result = copy.deepcopy(self.setVertices(ctx))
+
+            return result
+        elif funcName == 'SetEdges':
+            result = copy.deepcopy(self.setEdges(ctx))
+
+            return result
         elif funcName in self.envF:
             result = copy.deepcopy(self.visitDefinedFunction(ctx, funcName))
 
@@ -463,6 +471,12 @@ class GraphVisitor(ParseTreeVisitor):
                 return result
         else:
             raise ModuleNotFoundError('Function: ' + funcName + ' do not exist.')
+
+    def setVertices(self, ctx):
+        pass
+
+    def setEdges(self, ctx):
+        pass
 
     def getLength(self, ctx):
         params = self.getActualParams(ctx)
