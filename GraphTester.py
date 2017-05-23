@@ -37,6 +37,9 @@ def testrunner(filepath):
     ASTvisitor.visitProgram(tree)
 
     visitor = TestVisitor()
+    visitor.outputlines = []
+    visitor.closedscopes = []
+
     f = StringIO()
     with redirect_stdout(f):
         visitorResult = visitor.visitProgram(tree)
