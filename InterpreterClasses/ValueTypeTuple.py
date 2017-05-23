@@ -9,13 +9,17 @@ class ValueTypeTuple():
     def __str__(self):
         if self.type == Types.List:
             buildStr = '['
-            index = 0
 
-            while index < len(self.value) - 1:
-                buildStr += str(self.value[index]) + ', '
-                index += 1
+            first = True
+            for ele in self.value:
+                if first:
+                    first = False
+                else:
+                    buildStr += ', '
+                buildStr += str(ele)
 
-            buildStr += str(self.value[index]) + ']'
+            buildStr += ']'
+
             return buildStr
 
         if self.type == Types.Vertex:

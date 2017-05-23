@@ -31,10 +31,11 @@ function HovHov(tal):
 
 @run:
 
-    myvar = 'hej'
-    if 3 + myvar:
-        myvar = 3
-
+    bob = []
+    Print('Hej')
+    Print('{bob}')
+    bob = bob concat [2]
+    Print('{bob}')
 
     graphVar2 = graph:
         'a'
