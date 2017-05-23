@@ -74,6 +74,7 @@ class GraphVisitor(ParseTreeVisitor):
             else:
                 structure.value[molecule.trailer] = value
         else:
+            #value = self.lookUp(value, ctx)
             self.getCurrentScope().set(identifier, value.type, value.value)
 
     def visitCompoundStmt(self, ctx:GraphParser.CompoundStmtContext):
@@ -692,6 +693,8 @@ class GraphVisitor(ParseTreeVisitor):
 
         blockCtx = funcDef.children[funcDef.getChildCount() - 1]
         result = self.visitBlock(blockCtx)
+
+        result = self.lookUp(result, ctx)
 
         self.closeScope()
 

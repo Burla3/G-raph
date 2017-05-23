@@ -1,0 +1,130 @@
+/* Returns a list of vertices that corresponds to the shortest path.
+ *
+ * This algorithm requires that there are no more than one edge from one vertex to another.
+ * Additionally, all edges must have a label that represents the weight of the edge.
+ *
+ * g : Graph
+ * source : String
+ */
+function Dijkstra(g, source):
+    vertices = InitializeSingleSource(g, source, 'd')
+    SetVertices(g, vertices)
+    s = []
+    q = vertices
+    
+    while Length(q) > 0:
+        u = ExtractMin(ref q, 'd')
+        name = u['name']
+        s = s concat [name]
+        
+        for each v in VerticesAdjacentTo(g, '{name}'):
+            Relax(g, ref u, ref v, 'd', 'pi')
+            SetVertex(g, u)
+            SetVertex(g, v)
+            q = UpdateElement(q, v, 'name')
+    
+    return s
+
+/* Returns a list of vertices that are prepared for further processing by the algorithm.
+ *
+ * g : Graph
+ * source : String
+ * key : String
+ */
+function InitializeSingleSource(g, source, key):
+    intMax = 2147483647
+    vertices = GetVertices(g)
+
+    for each v in vertices:
+        if v['name'] is not source:
+            v[key] = intMax
+        else:
+            v[key] = 0
+
+    return vertices
+
+/* Returns the element with the lowest key from the list.
+ *
+ * list : List
+ * key : String
+ */
+function ExtractMin(list, key):
+    smallestIndex = 0
+    smallestKey = list[0][key]
+
+    currentIndex = 1
+    currentKey = list[1][key]
+    length = Length(list)
+
+    while index < length:
+        if currentKey < smallestKey:
+            smallestIndex = currentIndex
+            smallestKey = currentKey
+        
+        currentIndex = currentIndex + 1
+        currentKey = list[currentIndex][key]
+
+    minElement = list[smallestIndex]
+    list = RemoveElement(list, smallestIndex)
+    
+    return minElement
+
+/* Returns the list where the index'ed element is removed.
+ *
+ * list : List
+ * index : Number
+ */
+function RemoveElement(list, index):
+    currentIndex = 0
+    newList = []
+
+    for each e in list:
+        if currentIndex is not index:
+            newList = newList concat [e]
+
+        currentIndex = currentIndex + 1
+
+    return newList
+
+/* Returns the list where the element matched by the key is updated.
+ *
+ * list : List
+ * element : Vertex/Edge
+ * key : String
+ */
+function UpdateElement(list, element, key):
+    for each e in list:
+        if e[key] is element[key]:
+            e = element
+
+    return list
+
+/* Recalculates the weighted distance.
+ *
+ * g : Graph
+ * from : Vertex
+ * to : Vertex
+ * key : String
+ * reference : String
+ */
+function Relax(g, from, to, key, reference):
+    edgesFromTo = GetEdgesFrom(g, from['name'], to['name'])
+    edgeFromTo = edgesFromTo[0]
+
+    newDistance = from[key] + edgeFromTo['label']
+
+    if to[key] > newDistance:
+        to[key] = newDistance
+        to[reference] = from['name']
+
+@run:
+    g = graph:
+        's' (->'t' 10), (->'y' 5)
+        't' (->'x' 1), (->'y' 2)
+        'x' (->'z' 4)
+        'y' (->'t' 3), (->'x' 9), (->'z' 2)
+        'z' (->'s' 7), (->'x' 6)
+
+    shortestPath = Dijkstra(g, 's')
+
+    Print('{shortestPath}')

@@ -44,7 +44,8 @@ def errorprinter(e, filename):
 
 
 def main():
-    filename = 'testPrograms/test.graph'
+    filename = 'testPrograms/DIJKSTRA.graph'
+    #filename = 'testPrograms/test.graph'
     input = FileStream(filename)
     #input = FileStream('testPrograms/assosiativityTest.graph')
     lexer = GraphLexer(input)
