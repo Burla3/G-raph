@@ -31,9 +31,9 @@ function HovHov(tal):
 
 @run:
 
-    noget = 'hej'
-    if 3 + noget:
-        noget = 3
+    myvar = 'hej'
+    if 3 + myvar:
+        myvar = 3
 
 
     graphVar2 = graph:

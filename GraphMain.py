@@ -38,6 +38,7 @@ def errorprinter(e, filename):
     if (start.line) < len(content):
         output[2] = '{linenumber}:{line}'.format(linenumber=start.line+1, line=content[start.line])
 
+    print('Error encountered while running {filename}'.format(filename=filename))
     print(e.args[0])
     print('\n'.join(output))
 
