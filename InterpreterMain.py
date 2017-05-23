@@ -112,15 +112,16 @@ class GraphVisitor(ParseTreeVisitor):
         if structure.type not in [Types.Edge, Types.Vertex, Types.List]:
             raise ValueError('Type is wrong.', ctx)
 
-        for i in range(0, len(structure.value)):
-            self.getCurrentScope().set(identifier, structure.value[i].type, structure.value[i].value)
-            retValue = ctx.children[3].accept(self)
-            structure.value[i] = self.lookUp(identifier, ctx)
-            if retValue is not None:
-                self.getCurrentScope().delete(identifier)
-                return retValue
+        if not len(structure.value) <= 0:
+            for i in range(0, len(structure.value)):
+                self.getCurrentScope().set(identifier, structure.value[i].type, structure.value[i].value)
+                retValue = ctx.children[3].accept(self)
+                structure.value[i] = self.lookUp(identifier, ctx)
+                if retValue is not None:
+                    self.getCurrentScope().delete(identifier)
+                    return retValue
 
-        self.getCurrentScope().delete(identifier)
+            self.getCurrentScope().delete(identifier)
 
     def visitGraphAssignment(self, ctx:GraphParser.GraphAssignmentContext):
         identifier = ctx.children[0].symbol.text

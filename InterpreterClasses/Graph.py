@@ -65,7 +65,7 @@ class Graph():
                     vertices.append(edge.value.toV)
                 elif edge.value.toV == vertexName.value:
                     vertices.append(edge.value.fromV)
-            elif edge.value.fromV == vertexName:
+            elif edge.value.fromV == vertexName.value:
                 vertices.append(edge.value.toV)
 
         return vertices
