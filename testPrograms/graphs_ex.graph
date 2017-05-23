@@ -14,8 +14,7 @@
 
     vertex = GetVertex(graphVar, 'a')
     vertex['d'] = 3                 /* Vertex a has a label d with the value 3 */
-    edges['b-c'][0]['w'] = 2        /* The first edge b-c has a label w with the value 2 */
+    edges[0]['w'] = 2               /* The first edge b-c has a label w with the value 2 */
 
-    graphVar = SetVertex(vertex)
-    graphVar = SetVertices(vertices)        /* Vertices updated with changes made */
-    graphVar = SetEdges(edges)              /* Edges updated with changes made */
+    SetVertex(graphVar, vertex)            /* Vertices updated with changes made */
+    SetEdges(graphVar, edges)              /* Edges updated with changes made */
