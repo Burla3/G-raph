@@ -5,6 +5,17 @@ class Graph():
         self.vertices = []
         self.edges = []
 
+    def setVertex(self, vertexName):
+        for vertex in self.vertices:
+            if vertex.value['name'].value == vertexName.value['name'].value:
+                vertex.value = vertexName.value
+
+                return self
+
+        self.vertices.append(vertexName)
+
+        return self
+
     def getVertex(self, vertexName):
         for vertex in self.vertices:
             if vertex.value['name'].value == vertexName.value:
