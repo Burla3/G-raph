@@ -1,9 +1,9 @@
 @run:
     amount = 25
     animals = 'monkeys'
-    Print('The 3 elephants?\n')
-    Print('The {amount} elephants?\n')
-    Print('The amount {animals}?\n')
+    Print('The 3 elephants?')
+    Print('The {amount} elephants?')
+    Print('The amount {animals}?')
     Print('The {amount} {animals}?')
 
 /*

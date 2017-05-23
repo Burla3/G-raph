@@ -13,11 +13,11 @@ from testPrograms.TestStructure import tests
 
 
 class TestVisitor(GraphVisitor):
-    closedScopes = []
+    closedscopes = []
+    outputlines = []
 
     def closeScope(self):
-        self.closedScopes.append(self.getCurrentScope())
-        print(len(self.closedScopes))
+        self.closedscopes.append(self.getCurrentScope())
         self.symbolTableStack.pop()
 
 
@@ -41,12 +41,12 @@ def testrunner(filepath):
     with redirect_stdout(f):
         visitorResult = visitor.visitProgram(tree)
 
-    # return f.getvalue().split('\n')
     while visitor.symbolTableStack.size() > 0:
         visitor.closeScope()
     while lexer.tokens.poll():
         pass
-    return visitor.closedScopes
+    visitor.outputlines = f.getvalue().split('\n')
+    return visitor
 
 def getFromSymtable(tables, key):
     if not tables:
@@ -102,7 +102,7 @@ def main():
         localtesterrors = 0
         for testtup in test['state']:
             try:
-                value = getFromSymtable(progoutput, testtup[0])['value']
+                value = getFromSymtable(progoutput.closedscopes, testtup[0])['value']
             except KeyError as e:
                 localtestcount += 1
                 localtesterrors += 1
@@ -112,10 +112,12 @@ def main():
             localtesterrors += testexec(testtup, value, localtestcount)
             localtestcount += 1
 
+        outcount = 0
         for testval in test['output']:
             testtup = (testval, testval)
-            localtesterrors += testexec(testtup, testval, localtestcount)
+            localtesterrors += testexec(testtup, progoutput.outputlines[outcount], localtestcount)
             localtestcount += 1
+            outcount += 1
 
         print('------------------------------')
         if localtesterrors == 0:
