@@ -8,7 +8,7 @@
  */
 function Dijkstra(g, source):
     vertices = InitializeSingleSource(g, source, 'd')
-    SetVertices(g, vertices)
+    g = SetVertices(g, vertices)
     s = []
     q = vertices
     
@@ -16,13 +16,15 @@ function Dijkstra(g, source):
         u = ExtractMin(ref q, 'd')
         name = u['name']
         s = s concat [name]
-        
-        for each v in VerticesAdjacentTo(g, '{name}'):
+
+        adjVert = VerticesAdjacentTo(g, '{name}')
+        for each v in adjVert:
             Relax(g, ref u, ref v, 'd', 'pi')
-            SetVertex(g, u)
-            SetVertex(g, v)
+            g = SetVertex(g, u)
+            g = SetVertex(g, v)
             q = UpdateElement(q, v, 'name')
-    
+
+
     return s
 
 /* Returns a list of vertices that are prepared for further processing by the algorithm.
@@ -50,19 +52,22 @@ function InitializeSingleSource(g, source, key):
  */
 function ExtractMin(list, key):
     smallestIndex = 0
-    smallestKey = list[0][key]
+    bob = list[0]
+    smallestKey = bob[key]
 
     currentIndex = 1
-    currentKey = list[1][key]
+    bob1 = list[1]
+    currentKey = bob1[key]
     length = Length(list)
 
-    while index < length:
+    while currentIndex < length - 1:
         if currentKey < smallestKey:
             smallestIndex = currentIndex
             smallestKey = currentKey
         
         currentIndex = currentIndex + 1
-        currentKey = list[currentIndex][key]
+        bobv = list[currentIndex]
+        currentKey = bobv[key]
 
     minElement = list[smallestIndex]
     list = RemoveElement(list, smallestIndex)

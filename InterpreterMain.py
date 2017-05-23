@@ -146,6 +146,8 @@ class GraphVisitor(ParseTreeVisitor):
                     raise KeyError('Variable name: {0} has not been declared in the scope.'.format(value), ctx)
                 value = re.sub("(\\\)(?={(?:[a-z]+[a-zA-Z0-9]*)\})", '', value)
                 value = ValueTypeTuple(value, Types.String)
+
+            value = self.lookUp(value, ctx)
             return value
         elif ctx.getChildCount() == 2:
             operator = ctx.children[0]
@@ -363,7 +365,7 @@ class GraphVisitor(ParseTreeVisitor):
 
     def checkTypes(self, ctx, left, right, leftType, rightType):
         if left.type != leftType or right.type != rightType:
-            error = 'Types do not match in expression on line ' + str(ctx.start.line) + ':' + str(ctx.start.column)
+            error = 'Types do not match in expression on line ' + str(ctx.start.line) + ':' + str(ctx.start.column) + '\n leftType: ' + str(left.type) + ' rightType: ' + str(right.type)
             raise TypeError(error, ctx)
 
     def checkType(self, ctx, val, valType):
@@ -399,7 +401,11 @@ class GraphVisitor(ParseTreeVisitor):
                 if isinstance(ctx.parentCtx, GraphParser.AssignmentContext):
                     value = ValueTypeTuple(Molecule(identifier, index), Types.Molecule)
                 else:
-                    value = structure.value[int(index.value)]
+                    index = int(index.value)
+                    if index >= len(structure.value):
+                        raise ValueError('list index out of range', ctx)
+
+                    value = structure.value[index]
             elif structure.type in ['vertex', 'edge']:
                 if index.type != Types.String:
                     error = 'Value is not of type string ' + str(ctx.start.line) + ':' + str(ctx.start.column)
