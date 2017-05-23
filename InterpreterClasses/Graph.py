@@ -28,7 +28,7 @@ class Graph():
             if not edge.value.directed:
                 if edge.value.fromV == vertexName.value or edge.value.toV == vertexName.value:
                     edges.append(edge)
-            elif edge.value.fromV == vertexName:
+            elif edge.value.fromV == vertexName.value:
                 edges.append(edge)
 
         return edges
@@ -39,7 +39,7 @@ class Graph():
             if not edge.value.directed:
                 if edge.value.fromV == vertexName.value or edge.value.toV == vertexName.value:
                     edges.append(edge)
-            elif edge.value.toV == vertexName:
+            elif edge.value.toV == vertexName.value:
                 edges.append(edge)
 
         return edges
