@@ -10,7 +10,7 @@ from contextlib import redirect_stdout
 from io import StringIO
 
 from testPrograms.TestStructure import tests
-
+from GraphMain import errorprinter
 
 class TestVisitor(GraphVisitor):
     closedscopes = []
@@ -96,8 +96,7 @@ def main():
         except Exception as e:
             globaltestcount += 1
             globaltesterrors += 1
-            print(traceback.format_exc())
-            # print('Error interpreting G-raph code: ' + str(e))
+            errorprinter(e, 'testPrograms/' + test['file'])
             print('------------------------------')
             continue
 
