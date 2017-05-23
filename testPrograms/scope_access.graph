@@ -1,0 +1,10 @@
+function NumberFunc():
+    number = 2
+    anotherNumber = 5
+
+@run:
+    number = 3
+    Print('{number}')
+    NumberFunc()
+    Print('{number}')
+    Print('{anotherNumber}')            /* Runtime error variable not defined */

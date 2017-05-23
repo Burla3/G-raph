@@ -1,0 +1,11 @@
+function PowerTwo(number):
+    number = number^2
+    Print('result = {number}')
+
+@run:
+    number = 8
+    PowerTwo(number)
+    Print('{number}')
+
+    PowerTwo(ref number)
+    Print('{number}')

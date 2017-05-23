@@ -1,5 +1,5 @@
 function Greet(greeting, name):
-    Print('{greeting}, {name} !\n')
+    Print('{greeting}, {name}!')
 
 function MyName(name):
     return 'My name is {name}.'

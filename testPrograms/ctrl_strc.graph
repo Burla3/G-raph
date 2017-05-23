@@ -16,7 +16,7 @@
         Print('I am hungry')
         hungry = False
 
-    Print('Countdown\n')
+    Print('Countdown')
 
     /* For each structure */
     for each number in [3..1]:

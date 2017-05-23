@@ -127,9 +127,9 @@ tests = [
         ],
         'output': [
             'The 3 elephants?',
-            'The 25 elephants?',
+            'The 25.0 elephants?',
             'The amount monkeys?',
-            'The 25 monkeys?',
+            'The 25.0 monkeys?',
         ]
     },
     {
@@ -140,9 +140,9 @@ tests = [
             'Passed: Excellent',
             'I am hungry',
             'Countdown',
-            '3',
-            '2',
-            '1',
+            '3.0',
+            '2.0',
+            '1.0',
             'GO!',
         ]
     },
@@ -152,7 +152,30 @@ tests = [
         ],
         'output': [
             'Hello, Peter!',
-            'My name is Peter',
+            'My name is Peter.',
+        ]
+    },
+    {
+        'file': 'parameter_passing.graph',
+        'state': [
+            ('number', 64),
+        ],
+        'output': [
+            'result = 64.0',
+            '8.0',
+            'result = 64.0',
+            '64.0',
+        ]
+    },
+    {
+        'file': 'scope_access.graph',
+        'state': [
+            ('number', 3),
+        ],
+        'output': [
+            '3',
+            '3',
+            'error',
         ]
     },
 ]
