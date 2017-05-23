@@ -29,14 +29,15 @@ function GiveBack():
 function HovHov(tal):
     tal = tal + 2
 
+function Tjaa():
+    bob = [1, 2, 3, 4, 5, 6, 7]
+    return bob
+
 @run:
 
-    bob = []
-    Print('Hej')
+    bob = Tjaa()
     Print('{bob}')
-    bob = bob concat [2]
-    Print('{bob}')
-
+/*
     graphVar2 = graph:
         'a'
         'b' ('c')
@@ -248,4 +249,4 @@ function HovHov(tal):
 
     for each vertex in verticesAfter:
         Print('{vertex}')
-
+*/

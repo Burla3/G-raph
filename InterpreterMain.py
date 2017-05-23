@@ -693,6 +693,8 @@ class GraphVisitor(ParseTreeVisitor):
         blockCtx = funcDef.children[funcDef.getChildCount() - 1]
         result = self.visitBlock(blockCtx)
 
+        result = self.lookUp(result, ctx)
+
         self.closeScope()
 
         return result
