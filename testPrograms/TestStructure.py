@@ -8,13 +8,21 @@ def listcomp(vale, valf):
         return False
     count = 0
     for ve in vale:
-        if ve != valf[count].value:
+        if valf[count].type in [Types.Vertex, Types.Edge]:
+            var = str(valf[count])
+            if str(ve) != str(valf[count]):
+                return False
+        elif ve != valf[count].value:
             return False
         count += 1
     return True
 
 def vertexComp(valExpected, valFound):
-    verticesFound = valFound.vertices
+    if hasattr(valFound, 'vertices'):
+        verticesFound = valFound.vertices
+    else:
+        verticesFound = [ValueTypeTuple(valFound, Types.Vertex)]
+
     if len(valExpected) != len(verticesFound):
         return False
     count = 0
@@ -97,6 +105,21 @@ tests = [
             ('listVar2', [1, 5, 8], listcomp),
             ('ascendingOrderRange', [3, 4, 5, 6, 7, 8, 9], listcomp),
             ('descendingOrderRange', [9, 8, 7, 6, 5, 4, 3], listcomp),
+        ],
+        'output': [
+
+        ]
+    },
+    {
+        'file': 'graphs_ex.graph',
+        'state': [
+            ('vertices', ['a {  }', 'b {  }', 'c {  }', 'd {  }', 'e {  }', 'f {  }', 'g {  }'], listcomp),
+            ('edges', ['b-c { w: 2.0}', 'c-d { label: 5.0}', 'd->e { }', 'e->f { label: 7.0}', 'e->g { label: 3.0}'], listcomp),
+            ('edgesFromE', ['e->f { label: 7.0}', 'e->g { label: 3.0}'], listcomp),
+            ('edgesToE', ['d->e { }'], listcomp),
+            ('vertex', [{'name': 'a', 'd': 3.0}], vertexComp),
+            ('graphVar', [{'name': 'a', 'd': 3.0}, {'name': 'b'}, {'name': 'c'}, {'name': 'd'}, {'name': 'e'}, {'name': 'f'}, {'name': 'g'}], vertexComp),
+            ('graphVar', [['b', 'c', False, {'w': 2.0}], ['c', 'd', False, {}], ['d', 'e', True, {}], ['e', 'f', True, {}], ['e', 'g', True, {}]], edgeComp),
         ],
         'output': [
 
