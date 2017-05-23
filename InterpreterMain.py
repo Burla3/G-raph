@@ -456,6 +456,10 @@ class GraphVisitor(ParseTreeVisitor):
             result = copy.deepcopy(self.verticesAdjacentTo(ctx))
 
             return result
+        elif funcName == 'SetVertex':
+            result = copy.deepcopy(self.setVertex(ctx))
+
+            return result
         elif funcName == 'SetVertices':
             result = copy.deepcopy(self.setVertices(ctx))
 
@@ -471,6 +475,25 @@ class GraphVisitor(ParseTreeVisitor):
                 return result
         else:
             raise ModuleNotFoundError('Function: ' + funcName + ' do not exist.', ctx)
+
+    def setVertex(self, ctx):
+        params = self.getActualParams(ctx)
+        if len(params) != 2:
+            raise ValueError('GetVertices requires 2 parameters. A graph and a list of vertices.', ctx)
+        if params[0].type != Types.Value:
+            raise TypeError('This methods do not take a ref as input.', ctx)
+        if params[1].type != Types.Value:
+            raise TypeError('This methods do not take a ref as input.', ctx)
+        if params[0].value.type != Types.Graph:
+            raise TypeError('The second parameter has to be a graph.', ctx)
+        if params[1].value.type != Types.Vertex:
+            raise TypeError('The second parameter has to be a vertex.', ctx)
+
+        graph = copy.deepcopy(params[0].value)
+        vertex = copy.deepcopy(params[1].value)
+        graph.value = graph.value.setVertex(vertex)
+
+        return graph
 
     def setVertices(self, ctx):
         params = self.getActualParams(ctx)
@@ -489,7 +512,7 @@ class GraphVisitor(ParseTreeVisitor):
             if e.type != Types.Vertex:
                 raise TypeError('The second parameter has to be a list containing only vertices.', ctx)
 
-        graph = params[0].value
+        graph = copy.deepcopy(params[0].value)
         graph.value.vertices = params[1].value.value
 
         return graph
@@ -511,7 +534,7 @@ class GraphVisitor(ParseTreeVisitor):
             if e.type != Types.Edge:
                 raise TypeError('The second parameter has to be a list containing only edges.', ctx)
 
-        graph = params[0].value
+        graph = copy.deepcopy(params[0].value)
         graph.value.edges = params[1].value.value
 
         return graph

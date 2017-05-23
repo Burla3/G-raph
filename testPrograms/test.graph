@@ -30,11 +30,11 @@ function HovHov(tal):
     tal = tal + 2
 
 @run:
-/*
+
     noget = 'hej'
     if 3 + noget:
         noget = 3
-*/
+
 
     graphVar2 = graph:
         'a'
@@ -247,3 +247,4 @@ function HovHov(tal):
 
     for each vertex in verticesAfter:
         Print('{vertex}')
+
