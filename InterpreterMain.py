@@ -67,7 +67,7 @@ class GraphVisitor(ParseTreeVisitor):
 
         if hasattr(identifier, 'value') and isinstance(identifier.value, Molecule):
             molecule = identifier.value
-            structure = self.lookUp(molecule.atom)
+            structure = self.lookUp(molecule.atom, ctx)
 
             if structure.type == Types.Edge:
                 structure.value.labels[molecule.trailer] = value
@@ -98,7 +98,7 @@ class GraphVisitor(ParseTreeVisitor):
 
     def evaluateBool(self, ctx):
         result = ctx.accept(self)
-        result = self.lookUp(result)
+        result = self.lookUp(result, ctx)
         if result.type != Types.Bool:
             raise TypeError('Expr do not evaluate to a boolean.', ctx)
         return result.value
@@ -106,7 +106,7 @@ class GraphVisitor(ParseTreeVisitor):
     def visitForeachStmt(self, ctx:GraphParser.ForeachStmtContext):
         identifier = ctx.children[1].accept(self)
         structureName = ctx.children[2].accept(self)
-        structure = self.lookUp(structureName)
+        structure = self.lookUp(structureName, ctx)
 
 
         if structure.type not in [Types.Edge, Types.Vertex, Types.List]:
@@ -115,7 +115,7 @@ class GraphVisitor(ParseTreeVisitor):
         for i in range(0, len(structure.value)):
             self.getCurrentScope().set(identifier, structure.value[i].type, structure.value[i].value)
             retValue = ctx.children[3].accept(self)
-            structure.value[i] = self.lookUp(identifier)
+            structure.value[i] = self.lookUp(identifier, ctx)
             if retValue is not None:
                 self.getCurrentScope().delete(identifier)
                 return retValue
@@ -133,14 +133,17 @@ class GraphVisitor(ParseTreeVisitor):
 
     def strSubVars(self, mobj):
         key = mobj.group(1)[1:-1]
-        return str(self.lookUp(key))
+        return str(self.lookUp(key, None))
 
     def visitExpr(self, ctx:GraphParser.ExprContext):
         if ctx.getChildCount() == 1:
             value = ctx.children[0].accept(self)
             if type(value) is str and '\'' in value:
                 value = value[1:-1]  # stripping ' of both ends
-                value = re.sub("(?<![\\\])({(?:[a-z]+[a-zA-Z0-9]*)\})", self.strSubVars, value)
+                try:
+                    value = re.sub("(?<![\\\])({(?:[a-z]+[a-zA-Z0-9]*)\})", self.strSubVars, value)
+                except KeyError:
+                    raise KeyError('Variable name: {0} has not been declared in the scope.'.format(value), ctx)
                 value = re.sub("(\\\)(?={(?:[a-z]+[a-zA-Z0-9]*)\})", '', value)
                 value = ValueTypeTuple(value, Types.String)
             return value
@@ -375,7 +378,7 @@ class GraphVisitor(ParseTreeVisitor):
 
     def getValue(self, ctx):
         val = ctx.accept(self)
-        return self.lookUp(val)
+        return self.lookUp(val, ctx)
 
     def visitSetOp(self, ctx:GraphParser.SetOpContext):
         return ctx.children[0].symbol.text
@@ -386,8 +389,8 @@ class GraphVisitor(ParseTreeVisitor):
     def visitMolecule(self, ctx:GraphParser.MoleculeContext):
         if ctx.getChildCount() > 1:
             identifier = ctx.children[0].accept(self)
-            structure = self.lookUp(identifier)
-            index = self.lookUp(ctx.children[1].children[0].accept(self))
+            structure = self.lookUp(identifier, ctx)
+            index = self.lookUp(ctx.children[1].children[0].accept(self), ctx)
 
             if structure.type == Types.List:
                 if index.type != Types.Number:
@@ -727,7 +730,7 @@ class GraphVisitor(ParseTreeVisitor):
                     actualParams.append(ValueTypeTuple(actualParam, Types.Ref))
                     index += 1
                 else:
-                    actualParam = self.lookUp(params[index].accept(self))
+                    actualParam = self.lookUp(params[index].accept(self), ctx)
                     actualParams.append(ValueTypeTuple(actualParam, Types.Value))
                     index += 1
         else:
@@ -751,7 +754,7 @@ class GraphVisitor(ParseTreeVisitor):
         listStruct = []
         for expr in ctx.children:
             result = self.visitExpr(expr)
-            result = self.lookUp(result)
+            result = self.lookUp(result, ctx)
             listStruct.append(result)
 
         return ValueTypeTuple(listStruct, Types.List)
@@ -882,9 +885,12 @@ class GraphVisitor(ParseTreeVisitor):
         return number
 
 
-    def lookUp(self, value):
+    def lookUp(self, value, ctx):
         if type(value) is str:
-            entry = self.getCurrentScope().get(value)
+            try:
+                entry = self.getCurrentScope().get(value)
+            except Exception as e:
+                raise KeyError('Variable name: {0} has not been declared in the scope.'.format(value), ctx)
             value = ValueTypeTuple(entry['value'], entry['type'])
 
         return value

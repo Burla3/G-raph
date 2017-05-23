@@ -11,7 +11,7 @@ class SymbolTable():
             else:
                 return self.symbols[symkey]
         else:
-            raise KeyError('Symbol key {0} not found in table'.format(symkey))
+            raise KeyError('Variable name {0} has not been declared in the scope.'.format(symkey))
 
     def delete(self, symkey):
         del self.symbols[symkey]
