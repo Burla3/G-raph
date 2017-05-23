@@ -452,6 +452,10 @@ class GraphVisitor(ParseTreeVisitor):
             result = copy.deepcopy(self.getEdgesTo(ctx))
 
             return result
+        elif funcName == 'GetEdgesFromTo':
+            result = copy.deepcopy(self.getEdgesFromTo(ctx))
+
+            return result
         elif funcName == 'VerticesAdjacentTo':
             result = copy.deepcopy(self.verticesAdjacentTo(ctx))
 
@@ -637,6 +641,32 @@ class GraphVisitor(ParseTreeVisitor):
         self.checkType(ctx, vertex, Types.String)
 
         edges = graph.value.getEdgesTo(vertex)
+
+        return ValueTypeTuple(edges, Types.List)
+
+    def getEdgesFromTo(self, ctx):
+        params = self.getActualParams(ctx)
+        if len(params) != 3:
+            raise ValueError('GetVertex requires 3 parameters a graph and a name', ctx)
+        if params[0].type != Types.Value:
+            raise TypeError('This methods do not take a ref as input.', ctx)
+        if params[1].type != Types.Value:
+            raise TypeError('This methods do not take a ref as input.', ctx)
+        if params[2].type != Types.Value:
+            raise TypeError('This methods do not take a ref as input.', ctx)
+        if params[0].value.type != Types.Graph:
+            raise TypeError('The first parameter has to contain a graph', ctx)
+        if params[1].value.type != Types.String:
+            raise TypeError('The second and third parameter has to be vertices.', ctx)
+        if params[2].value.type != Types.String:
+            raise TypeError('The second and third parameter has to be vertices.', ctx)
+
+
+        graph = params[0].value
+        vertexFrom = params[1].value
+        vertexTo = params[2].value
+
+        edges = graph.value.getEdgesFromTo(vertexFrom, vertexTo)
 
         return ValueTypeTuple(edges, Types.List)
 
