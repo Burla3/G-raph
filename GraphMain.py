@@ -20,13 +20,18 @@ def errorprinter(e, filename):
     line = content[start.line-1]
     output = ['', '', '']
 
+    if start.column == stop.column:
+        errorval = ' '
+    else:
+        errorval = line[start.column:stop.column]
+
     if (start.line-2) >= 0:
         output[0] = '{linenumber}:{line}'.format(linenumber=start.line-1, line=content[start.line-2])
 
     output[1] = '{linenumber}:{begin}\x1b[0;31;40m{error}\x1b[0m{end}'.format(
         linenumber=start.line,
         begin=line[:start.column],
-        error=line[start.column:stop.column],
+        error=errorval,
         end=line[stop.column:]
     )
 
