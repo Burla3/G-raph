@@ -6,7 +6,7 @@ from Antlr.GraphParser import GraphParser
 from InterpreterMain import GraphVisitor
 from JSONBuilder import JSONBuilder
 
-from contextlib import redirect_stdout
+from contextlib import redirect_stderr
 from io import StringIO
 
 
@@ -44,7 +44,7 @@ def errorprinter(e, filename):
 
 
 def main():
-    filename = 'testPrograms/test.graph'
+    filename = 'testPrograms/DIJKSTRA.graph'
     input = FileStream(filename)
     #input = FileStream('testPrograms/assosiativityTest.graph')
     lexer = GraphLexer(input)
@@ -62,18 +62,19 @@ def main():
     f = StringIO()
 
     parser = GraphParser(stream)
+
     try:
-        with redirect_stdout(f):
+        with redirect_stderr(f):
             tree = parser.program()
     except Exception as e:
         print(e.args)
-        # return True
+        return True
 
     fl = f.getvalue()
+
     if len(fl) > 0:
-        for line in fl.split('\n'):
-            print(line + '\n')
-        # return True
+        print(fl)
+        return True
 
     astb = JSONBuilder(tree)
 
