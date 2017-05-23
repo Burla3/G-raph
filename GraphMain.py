@@ -30,7 +30,7 @@ def errorprinter(e, filename):
         end=line[stop.column:]
     )
 
-    if (start.line) <= len(content):
+    if (start.line) < len(content):
         output[2] = '{linenumber}:{line}'.format(linenumber=start.line+1, line=content[start.line])
 
     print(e.args[0])
