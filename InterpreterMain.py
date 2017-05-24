@@ -480,6 +480,10 @@ class GraphVisitor(ParseTreeVisitor):
             result = copy.deepcopy(self.setEdges(ctx))
 
             return result
+        elif funcName == 'SetEdge':
+            result = copy.deepcopy(self.setEdge(ctx))
+
+            return result
         elif funcName in self.envF:
             result = copy.deepcopy(self.visitDefinedFunction(ctx, funcName))
 
@@ -548,6 +552,36 @@ class GraphVisitor(ParseTreeVisitor):
 
         graph = copy.deepcopy(params[0].value)
         graph.value.edges = params[1].value.value
+
+        return graph
+
+    def setEdge(self, ctx):
+        params = self.getActualParams(ctx)
+        if len(params) != 4:
+            raise ValueError('GetVertices requires 2 parameters. A graph and a list of edges.', ctx)
+        if params[0].type != Types.Value:
+            raise TypeError('This methods do not take a ref as input.', ctx)
+        if params[1].type != Types.Value:
+            raise TypeError('This methods do not take a ref as input.', ctx)
+        if params[2].type != Types.Value:
+            raise TypeError('This methods do not take a ref as input.', ctx)
+        if params[3].type != Types.Value:
+            raise TypeError('This methods do not take a ref as input.', ctx)
+        if params[0].value.type != Types.Graph:
+            raise TypeError('The first parameter has to be a graph.', ctx)
+        if params[1].value.type != Types.String:
+            raise TypeError('The second parameter has to be a string.', ctx)
+        if params[2].value.type != Types.String:
+            raise TypeError('The third parameter has to be a string.', ctx)
+        if params[3].value.type != Types.Bool:
+            raise TypeError('The fourth parameter has to be a bool.', ctx)
+
+        graph = copy.deepcopy(params[0].value)
+        vertexFrom = params[1].value
+        vertexTo = params[2].value
+        directed = params[3].value
+
+        graph.value = graph.value.setEdge(vertexFrom, vertexTo, directed, ctx)
 
         return graph
 

@@ -34,7 +34,7 @@ function Tjaa():
     return bob
 
 @run:
-
+/*
     bob = Tjaa()
     Print('{bob}')
 
@@ -50,7 +50,7 @@ function Tjaa():
 
     Print('{graphVar2}')
     Print('ting')
-/*
+
     eF = GetEdgesFrom(graphVar2, 'b')
     eT = GetEdgesTo(graphVar2, 'c')
     adj = VerticesAdjacentTo(graphVar2, 'b')
