@@ -37,12 +37,20 @@ function Tjaa():
 
     bob = Tjaa()
     Print('{bob}')
-/*
+
     graphVar2 = graph:
         'a'
         'b' ('c')
         'c' ('d' 5)
 
+    vertex = GetVertex(graphVar2, 'a')
+    vertex['greet'] = 'Hallo?'
+    Print('{vertex}')
+    graphVar2 = SetVertex(graphVar2, vertex)
+
+    Print('{graphVar2}')
+    Print('ting')
+/*
     eF = GetEdgesFrom(graphVar2, 'b')
     eT = GetEdgesTo(graphVar2, 'c')
     adj = VerticesAdjacentTo(graphVar2, 'b')
