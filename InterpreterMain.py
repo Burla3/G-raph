@@ -48,9 +48,7 @@ class GraphVisitor(ParseTreeVisitor):
                     return '\u0000'
                 #return self.visitChildren(child)
             else:
-                retValue = self.visitChildren(child)
-                if retValue is not None:
-                    return retValue
+                self.visitChildren(child)
 
     def visitStmt(self, ctx:GraphParser.StmtContext):
         return self.visitChildren(ctx)
