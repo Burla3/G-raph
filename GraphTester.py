@@ -95,7 +95,8 @@ def main():
             progoutput = testrunner('testPrograms/' + test['file'])
         except Exception as e:
             globaltestcount += 1
-            globaltesterrors += 1
+            if not ('exception' in test and test['exception'] is True):
+                globaltesterrors += 1
             errorprinter(e, 'testPrograms/' + test['file'])
             print('------------------------------')
             continue

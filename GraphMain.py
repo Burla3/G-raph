@@ -11,8 +11,12 @@ from io import StringIO
 
 
 def errorprinter(e, filename):
+    if len(e.args) < 2:
+        print(e.args[0])
+        return True
     start = e.args[1].start
     stop = e.args[1].stop
+
 
     with open(filename) as f:
         content = f.read().splitlines()

@@ -119,7 +119,7 @@ tests = [
             ('edgesToE', ['d->e { }'], listcomp),
             ('vertex', [{'name': 'a', 'd': 3.0}], vertexComp),
             ('graphVar', [{'name': 'a', 'd': 3.0}, {'name': 'b'}, {'name': 'c'}, {'name': 'd'}, {'name': 'e'}, {'name': 'f'}, {'name': 'g'}], vertexComp),
-            ('graphVar', [['b', 'c', False, {'w': 2.0}], ['c', 'd', False, {}], ['d', 'e', True, {}], ['e', 'f', True, {}], ['e', 'g', True, {}]], edgeComp),
+            ('graphVar', [['b', 'c', False, {'w': 2.0}], ['c', 'd', False, {'label': 5.0}], ['d', 'e', True, {}], ['e', 'f', True, {'label': 7.0}], ['e', 'g', True, {'label': 3.0}]], edgeComp),
         ],
         'output': [
 
@@ -193,12 +193,9 @@ tests = [
     {
         'file': 'scope_access.graph',
         'state': [
-            ('number', 3),
         ],
         'output': [
-            '3',
-            '3',
-            'error',
-        ]
+        ],
+        'exception': True
     },
 ]
