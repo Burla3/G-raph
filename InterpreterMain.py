@@ -41,14 +41,14 @@ class GraphVisitor(ParseTreeVisitor):
     def visitBlock(self, ctx:GraphParser.BlockContext):
         for child in ctx.children:
             if child.start.text == 'return':
-                retValue = self.visitChildren(child)
+                retValue = child.accept(self)
                 if retValue is not None:
                     return retValue
                 else:
                     return '\u0000'
                 #return self.visitChildren(child)
             else:
-                retValue = self.visitChildren(child)
+                retValue = child.accept(self)
                 if retValue is not None:
                     return retValue
 
@@ -417,7 +417,10 @@ class GraphVisitor(ParseTreeVisitor):
                         raise KeyError('You can not rename a vertex.', ctx)
                     value = ValueTypeTuple(Molecule(identifier, index), Types.Molecule)
                 else:
-                    value = structure.value[index.value]
+                    if structure.type == Types.Vertex:
+                        value = structure.value[index.value]
+                    else:
+                        value = structure.value.labels[index.value]
             else:
                 error = 'Value is not of type edge or vertex ' + str(ctx.start.line) + ':' + str(ctx.start.column)
                 raise TypeError(error, ctx)

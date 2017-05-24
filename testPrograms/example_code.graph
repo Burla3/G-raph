@@ -1,0 +1,10 @@
+@run:
+    g = graph:
+        'a' (->'b' 3), (->'c' 4)
+
+    h = graph:
+        'c' (->'a' 4), (->'b' 5)
+
+    u = g union h
+
+    Print('{u}')

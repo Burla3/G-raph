@@ -37,7 +37,7 @@ function Tjaa():
 
     bob = Tjaa()
     Print('{bob}')
-/*
+
     graphVar2 = graph:
         'a'
         'b' ('c')
@@ -249,4 +249,4 @@ function Tjaa():
 
     for each vertex in verticesAfter:
         Print('{vertex}')
-*/
+

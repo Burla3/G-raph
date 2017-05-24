@@ -44,6 +44,7 @@ def errorprinter(e, filename):
 
 
 def main():
+    #filename = 'testPrograms/example_code.graph'
     filename = 'testPrograms/DIJKSTRA.graph'
     #filename = 'testPrograms/test.graph'
 
@@ -80,20 +81,22 @@ def main():
 
     astb = JSONBuilder(tree)
 
+    #astb.BuildAST()
+
     file = open('treeInJSON.json', 'w')
     json = astb.ConvertToJSON()
     file.write(json)
     file.close()
 
-    #visitor = GraphVisitor()
-    #try:
-    #    visitorResult = visitor.visitProgram(tree)
-    #except Exception as e:
-    #    print(e.args)
-    #    return
-
     visitor = ASTBuilder()
     visitor.visitProgram(tree)
+
+
+
+    file = open('treeInJSONAfter.json', 'w')
+    json = astb.ConvertToJSON()
+    file.write(json)
+    file.close()
 
     visitor = GraphVisitor()
     try:
