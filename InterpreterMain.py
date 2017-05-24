@@ -439,6 +439,8 @@ class GraphVisitor(ParseTreeVisitor):
 
         if funcName == 'Print':
             input = ctx.children[1].accept(self)
+            if input.type != Types.String:
+                raise ValueError("Print only takes strings. To print a variable simply do Print('{varname}')", ctx)
             print(str(input.value))
         elif funcName == 'Length':
             result = self.getLength(ctx)
