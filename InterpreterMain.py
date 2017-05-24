@@ -491,7 +491,7 @@ class GraphVisitor(ParseTreeVisitor):
     def setVertex(self, ctx):
         params = self.getActualParams(ctx)
         if len(params) != 2:
-            raise ValueError('GetVertices requires 2 parameters. A graph and a list of vertices.', ctx)
+            raise ValueError('SetVertices requires 2 parameters. A graph and a list of vertices.', ctx)
         if params[0].type != Types.Value:
             raise TypeError('This methods do not take a ref as input.', ctx)
         if params[1].type != Types.Value:
@@ -510,7 +510,7 @@ class GraphVisitor(ParseTreeVisitor):
     def setVertices(self, ctx):
         params = self.getActualParams(ctx)
         if len(params) != 2:
-            raise ValueError('GetVertices requires 2 parameters. A graph and a list of vertices.', ctx)
+            raise ValueError('SetVertices requires 2 parameters. A graph and a list of vertices.', ctx)
         if params[0].type != Types.Value:
             raise TypeError('This methods do not take a ref as input.', ctx)
         if params[1].type != Types.Value:
@@ -532,7 +532,7 @@ class GraphVisitor(ParseTreeVisitor):
     def setEdges(self, ctx):
         params = self.getActualParams(ctx)
         if len(params) != 2:
-            raise ValueError('GetVertices requires 2 parameters. A graph and a list of edges.', ctx)
+            raise ValueError('SetEdges requires 2 parameters. A graph and a list of edges.', ctx)
         if params[0].type != Types.Value:
             raise TypeError('This methods do not take a ref as input.', ctx)
         if params[1].type != Types.Value:
@@ -564,7 +564,7 @@ class GraphVisitor(ParseTreeVisitor):
     def verticesAdjacentTo(self, ctx):
         params = self.getActualParams(ctx)
         if len(params) != 2:
-            raise ValueError('GetVertex requires 2 parameters a graph and a name', ctx)
+            raise ValueError('VerticesAdjacentTo requires 2 parameters a graph and a name', ctx)
         if params[0].type != Types.Value:
             raise TypeError('This methods do not take a ref as input.', ctx)
 
@@ -620,7 +620,7 @@ class GraphVisitor(ParseTreeVisitor):
     def getEdgesFrom(self, ctx):
         params = self.getActualParams(ctx)
         if len(params) != 2:
-            raise ValueError('GetVertex requires 2 parameters a graph and a name', ctx)
+            raise ValueError('GetEdgesFrom requires 2 parameters a graph and a name', ctx)
         if params[0].type != Types.Value:
             raise TypeError('This methods do not take a ref as input.', ctx)
 
@@ -638,7 +638,7 @@ class GraphVisitor(ParseTreeVisitor):
     def getEdgesTo(self, ctx):
         params = self.getActualParams(ctx)
         if len(params) != 2:
-            raise ValueError('GetVertex requires 2 parameters a graph and a name', ctx)
+            raise ValueError('GetEdgesTo requires 2 parameters a graph and a name', ctx)
         if params[0].type != Types.Value:
             raise TypeError('This methods do not take a ref as input.', ctx)
 
@@ -655,7 +655,7 @@ class GraphVisitor(ParseTreeVisitor):
     def getEdgesFromTo(self, ctx):
         params = self.getActualParams(ctx)
         if len(params) != 3:
-            raise ValueError('GetVertex requires 3 parameters a graph and a name', ctx)
+            raise ValueError('GetEdgesFromTo requires 3 parameters a graph and a name', ctx)
         if params[0].type != Types.Value:
             raise TypeError('This methods do not take a ref as input.', ctx)
         if params[1].type != Types.Value:
