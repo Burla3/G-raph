@@ -257,4 +257,4 @@ function Tjaa():
 
     for each vertex in verticesAfter:
         Print('{vertex}')
-*/
+

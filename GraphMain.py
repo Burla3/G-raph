@@ -11,8 +11,12 @@ from io import StringIO
 
 
 def errorprinter(e, filename):
+    if len(e.args) < 2:
+        print(e.args[0])
+        return True
     start = e.args[1].start
     stop = e.args[1].stop
+
 
     with open(filename) as f:
         content = f.read().splitlines()
@@ -44,7 +48,8 @@ def errorprinter(e, filename):
 
 
 def main():
-    filename = 'testPrograms/test.graph'
+    #filename = 'testPrograms/example_code.graph'
+    filename = 'testPrograms/DIJKSTRA.graph'
     #filename = 'testPrograms/test.graph'
 
     input = FileStream(filename)
@@ -80,20 +85,22 @@ def main():
 
     astb = JSONBuilder(tree)
 
+    #astb.BuildAST()
+
     file = open('treeInJSON.json', 'w')
     json = astb.ConvertToJSON()
     file.write(json)
     file.close()
 
-    #visitor = GraphVisitor()
-    #try:
-    #    visitorResult = visitor.visitProgram(tree)
-    #except Exception as e:
-    #    print(e.args)
-    #    return
-
     visitor = ASTBuilder()
     visitor.visitProgram(tree)
+
+
+
+    file = open('treeInJSONAfter.json', 'w')
+    json = astb.ConvertToJSON()
+    file.write(json)
+    file.close()
 
     visitor = GraphVisitor()
     try:

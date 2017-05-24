@@ -88,11 +88,14 @@ class Graph():
         for edge in self.edges:
             if not edge.value.directed:
                 if edge.value.fromV == vertexName.value:
-                    vertices.append(edge.value.toV)
+                    vertexN = ValueTypeTuple(edge.value.fromV, Types.String)
+                    vertices.append(self.getVertex(vertexN))
                 elif edge.value.toV == vertexName.value:
-                    vertices.append(edge.value.fromV)
+                    vertexN = ValueTypeTuple(edge.value.fromV, Types.String)
+                    vertices.append(self.getVertex(vertexN))
             elif edge.value.fromV == vertexName.value:
-                vertices.append(edge.value.toV)
+                vertexN = ValueTypeTuple(edge.value.toV, Types.String)
+                vertices.append(self.getVertex(vertexN))
 
         return vertices
 

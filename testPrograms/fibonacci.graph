@@ -1,0 +1,13 @@
+function Fibonacci(n):
+    if n is 0:
+        return 0
+    else if n is 1:
+        return 1
+    else:
+        return Fibonacci(n - 1) + Fibonacci(n - 2)
+
+@run:
+    n = 10
+
+    fib = Fibonacci(n)
+    Print('{fib}')

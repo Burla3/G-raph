@@ -13,12 +13,13 @@ function Dijkstra(g, source):
     q = vertices
     
     while Length(q) > 0:
+        l = Length(q)
         u = ExtractMin(ref q, 'd')
         name = u['name']
         s = s concat [name]
 
         adjVert = VerticesAdjacentTo(g, name)
-        Print('{adjVert}')
+
         for each v in adjVert:
             Relax(g, ref u, ref v, 'd', 'pi')
             g = SetVertex(g, u)
@@ -75,6 +76,7 @@ function ExtractMin(list, key):
         list = RemoveElement(list, smallestIndex)
     else:
         minElement = list[0]
+        list = RemoveElement(list, 0)
 
     return minElement
 
@@ -117,7 +119,7 @@ function UpdateElement(list, element, key):
  * reference : String
  */
 function Relax(g, from, to, key, reference):
-    edgesFromTo = GetEdgesFrom(g, from['name'], to['name'])
+    edgesFromTo = GetEdgesFromTo(g, from['name'], to['name'])
     edgeFromTo = edgesFromTo[0]
 
     newDistance = from[key] + edgeFromTo['label']
