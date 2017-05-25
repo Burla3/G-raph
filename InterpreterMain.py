@@ -46,9 +46,10 @@ class GraphVisitor(ParseTreeVisitor):
                     return retValue
                 else:
                     return '\u0000'
-                #return self.visitChildren(child)
             else:
-                child.accept(self)
+                retValue = child.accept(self)
+                if retValue is not None:
+                    return retValue
 
 
     def visitStmt(self, ctx:GraphParser.StmtContext):
@@ -467,61 +468,38 @@ class GraphVisitor(ParseTreeVisitor):
             if input.type != Types.String:
                 raise ValueError("Print only takes strings. To print a variable simply do Print('{varname}')", ctx)
             print(str(input.value))
+            return
         elif funcName == 'Length':
             result = self.getLength(ctx)
-
-            return result
         elif funcName == 'GetVertex':
             result = copy.deepcopy(self.getVertex(ctx))
-
-            return result
         elif funcName == 'GetVertices':
             result = copy.deepcopy(self.getVertices(ctx))
-
-            return result
         elif funcName == 'GetEdges':
             result = copy.deepcopy(self.getEdges(ctx))
-
-            return result
         elif funcName == 'GetEdgesFrom':
             result = copy.deepcopy(self.getEdgesFrom(ctx))
-
-            return result
         elif funcName == 'GetEdgesTo':
             result = copy.deepcopy(self.getEdgesTo(ctx))
-
-            return result
         elif funcName == 'GetEdgesFromTo':
             result = copy.deepcopy(self.getEdgesFromTo(ctx))
-
-            return result
         elif funcName == 'VerticesAdjacentTo':
             result = copy.deepcopy(self.verticesAdjacentTo(ctx))
-
-            return result
         elif funcName == 'SetVertex':
             result = copy.deepcopy(self.setVertex(ctx))
-
-            return result
         elif funcName == 'SetVertices':
             result = copy.deepcopy(self.setVertices(ctx))
-
-            return result
         elif funcName == 'SetEdges':
             result = copy.deepcopy(self.setEdges(ctx))
-
-            return result
         elif funcName == 'SetEdge':
             result = copy.deepcopy(self.setEdge(ctx))
-
-            return result
         elif funcName in self.envF:
             result = copy.deepcopy(self.visitDefinedFunction(ctx, funcName))
-
-            if not isinstance(ctx.parentCtx, GraphParser.SimpleStmtContext):
-                return result
         else:
             raise ModuleNotFoundError('Function: ' + funcName + ' do not exist.', ctx)
+
+        if not isinstance(ctx.parentCtx, GraphParser.SimpleStmtContext):
+            return result
 
     def setVertex(self, ctx):
         params = self.getActualParams(ctx)
