@@ -1,5 +1,6 @@
-from InterpreterClasses.ValueTypeTuple import ValueTypeTuple
 from InterpreterClasses.Types import Types
+from InterpreterClasses.ValueTypeTuple import ValueTypeTuple
+from InterpreterClasses.Edge import Edge
 
 class Graph():
     def __init__(self):
@@ -22,6 +23,30 @@ class Graph():
             if vertex.value['name'].value == vertexName.value:
                 return vertex
         raise KeyError('Vertex is not in the graph')
+
+    def setEdge(self, vertexFrom, vertexTo, directed, ctx):
+        if not directed and vertexFrom > vertexTo:
+            newEdge = Edge(str(vertexTo), str(vertexFrom), directed.value)
+        else:
+            newEdge = Edge(str(vertexFrom), str(vertexTo), directed.value)
+
+        for edge in self.edges:
+            if edge.value.fromV == newEdge.fromV and edge.value.toV == newEdge.toV:
+                raise ValueError('This edge already exists in the graph.', ctx)
+
+        self.edges.append(ValueTypeTuple(newEdge, Types.Edge))
+
+        if not self.vertexExistsInGraph(self, vertexFrom, ctx):
+            dic1 = {'name': ValueTypeTuple(str(vertexFrom), Types.String)}
+            newVertex1 = ValueTypeTuple(dic1, Types.Vertex)
+            self.vertices.append(newVertex1)
+
+        if not self.vertexExistsInGraph(self, vertexTo, ctx):
+            dic2 = {'name': ValueTypeTuple(str(vertexTo), Types.String)}
+            newVertex2 = ValueTypeTuple(dic2, Types.Vertex)
+            self.vertices.append(newVertex2)
+
+        return self
 
     def getEdgesFrom(self, vertexName):
         edges = []
@@ -73,6 +98,12 @@ class Graph():
                 vertices.append(self.getVertex(vertexN))
 
         return vertices
+
+    def vertexExistsInGraph(self, graph, vertex, ctx):
+        for v in graph.vertices:
+            if vertex.value == v.value['name'].value:
+                return True
+        return False
 
 
     def __str__(self):
