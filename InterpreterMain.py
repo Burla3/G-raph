@@ -448,9 +448,8 @@ class GraphVisitor(ParseTreeVisitor):
             else:
                 error = 'Value is not of type edge or vertex ' + str(ctx.start.line) + ':' + str(ctx.start.column)
                 raise TypeError(error, ctx)
-            noget = 1
-            structure = value
 
+            structure = value
 
         return value
 
