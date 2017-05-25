@@ -12,6 +12,9 @@ from io import StringIO
 from testPrograms.TestStructure import tests
 from GraphMain import errorprinter
 
+class NoException(Exception):
+    pass
+
 class TestVisitor(GraphVisitor):
     closedscopes = []
     outputlines = []
@@ -91,13 +94,24 @@ def main():
     globaltesterrors = 0
     for test in tests:
         print('Testing {0}:'.format(test['file']))
+
+        if 'exception' in test:
+            exceps = (test['exception'], )
+        else:
+            exceps = (NoException)
         try:
             progoutput = testrunner('testPrograms/' + test['file'])
+        except exceps as e:
+            globaltestcount += 1
+            errorprinter(e, 'testPrograms/' + test['file'])
+            print('\x1b[0;32;40m [PASSED] \x1b[0m' + ' Expected: ' + exceps[0].__name__ + ' Found: ' + e.__class__.__name__)
+            print('------------------------------')
+            continue
         except Exception as e:
             globaltestcount += 1
-            if not ('exception' in test and test['exception'] is True):
-                globaltesterrors += 1
+            globaltesterrors += 1
             errorprinter(e, 'testPrograms/' + test['file'])
+            print('\x1b[0;31;40m [FAILED] \x1b[0m unexpected error occurred')
             print('------------------------------')
             continue
 

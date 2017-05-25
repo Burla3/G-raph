@@ -196,6 +196,6 @@ tests = [
         ],
         'output': [
         ],
-        'exception': True
+        'exception': KeyError
     },
 ]
