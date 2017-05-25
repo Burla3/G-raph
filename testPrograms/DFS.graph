@@ -7,7 +7,7 @@ function DFS(g):
     for each u in vertices:
         u['color'] = 'WHITE'
         u['pi'] = 'NIL'
-    SetVertices(g, vertices)
+    g = SetVertices(g, vertices)
     time = 0
 
     for each u in vertices:
@@ -26,18 +26,18 @@ function DFSVISIT(g, u, time):
     time = time + 1
     u['d'] = time
     u['color'] = 'GRAY'
-    SetVertex(g, u)
+    g = SetVertex(g, u)
 
     for each v in VerticesAdjacentTo(g, u['name']):
         if v['color'] is 'WHITE':
             v['pi'] = u
-            SetVertex(g, v)
-            g = DFSVISIT(ref g, v, ref time)
+            g = SetVertex(g, v)
+            DFSVISIT(ref g, v, ref time)
 
     u['color'] = 'BLACK'
     time = time + 1
     u['f'] = time
-    SetVertex(g, u)
+    g = SetVertex(g, u)
 
 @run:
     g = graph:
@@ -50,12 +50,11 @@ function DFSVISIT(g, u, time):
     dfsGraph = DFS(g)
 
     for each u in GetVertices(dfsGraph):
-        Print(u['name'])
-        Print(', ')
-        Print(u['d'])
-        Print('/')
-        Print(u['f'])
-        Print('\n')
+        name = u['name']
+        d = u['d']
+        f = u['f']
+        Print('{name}, {d}/{f}')
+
 
 /*
  * Above print statements print the following to standard output.

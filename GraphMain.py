@@ -48,8 +48,9 @@ def errorprinter(e, filename):
 
 
 def main():
-    #filename = 'testPrograms/example_code.graph'
-    filename = 'testPrograms/DIJKSTRA.graph'
+    filename = 'testPrograms/example_code.graph'
+    #filename = 'testPrograms/DIJKSTRA.graph'
+    #filename = 'testPrograms/DFS.graph'
     #filename = 'testPrograms/test.graph'
 
     input = FileStream(filename)
