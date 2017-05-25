@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+import sys
 from antlr4 import *
 
 from ASTBuilder import ASTBuilder
@@ -48,10 +50,12 @@ def errorprinter(e, filename):
 
 
 def main():
-    filename = 'testPrograms/example_code.graph'
-    #filename = 'testPrograms/DIJKSTRA.graph'
-    #filename = 'testPrograms/DFS.graph'
-    #filename = 'testPrograms/test.graph'
+    if not len(sys.argv) > 1:
+        print('G-raph takes a single argument that must the path to a .graph file')
+        return True
+    else:
+        filename = sys.argv[1]
+
 
     input = FileStream(filename)
     #input = FileStream('testPrograms/assosiativityTest.graph')

@@ -59,7 +59,7 @@ function ExtractMin(list, key):
 
         currentIndex = 1
 
-        currentKey = bob1[key]
+        currentKey = list[1][key]
         length = Length(list)
 
         while currentIndex < length - 1:
