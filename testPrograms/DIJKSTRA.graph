@@ -55,11 +55,10 @@ function InitializeSingleSource(g, source, key):
 function ExtractMin(list, key):
     if Length(list) > 1:
         smallestIndex = 0
-        bob = list[0]
-        smallestKey = bob[key]
+        smallestKey = list[0][key]
 
         currentIndex = 1
-        bob1 = list[1]
+
         currentKey = bob1[key]
         length = Length(list)
 
@@ -69,8 +68,7 @@ function ExtractMin(list, key):
                 smallestKey = currentKey
 
             currentIndex = currentIndex + 1
-            bobv = list[currentIndex]
-            currentKey = bobv[key]
+            currentKey = list[currentIndex][key]
 
         minElement = list[smallestIndex]
         list = RemoveElement(list, smallestIndex)
