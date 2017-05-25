@@ -1,0 +1,17 @@
+#!/usr/bin/python3
+import sys, os
+from GraphMain import main as gmain
+
+def main():
+    if not len(sys.argv) > 1:
+        print('G-raph takes a single argument that must the path to a .graph file')
+        return True
+    else:
+        filename = sys.argv[1]
+
+    if not filename[0] == '/':
+        filename = os.path.join(os.getcwd(), filename)
+    gmain(filename)
+
+if __name__ == '__main__':
+    main()

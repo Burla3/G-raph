@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-import sys, os
 from antlr4 import *
 
 from ASTBuilder import ASTBuilder
@@ -49,18 +47,11 @@ def errorprinter(e, filename):
     print('\n'.join(output))
 
 
-def main():
-    if not len(sys.argv) > 1:
-        print('G-raph takes a single argument that must the path to a .graph file')
-        return True
-    else:
-        filename = sys.argv[1]
+def main(filename='testPrograms/DFS.graph'):
 
-    if not filename[0] == '/':
-        filename = os.path.join(os.getcwd(), filename)
 
     input = FileStream(filename)
-    #input = FileStream('testPrograms/assosiativityTest.graph')
+
     lexer = GraphLexer(input)
     stream = CommonTokenStream(lexer)
 
