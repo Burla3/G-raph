@@ -70,18 +70,10 @@ class Graph():
 
         return edges
 
-    def getEdgesFromTo(self, vertexFrom, vertexTo):
-        edges = []
+    def getEdgeFromTo(self, vertexFrom, vertexTo):
         for edge in self.edges:
-            if not edge.value.directed:
-                if edge.value.fromV == vertexFrom.value or edge.value.toV == vertexFrom.value:
-                    if edge.value.fromV == vertexTo.value or edge.value.toV == vertexTo.value:
-                        edges.append(edge)
-            elif edge.value.fromV == vertexFrom.value and edge.value.toV == vertexTo.value:
-                edges.append(edge)
-
-        return edges
-
+            if edge.value.fromV == vertexFrom.value and edge.value.toV == vertexTo.value:
+                return edge
 
     def verticesAdjacentTo(self, vertexName):
         vertices = []
