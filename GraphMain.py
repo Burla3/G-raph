@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-import sys
+import sys, os
 from antlr4 import *
 
 from ASTBuilder import ASTBuilder
@@ -56,6 +56,8 @@ def main():
     else:
         filename = sys.argv[1]
 
+    if not filename[0] == '/':
+        filename = os.path.join(os.getcwd(), filename)
 
     input = FileStream(filename)
     #input = FileStream('testPrograms/assosiativityTest.graph')
