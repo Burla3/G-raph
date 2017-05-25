@@ -330,7 +330,7 @@ class GraphVisitor(ParseTreeVisitor):
                 graph.vertices.append(vertex)
 
         for edge in left.edges:
-            if not self.edgeExistsInGraph(right, edge):
+            if not self.edgeExistsInGraphEqual(right, edge):
                 graph.edges.append(edge)
 
         return graph
@@ -343,7 +343,7 @@ class GraphVisitor(ParseTreeVisitor):
                 graph.vertices.append(vertex)
 
         for edge in left.edges:
-            if self.edgeExistsInGraph(right, edge):
+            if self.edgeExistsInGraphEqual(right, edge):
                 graph.edges.append(edge)
 
         return graph
@@ -362,8 +362,9 @@ class GraphVisitor(ParseTreeVisitor):
             graph.edges.append(edge)
 
         for edge in right.edges:
-            if not self.edgeExistsInGraph(graph, edge):
-                graph.edges.append(edge)
+            if self.edgeExistsInGraph(graph, edge):
+                raise ValueError('An edge with the same endpoints already exists.', ctx)
+            graph.edges.append(edge)
 
         return graph
 
@@ -377,7 +378,13 @@ class GraphVisitor(ParseTreeVisitor):
 
     def edgeExistsInGraph(self, graph, edge):
         for e in graph.edges:
-            if edge == e:
+            if e.value.fromV == edge.value.fromV and e.value.toV == edge.value.toV:
+                return True
+        return False
+
+    def edgeExistsInGraphEqual(self, graph, edge):
+        for e in graph.edges:
+            if e == edge:
                 return True
         return False
 
@@ -559,7 +566,17 @@ class GraphVisitor(ParseTreeVisitor):
                 raise TypeError('The second parameter has to be a list containing only edges.', ctx)
 
         graph = copy.deepcopy(params[0].value)
-        graph.value.edges = params[1].value.value
+
+        edges = params[1].value.value
+
+        count = 1
+        for edge in edges:
+            for otherEdgeIndex in range(count, len(edges) - 1):
+                if edge.value.toV == edges[otherEdgeIndex].value.toV and edge.value.fromV == edges[otherEdgeIndex].value.fromV:
+                    raise ValueError('An edge with the same endpoints already exists.', ctx)
+            count += 1
+
+        graph.value.edges = edges
 
         return graph
 
@@ -863,6 +880,9 @@ class GraphVisitor(ParseTreeVisitor):
 
                 if eDecl.label is not None:
                     edge.labels['label'] = eDecl.label
+
+                if self.edgeExistsInGraph(graph, ValueTypeTuple(edge, Types.Edge)):
+                    raise ValueError('An edge with the same endpoints already exists.', ctx)
 
                 graph.edges.append(ValueTypeTuple(edge, Types.Edge))
 
