@@ -566,7 +566,7 @@ class GraphVisitor(ParseTreeVisitor):
     def setEdge(self, ctx):
         params = self.getActualParams(ctx)
         if len(params) != 4:
-            raise ValueError('SetEdge requires 2 parameters. A graph and a list of edges.', ctx)
+            raise ValueError('SetEdge requires 4 parameters. A graph, from vertex name, to vertex name and bool that indicates if the edge is directed.', ctx)
         if params[0].type != Types.Value:
             raise TypeError('This methods do not take a ref as input.', ctx)
         if params[1].type != Types.Value:
