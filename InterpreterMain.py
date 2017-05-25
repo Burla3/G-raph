@@ -616,7 +616,7 @@ class GraphVisitor(ParseTreeVisitor):
             raise ValueError('Length requires 1 parameter. A list, vertex, edge or a string.', ctx)
 
         input = params[0].value
-        self.checkTypeList(ctx, input, [Types.Vertex, Types.List, Types.Edge, Types.String])
+        self.checkTypeList(ctx, input, [Types.List, Types.String])
 
         return ValueTypeTuple(len(input.value), Types.Number)
 
