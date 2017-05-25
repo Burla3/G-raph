@@ -67,11 +67,28 @@ class GraphVisitor(ParseTreeVisitor):
         if hasattr(identifier, 'value') and isinstance(identifier.value, Molecule):
             molecule = identifier.value
             structure = self.lookUp(molecule.atom, ctx)
-
-            if structure.type == Types.Edge:
-                structure.value.labels[molecule.trailer] = value
+            if len(molecule.trailers) == 1:
+                if structure.type == Types.Edge:
+                    structure.value.labels[molecule.trailers[0]] = value
+                else:
+                    structure.value[molecule.trailers[0]] = value
             else:
-                structure.value[molecule.trailer] = value
+                if structure.type == Types.Edge:
+                    subiter = structure.value.labels[molecule.trailers[0]]
+                else:
+                    subiter = structure.value[molecule.trailers[0]]
+
+                for trailer in molecule.trailers[1:-1]:
+                    if subiter.type == Types.Edge:
+                        subiter = subiter.value.labels[trailer]
+                    else:
+                        subiter = subiter.value[trailer]
+
+                if subiter.type == Types.Edge:
+                    subiter.value.labels[molecule.trailers[-1]] = value
+                else:
+                    subiter.value[molecule.trailers[-1]] = value
+
         else:
             self.getCurrentScope().set(identifier, value.type, value.value)
 
@@ -353,7 +370,7 @@ class GraphVisitor(ParseTreeVisitor):
         for v in graph.vertices:
             if vertex.value['name'].value == v.value['name'].value:
                 if vertex != v:
-                    raise NameError('Vertices has the same name but is not equals.', ctx)
+                    raise NameError('Vertices has the same name but are not equals.', ctx)
                 return True
         return False
 
@@ -389,44 +406,52 @@ class GraphVisitor(ParseTreeVisitor):
         return ctx.children[0].symbol.text
 
     def visitMolecule(self, ctx:GraphParser.MoleculeContext):
-        if ctx.getChildCount() > 1:
-            identifier = ctx.children[0].accept(self)
-            structure = self.lookUp(identifier, ctx)
-            index = self.lookUp(ctx.children[1].children[0].accept(self), ctx)
+        if ctx.getChildCount() == 1:
+            return self.visitChildren(ctx)
 
+        identifier = ctx.children[0].accept(self)
+        structure = self.lookUp(identifier, ctx)
+        index = self.lookUp(ctx.children[1].children[0].accept(self), ctx)
+
+        if isinstance(ctx.parentCtx, GraphParser.AssignmentContext):
+            if structure.type in ['vertex', 'edge']:
+                if index.value == 'name':
+                    raise KeyError('You can not rename a vertex.', ctx)
+
+            value = ValueTypeTuple(Molecule(identifier, index), Types.Molecule)
+            for child in ctx.children[2:]:
+                newindex = self.lookUp(child.children[0].accept(self), ctx)
+                value.value.addtrailer(newindex)
+            return value
+
+        for child in ctx.children[1:]:
+            index = self.lookUp(child.children[0].accept(self), ctx)
             if structure.type == Types.List:
                 if index.type != Types.Number:
                     error = 'Value is not of type number ' + str(ctx.start.line) + ':' + str(ctx.start.column)
                     raise TypeError(error, ctx)
-                if isinstance(ctx.parentCtx, GraphParser.AssignmentContext):
-                    value = ValueTypeTuple(Molecule(identifier, index), Types.Molecule)
-                else:
-                    index = int(index.value)
-                    if index >= len(structure.value):
-                        raise ValueError('list index out of range', ctx)
+                index = int(index.value)
+                if index >= len(structure.value):
+                    raise ValueError('list index out of range', ctx)
+                value = structure.value[index]
 
-                    value = structure.value[index]
             elif structure.type in ['vertex', 'edge']:
                 if index.type != Types.String:
                     error = 'Value is not of type string ' + str(ctx.start.line) + ':' + str(ctx.start.column)
                     raise TypeError(error, ctx)
 
-                if isinstance(ctx.parentCtx, GraphParser.AssignmentContext):
-                    if index.value == 'name':
-                        raise KeyError('You can not rename a vertex.', ctx)
-                    value = ValueTypeTuple(Molecule(identifier, index), Types.Molecule)
+                if structure.type == Types.Vertex:
+                    value = structure.value[index.value]
                 else:
-                    if structure.type == Types.Vertex:
-                        value = structure.value[index.value]
-                    else:
-                        value = structure.value.labels[index.value]
+                    value = structure.value.labels[index.value]
             else:
                 error = 'Value is not of type edge or vertex ' + str(ctx.start.line) + ':' + str(ctx.start.column)
                 raise TypeError(error, ctx)
+            noget = 1
+            structure = value
 
-            return value
 
-        return self.visitChildren(ctx)
+        return value
 
     def visitAtom(self, ctx:GraphParser.AtomContext):
         if hasattr(ctx.children[0], 'symbol'):
@@ -501,7 +526,7 @@ class GraphVisitor(ParseTreeVisitor):
     def setVertex(self, ctx):
         params = self.getActualParams(ctx)
         if len(params) != 2:
-            raise ValueError('SetVertices requires 2 parameters. A graph and a list of vertices.', ctx)
+            raise ValueError('SetVerex requires 2 parameters. A graph and a list of vertices.', ctx)
         if params[0].type != Types.Value:
             raise TypeError('This methods do not take a ref as input.', ctx)
         if params[1].type != Types.Value:
@@ -564,7 +589,7 @@ class GraphVisitor(ParseTreeVisitor):
     def setEdge(self, ctx):
         params = self.getActualParams(ctx)
         if len(params) != 4:
-            raise ValueError('GetVertices requires 2 parameters. A graph and a list of edges.', ctx)
+            raise ValueError('SetEdge requires 2 parameters. A graph and a list of edges.', ctx)
         if params[0].type != Types.Value:
             raise TypeError('This methods do not take a ref as input.', ctx)
         if params[1].type != Types.Value:
