@@ -191,6 +191,28 @@ tests = [
         ]
     },
     {
+        'file': 'DIJKSTRA.graph',
+        'state': [
+        ],
+        'output': [
+            '[s, y, t, x, z]',
+        ],
+
+    },
+    {
+        'file': 'DFS.graph',
+        'state': [
+        ],
+        'output': [
+            'a, 1.0/10.0',
+            'b, 11.0/12.0',
+            'd, 13.0/14.0',
+            'e, 15.0/16.0',
+            'c, 17.0/18.0',
+        ],
+
+    },
+    {
         'file': 'scope_access.graph',
         'state': [
         ],
