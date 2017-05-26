@@ -117,8 +117,7 @@ function UpdateElement(list, element, key):
  * reference : String
  */
 function Relax(g, from, to, key, reference):
-    edgesFromTo = GetEdgesFromTo(g, from['name'], to['name'])
-    edgeFromTo = edgesFromTo[0]
+    edgeFromTo = GetEdgeFromTo(g, from['name'], to['name'])
 
     newDistance = from[key] + edgeFromTo['label']
 
