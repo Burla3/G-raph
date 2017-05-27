@@ -55,15 +55,6 @@ def main(filename='testPrograms/DFS.graph'):
     lexer = GraphLexer(input)
     stream = CommonTokenStream(lexer)
 
-
-    #stream.fill()
-
-    #for token in stream.tokens:
-    #    if '\r\n' in token.text:
-    #        print('newline', ' ', token.type)
-    #    elif token.text is not ' ':
-    #        print(token.text, ' ', token.type)
-
     f = StringIO()
 
     parser = GraphParser(stream)
@@ -92,8 +83,6 @@ def main(filename='testPrograms/DFS.graph'):
 
     visitor = ASTBuilder()
     visitor.visitProgram(tree)
-
-
 
     file = open('treeInJSONAfter.json', 'w')
     json = astb.ConvertToJSON()

@@ -34,7 +34,6 @@ function Tjaa():
     return bob
 
 @run:
-/*
     bob = Tjaa()
     Print('{bob}')
 
@@ -199,10 +198,8 @@ function Tjaa():
     Print('{tal}')
 
     vertexListLength = Length(vertexList)
-    vertexLength = Length(vertex)
 
     Print('{vertexListLength}')
-    Print('{vertexLength}')
 
     stringLength = Length('Halli Hallo')
     listLength = Length([1..6])
